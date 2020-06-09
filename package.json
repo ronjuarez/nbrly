@@ -4,13 +4,15 @@
   "private": true,
   "dependencies": {
     "@storybook/react": "^5.3.19",
+    "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=8000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

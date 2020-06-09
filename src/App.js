@@ -1,21 +1,47 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import styled from "styled-components";
 
-class App extends Component {
-  render() {
+const Loader = styled.div``;
+
+const Row = styled.li`
+  list-style: none;
+  margin: 10px;
+`;
+
+export default function App ({
+}) {
+
+  const [users, setUsers] = useState ([]);
+    // requests: {},
+    // leaderboard: {}
+  // });
+
+  useEffect(() => {
+    Promise.all([
+    axios({
+      method: "GET",
+      url: `http://localhost:3000/users`})
+    // axios({
+    //   method: "GET",
+    //   url: 'http://localhost:3000/requests'}),
+    // axios({
+    //   method: "GET",
+    //   url: `http://localhost:3000/leaderboard`}),
+    ])
+      .then((dbList) => {
+        console.log(dbList) 
+          // requests: dbList[1].data, leaderboard: dbList[2].data}))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }, []);
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <h1>
+        {users}
+      </h1>
     );
   }
-}
-
-export default App;
+  
