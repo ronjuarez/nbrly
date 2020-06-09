@@ -12,36 +12,32 @@ const Row = styled.li`
 export default function App ({
 }) {
 
-  const [users, setUsers] = useState ([]);
-    // requests: {},
-    // leaderboard: {}
-  // });
+  const [state, setState] = useState ({
+    users: [],
+    requests: [],
+    leaderboard: []
+  });
 
   useEffect(() => {
     Promise.all([
-    axios({
-      method: "GET",
-      url: `http://localhost:3000/users`})
-    // axios({
-    //   method: "GET",
-    //   url: 'http://localhost:3000/requests'}),
-    // axios({
-    //   method: "GET",
-    //   url: `http://localhost:3000/leaderboard`}),
+    axios.get(`http://localhost:3000/users`),
+    axios.get('http://localhost:3000/requests'),
+    axios.get(`http://localhost:3000/leaderboard`),
     ])
-      .then((dbList) => {
-        console.log(dbList) 
-          // requests: dbList[1].data, leaderboard: dbList[2].data}))
-      })
+    .then((all) => {
+      setState(prev => ({
+        ...prev,
+        users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
+        })
       .catch((error) => {
         console.log(error)
       })
     }, []);
 
     return (
-      <h1>
-        {users}
-      </h1>
+      <div className="App">
+        {state.users.map(user => user.name)}
+      </div>
     );
   }
   

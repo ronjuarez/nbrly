@@ -3,18 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@storybook/react": "^5.3.19",
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "0.9.5",
     "styled-components": "^5.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "babel-loader": "^8.1.0",
+    "@storybook/react": "^5.3.19",
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-links": "^5.3.18",
+    "@storybook/addons": "^5.3.18",
+    "@storybook/preset-create-react-app": "^2.1.2"
+  },
   "scripts": {
+    "storybook": "start-storybook -p 9009 -s public",
     "start": "PORT=8000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-storybook": "build-storybook -s public"
   }
 }
