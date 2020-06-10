@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from "styled-components";
+import Homepage from "components/Homepage"
 
 const Loader = styled.div``;
 
@@ -35,9 +36,31 @@ export default function App ({
     }, []);
 
     return (
-      <div className="App">
-        {state.users.map(user => user.name)}
-      </div>
+      <Router>
+        <div>
+          <ul>
+            <li>
+              <Link to="/">All Requests</Link>
+            </li>
+            <li>
+              <Link to="/request">Current Request</Link>
+            </li>
+            <li>
+              <Link to="/profile">User Profile</Link>
+            </li>
+            <li>
+              <Link to ="/leaderboard"></Link>
+            </li>
+          </ul>
+          </div>
+  
+          <Switch>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+      </Router>
+
     );
   }
   
