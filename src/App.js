@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from "styled-components";
-import Homepage from "components/Homepage"
+import Homepage from "./components/Homepage";
+import Navigation from './components/navigation'
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Leaderboard from './components/Leaderboard';
 
-const Loader = styled.div``;
-
-const Row = styled.li`
-  list-style: none;
-  margin: 10px;
-`;
 
 export default function App ({
 }) {
@@ -38,27 +35,11 @@ export default function App ({
     return (
       <Router>
         <div>
-          <ul>
-            <li>
-              <Link to="/">All Requests</Link>
-            </li>
-            <li>
-              <Link to="/request">Current Request</Link>
-            </li>
-            <li>
-              <Link to="/profile">User Profile</Link>
-            </li>
-            <li>
-              <Link to ="/leaderboard"></Link>
-            </li>
-          </ul>
+        <Navigation />
+        <Switch>
+             <Route path="/leaderboard"><Leaderboard/></Route>
+           </Switch>
           </div>
-  
-          <Switch>
-            <Route path="/">
-              <HomePage />
-            </Route>
-          </Switch>
       </Router>
 
     );
