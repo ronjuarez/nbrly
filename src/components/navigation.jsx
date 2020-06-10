@@ -13,7 +13,7 @@ export default function Navigation() {
     return (
        <div>
             <NavLink to="/">{home}Home</NavLink>  
-            <NavLink to="/leaderboard">{leaderboard}Leaderboard</NavLink>
+            <NavLink to="/leaderboard">{leaderboard}Leaderboard</NavLink>   
             <NavLink to="/requests">{request}Requests</NavLink>
             <NavLink to="/task">{task}Task</NavLink>
             <NavLink to="/profile">{profile}Profile</NavLink>
