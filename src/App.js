@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
-import Navigation from './components/navigation'
+import Navigation from './components/navigation';
 import Leaderboard from './components/Leaderboard';
+import Request from './components/Request';
+import Homepage from './components/Homepage';
+import Task from './components/Task';
+import Profile from './components/Profile'
 
 
-export default function App() {
+
+ export default function App(props) {
   const [state, setState] = useState ({
     users: [],
     requests: []
@@ -19,7 +24,7 @@ export default function App() {
     axios.get('http://localhost:3000/leaderboard')
     ])
     .then((all) => {
-      console.log(all[0])
+      // console.log(all)
       setState(prev => ({
         ...prev,
         users: all[0].data.body, requests: all[1].data.body}));
@@ -34,7 +39,21 @@ export default function App() {
       <div>
         <Navigation />
         <Switch>
-          <Route path="/leaderboard"><Leaderboard/></Route>
+          <Route path="/leaderboard">
+            <Leaderboard
+              users={state.leaderboard}
+            /></Route>
+          <Route path="/task">
+            <Task
+              requests={state.requests}
+            /></Route>
+          <Route path="/profile">
+            <Profile 
+              user={state.users}
+          /></Route>
+          <Route path="/">
+            <Homepage/>
+          </Route>
         </Switch>
       </div>
 
