@@ -1,23 +1,20 @@
 import React from 'react';
-import GroceryListItem from './GroceryListItem';
+const classNames = require('classnames');
 
 
 
 export default function GroceryList (props) {
-  // const removeItem () {
-  //   let newGroceries= [...grocery, ];
 
-  //   let filtered = newGroceries.filter()
 
-  //
-  const handleDeletedItem = props.grocery.map(item => <GroceryListItem
-    value = {item}/>
-  )
-
+  const groceryList = props.grocery.map(item => 
+    <li>
+      {item}
+      <button className="btn btn-lg btn-outline-danger ml-4">Delete</button>
+    </li>)
 
   return(
     <ul>
-      {handleDeletedItem}
-    </ul>
+      {groceryList}
+      </ul>
   )
 }
