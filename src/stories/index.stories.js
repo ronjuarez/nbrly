@@ -8,6 +8,7 @@ import RequestForm from '../components/Request/RequestForm';
 import ReimbursementDropDown from '../components/Request/Reimbursement';
 import Groceries from '../components/Request/Groceries';
 
+<<<<<<< HEAD
 storiesOf('Card', module)
 	.add( 'Default Card', () => <h1>Hello World</h1>)
 
@@ -20,3 +21,7 @@ storiesOf('Request', module)
 	.add("ReimbursementDropDown", () => <ReimbursementDropDown/>)
 	.add("Groceries", () => <Groceries/>)
 	
+=======
+storiesOf('Task', module)
+	.add( 'Default Card', () => <h1>Hello World</h1>)
+>>>>>>> master
