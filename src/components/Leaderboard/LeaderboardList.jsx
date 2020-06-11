@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import LeaderboardList from './LeaderboardList';
-import Header from './Header';
+import React from 'react';
+import LeaderboardListItem from './LeaderboardListItem';
 
-export default function Leaderboard (props) {
+export default function LeaderboardList(props) {
 
     const players = [
         {
@@ -34,19 +33,17 @@ export default function Leaderboard (props) {
         "created_at":"2020-06-10T16:42:29.915Z",
         "updated_at":"2020-06-10T16:42:29.915Z",
         "avatar":"https://robohash.org/fugitquidolores.png?size=300x300\u0026set=set1"
-    },]
-  
-    return (
-        <div>
-            <Header
-                name = {players[0].name}
-                avatar = {players[0].avatar}
-                points = {players[0].points}/>
-            <div>
-                <LeaderboardList players = {players}/>
-            </div>
-        </div>
-    )
+    },
 
-  
+]
+    return (
+        <ul>
+            {props.players.slice(1).map((player, index) => <LeaderboardListItem
+                position = {index + 2}
+                name = {player.name}
+                avatar = {player.avatar}
+                points = {player.points} />
+            )}
+        </ul>
+    )
 }

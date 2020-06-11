@@ -6,23 +6,23 @@ import Navigation from './components/navigation'
 import Leaderboard from './components/Leaderboard';
 
 
-function App() {
+export default function App() {
   const [state, setState] = useState ({
     users: [],
-    requests: [],
-    leaderboard: []
+    requests: []
   });
 
   useEffect(() => {
     Promise.all([
-    axios.get(`http://localhost:3000/users`),
+    axios.get('http://localhost:3000/users'),
     axios.get('http://localhost:3000/requests'),
-    axios.get(`http://localhost:3000/leaderboard`),
+    axios.get('http://localhost:3000/leaderboard')
     ])
     .then((all) => {
+      console.log(all[0])
       setState(prev => ({
         ...prev,
-        users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
+        users: all[0].data.body, requests: all[1].data.body}));
         })
       .catch((error) => {
         console.log(error)
@@ -41,9 +41,6 @@ function App() {
     </Router>
   );
 }
-
-export default App;
-
 
 // node 10.16.1 (nvm install 10.16.1 or nvm use 10.16.1)
 // npm install create-react-app
