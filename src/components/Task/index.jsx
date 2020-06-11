@@ -1,12 +1,14 @@
 import React from 'react';
 
-export default function Task (props) {
-  console.log(props.requests)
+export default function Task ({
+  requests
+}) {
+  console.log(requests)
 
   return (
     <div>
-      {/* {tasks.tasks && tasks.tasks.length &&
-      tasks.tasks.map(currentTask => {
+      {requests && requests.length &&
+      requests.map(currentTask => {
 
         return (
           <ul>
@@ -23,7 +25,7 @@ export default function Task (props) {
           </ul>
         )
         })
-    } */}
+    }
   </div>
   )
 }
