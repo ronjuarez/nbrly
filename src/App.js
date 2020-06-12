@@ -9,7 +9,9 @@ import Homepage from './components/Homepage';
 import Task from './components/Task';
 import Profile from './components/Profile';
 import Registration from './components/auth/Registration';
+import MostDeliveries from './components/Leaderboard/MostDeliveries';
 
+import NewRequest from './components/Request/NewRequest'
 
 
  export default function App(props) {
@@ -53,26 +55,35 @@ import Registration from './components/auth/Registration';
       <div>
         <Navigation />
         <Switch>
-          <Route path="/requests">
+          <Route exact path="/requests">
             <Request
               requests={state.requests}
             />
           </Route>
-          <Route path="/leaderboard">
-            <Leaderboard 
-              users={state.leaderboard}
-            />
+          <Route path="/requests/new">
+            <NewRequest/>
           </Route>
           <Route path="/requests/:id">
             <Task
               requests={state.requests}
             />
+          </Route>  
+          <Route exact path="/leaderboard">
+            <Leaderboard
+              users={state.leaderboard}
+            />
           </Route>
+          <Route path ="/leaderboard/mostdeliveries">
+            <MostDeliveries
+            players={state.leaderboard}/>
+          </Route>
+
           <Route path="/profile">
             <Profile 
               users={state.users}
             />
           </Route>
+         
           <Route path="/">
             <Homepage {...props} handleLogin={handleLogin} loggedInStatus={logged.loggedInStatus}/>
           </Route>
@@ -83,12 +94,3 @@ import Registration from './components/auth/Registration';
   );
 }
 
-// node 10.16.1 (nvm install 10.16.1 or nvm use 10.16.1)
-// npm install create-react-app
-// create-react-app nbrly
-// cd nbrly
-// npm install axios
-// npm i -S @fortawesome/fontawesome-svg-core @fortawesome/react-fontawesome @fortawesome/free-regular-svg-icons @fortawesome/free-solid-svg-icons @fortawesome/free-brands-svg-icons
-// npx -p @storybook/cli sb init
-// go to old folder move src into this one
-// rebuild app.js line by line ( for some reason !!)

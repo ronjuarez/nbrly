@@ -1,14 +1,20 @@
 import React from 'react';
 
-export default function LeaderboardListItem(props) {
+export default function LeaderboardListItem({
+    name,
+    position,
+    avatar,
+    points,
+}
+) {
     return (
         <li>
             <div>
-                <p>{props.position}</p>
-                <img src={props.avatar}></img>
-                <p>{props.name}</p>
+                <p>{position}</p>
+                <img src={avatar}></img>
+                <p>{name}</p>
             </div>
-            <p>{props.points}</p>
+            <p>{points}</p>
         </li>
     )
 }

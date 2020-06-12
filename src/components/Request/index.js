@@ -2,12 +2,16 @@ import React from 'react';
 import RequestList from './RequestList';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
+import NewRequest from "./NewRequest"
+import { NavLink } from "react-router-dom"
 
 
-export default function Request (props) {
+export default function Request ({
+  requests
+}) {
   const map = <FontAwesomeIcon icon={faMapMarkedAlt}/> 
 
-  const list = props.requests && props.requests.length && props.requests.map(task => {
+  const list = requests && requests.length && requests.map(task => {
 
     return (
     <RequestList
@@ -21,14 +25,18 @@ export default function Request (props) {
   })
   return (
     <main>
-      <button>Request Form</button>
-      <button>Request List</button>
+      <NavLink to ="/requests/new" >
+        <button>Request Form</button>
+      </NavLink>
+      <NavLink to ="/requests">
+        <button>Request List</button>
+      </NavLink>
       <button>{map}</button>
       <h1>Request</h1>
       {list}
 
     </main>
-     
+    
   )
 
 }

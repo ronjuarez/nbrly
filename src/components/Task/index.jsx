@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TaskCompleted from './taskCompleted';
 import { 
-  useParams 
+  useParams,
+  NavLink 
 } from "react-router-dom";
+
+import ReactSwipeButton from 'react-swipe-button'
 
 const Main = styled.main`
   background: cornflowerblue;
@@ -31,16 +33,25 @@ const GroceryLi = styled.li`
 
 
 
+
+
 export default function Task ({
   requests
 }) {
-
+  const onSuccess =()=> {
+    console.log('Yay! Swipe Success');
+  }
   const { id } = useParams();
-
+ 
 
   const groceryList = requests && requests.length && requests[id].items.map(item => {
     return(
       <GroceryLi>
+        <ReactSwipeButton 
+          text='SWIPE TO UNLOCK'
+          color='#f00'
+          onSuccess={onSuccess}
+        />
         <span>{item}</span>
         <input type="checkbox" label="Check me out" />
       
@@ -70,11 +81,13 @@ export default function Task ({
 
       </GroceryUl>
       {/* if you click completed, it will render the task completed page */}
+      
       <Button variant="success">Completed</Button>
       < br />
       < br />
-      <Button variant="danger">Cancel</Button>
-
+      <NavLink to="/requests">
+        <Button variant="danger">Cancel</Button>
+      </NavLink>
 
 
      
