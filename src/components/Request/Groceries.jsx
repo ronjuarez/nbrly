@@ -7,9 +7,8 @@ export default function Groceries (props) {
   const [grocery, setGroceryList] = useState([])
 
   const [text, setText] = useState("")
-
-  const handleAddItem = event => {
-    event.preventDefault();
+    const handleAddItem = event => {
+      event.preventDefault();
     
     setGroceryList(grocery => [...grocery, text]);
     props.addItem(text)
@@ -39,6 +38,7 @@ export default function Groceries (props) {
             type="submit" 
             value="+" 
             />
+           
           </form>
 
         

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TaskCompleted from './taskCompleted';
 import { 
-  useParams 
+  useParams,
+  NavLink 
 } from "react-router-dom";
 
 import ReactSwipeButton from 'react-swipe-button'
@@ -81,11 +81,13 @@ export default function Task ({
 
       </GroceryUl>
       {/* if you click completed, it will render the task completed page */}
+      
       <Button variant="success">Completed</Button>
       < br />
       < br />
-      <Button variant="danger">Cancel</Button>
-
+      <NavLink to="/requests">
+        <Button variant="danger">Cancel</Button>
+      </NavLink>
 
 
      

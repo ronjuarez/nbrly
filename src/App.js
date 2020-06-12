@@ -8,7 +8,9 @@ import Request from './components/Request';
 import Homepage from './components/Homepage';
 import Task from './components/Task';
 import Profile from './components/Profile';
+import MostDeliveries from './components/Leaderboard/MostDeliveries';
 
+import NewRequest from './components/Request/NewRequest'
 
 
  export default function App(props) {
@@ -40,20 +42,27 @@ import Profile from './components/Profile';
       <div>
         <Navigation />
         <Switch>
-          <Route path="/requests">
+          <Route exact path="/requests">
             <Request
               requests={state.requests}
             />
           </Route>
-          <Route path="/leaderboard">
-            <Leaderboard
-              users={state.leaderboard}
-            />
+          <Route path="/requests/new">
+            <NewRequest/>
           </Route>
           <Route path="/requests/:id">
             <Task
               requests={state.requests}
             />
+          </Route>  
+          <Route exact path="/leaderboard">
+            <Leaderboard
+              users={state.leaderboard}
+            />
+          </Route>
+          <Route path ="/leaderboard/mostdeliveries">
+            <MostDeliveries
+            players={state.leaderboard}/>
           </Route>
 
           <Route path="/profile">
