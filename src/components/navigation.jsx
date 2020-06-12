@@ -41,8 +41,8 @@ export default function Navigation() {
        <NavUL>
             <StyledLink exact to="/">{home}<NavSpan>Home</NavSpan></StyledLink>  
             <StyledLink to="/leaderboard">{leaderboard}<NavSpan>Leaderboard</NavSpan></StyledLink>
-            <StyledLink to="/request">{request}<NavSpan>Requests</NavSpan></StyledLink>
-            <StyledLink to="/task">{task}<NavSpan>Task</NavSpan></StyledLink>
+            <StyledLink to="/requests">{request}<NavSpan>Requests</NavSpan></StyledLink>
+            <StyledLink to="/requests/:id">{task}<NavSpan>Task</NavSpan></StyledLink>
             <StyledLink to="/profile">{profile}<NavSpan>Profile</NavSpan></StyledLink>
        </NavUL>
     );
