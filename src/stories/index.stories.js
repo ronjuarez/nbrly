@@ -11,6 +11,8 @@ import RequestList from '../components/Request/RequestList';
 import RequestForm from '../components/Request/RequestForm';
 import ReimbursementDropDown from '../components/Request/Reimbursement';
 import Groceries from '../components/Request/Groceries';
+import GroceryButton from '../components/Request/GroceryButton';
+import GroceryList from '../components/Request/GroceryList';
 
 storiesOf('Leaderboard', module)
 	.add( 'Volunteer panel', () => <Leaderboard/>)
@@ -27,6 +29,7 @@ storiesOf('Request', module)
 	.add('RequestList', () => <RequestList />)
 	.add("RequestForm", () => <RequestForm/>)
 	.add("ReimbursementDropDown", () => <ReimbursementDropDown/>)
-	.add("Groceries", () => <Groceries/>)
+	.add("GroceryList", () => <Groceries/>)
+	.add("GroceryButton", () => <GroceryButton onClick={action("button-clicked")}/>)
 	
 

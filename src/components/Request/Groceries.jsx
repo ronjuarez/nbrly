@@ -10,17 +10,22 @@ export default function Groceries (props) {
       event.preventDefault();
       console.log(text)
     
-      const newGroceryList= [...grocery, text];
-      setGroceryList(newGroceryList);
+      setGroceryList(grocery => [...grocery, text]);
       setText("")
+    }
+
+    function removeGroceryItem(id) {
+      setGroceryList(grocery => grocery.filter((_, index) => index !== id))
     }
 
   return (
     <div>
       <h1>Grocery List</h1>
       <div>
-        <GroceryList grocery={grocery}/>
-          
+        <GroceryList 
+          grocery={grocery}
+          onDelete ={removeGroceryItem}/>
+        
           <form onSubmit={handleAddItem}>
             <input onChange={event => setText(event.target.value)} type="text" name ="groceryList" value={text}   placeholder="Add a new item"/>
             

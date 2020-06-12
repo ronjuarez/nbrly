@@ -6,11 +6,9 @@ export default function RequestList (props) {
   
   return(
     <ul>
-      <RequestListItem/>
-      <RequestListItem/>
-      <RequestListItem/>
-      <RequestListItem/>
-      <RequestListItem/>
+      <RequestListItem
+      />
+  
 
 
     </ul>

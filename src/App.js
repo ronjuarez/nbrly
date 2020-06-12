@@ -14,7 +14,8 @@ import Profile from './components/Profile'
  export default function App(props) {
   const [state, setState] = useState ({
     users: [],
-    requests: []
+    requests: [],
+    leaderboard: []
   });
 
   useEffect(() => {
@@ -27,7 +28,7 @@ import Profile from './components/Profile'
       // console.log(all)
       setState(prev => ({
         ...prev,
-        users: all[0].data.body, requests: all[1].data.body}));
+        users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
         })
       .catch((error) => {
         console.log(error)
