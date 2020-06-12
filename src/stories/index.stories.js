@@ -13,6 +13,16 @@ import ReimbursementDropDown from '../components/Request/Reimbursement';
 import Groceries from '../components/Request/Groceries';
 import GroceryButton from '../components/Request/GroceryButton';
 import GroceryList from '../components/Request/GroceryList';
+import TaskCompleted from '../components/Task/taskCompleted'
+import Task from '../components/Task/index'
+import Profile from '../components/Profile/index'
+import SignIn from '../components/Profile/SignIn'
+
+
+
+
+
+
 
 storiesOf('Leaderboard', module)
 	.add( 'Volunteer panel', () => <Leaderboard/>)
@@ -33,3 +43,12 @@ storiesOf('Request', module)
 	.add("GroceryButton", () => <GroceryButton onClick={action("button-clicked")}/>)
 	
 
+storiesOf('Task', module)
+	.add("Task", () => <Task/>)
+	.add("TaskCompleted", () => <TaskCompleted/>)
+
+
+
+storiesOf('Profile', module)
+	.add("Profile", () => <Profile/>)
+	.add("SignIn", () => <SignIn/> )

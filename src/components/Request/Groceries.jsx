@@ -31,8 +31,7 @@ export default function Groceries (props) {
             
             <input   type="submit" value="+" />
           </form>
-        
-        <h3>Add a new Item</h3>
+
         
       </div>
     </div>
