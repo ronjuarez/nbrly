@@ -24,12 +24,13 @@ export default function Profile (props) {
     )
   })
   console.log(user)
-  return (
+  return {}
     <main>
       <h1>Profile</h1>
       <header>
         {user}
       </header>
+      <h2></h2>
     
       <div>
         <div>
