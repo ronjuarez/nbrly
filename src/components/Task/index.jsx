@@ -4,7 +4,8 @@ import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TaskCompleted from './taskCompleted';
 import { 
-  useParams 
+  useParams,
+  NavLink 
 } from "react-router-dom";
 
 const Main = styled.main`
@@ -36,6 +37,7 @@ export default function Task ({
 }) {
 
   const { id } = useParams();
+  
 
 
   const groceryList = requests && requests.length && requests[id].items.map(item => {
@@ -70,11 +72,13 @@ export default function Task ({
 
       </GroceryUl>
       {/* if you click completed, it will render the task completed page */}
+      
       <Button variant="success">Completed</Button>
       < br />
       < br />
-      <Button variant="danger">Cancel</Button>
-
+      <NavLink to="/requests">
+        <Button variant="danger">Cancel</Button>
+      </NavLink>
 
 
      
