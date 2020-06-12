@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./styles.css"
 import GroceryList from "./GroceryList"
+
 export default function Groceries (props) {
   
   const [grocery, setGroceryList] = useState(["5 Peaches", "7 Pinapples","5 Oranges"])
@@ -8,7 +9,6 @@ export default function Groceries (props) {
   const [text, setText] = useState("")
     const handleAddItem = event => {
       event.preventDefault();
-      console.log(text)
     
       setGroceryList(grocery => [...grocery, text]);
       setText("")
@@ -27,9 +27,8 @@ export default function Groceries (props) {
           onDelete ={removeGroceryItem}/>
         
           <form onSubmit={handleAddItem}>
-            <input onChange={event => setText(event.target.value)} type="text" name ="groceryList" value={text}   placeholder="Add a new item"/>
-            
-            <input   type="submit" value="+" />
+            <input onChange={event => setText(event.target.value)} type="text" name ="groceryList" value={text} placeholder="Add a new item"/>          
+            <input type="submit" value="+" />
           </form>
 
         

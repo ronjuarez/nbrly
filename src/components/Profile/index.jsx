@@ -1,18 +1,10 @@
 import React from 'react';
 
-export default function Profile (props) {
+export default function Profile ({
+  users,
+}) {
  
-  const users = [
-    {id: 1,
-    name: "Dave Weber",
-    email: "ali@block.net",
-    password_digest: "password",
-    points: 70,
-    created_at: "2020-06-10T16:53:34.635Z",
-    updated_at: "2020-06-10T16:53:34.635Z",
-    avatar: "https://robohash.org/veritatiseaquaerat.png?size=300x300&set=set1"
-    }
-  ]
+
 
   const user = users.map(user => {
     return (
@@ -23,8 +15,8 @@ export default function Profile (props) {
       </div>
     )
   })
-  console.log(user)
-  return {}
+
+  return (
     <main>
       <h1>Profile</h1>
       <header>

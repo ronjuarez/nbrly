@@ -40,19 +40,19 @@ import Profile from './components/Profile'
       <div>
         <Navigation />
         <Switch>
-          <Route path="/request">
+          <Route exact path="/requests">
             <Request
               requests={state.requests}
-            />
-          </Route>
-          <Route path="/leaderboard">
-            <Leaderboard
-              users={state.leaderboard}
             />
           </Route>
           <Route path="/requests/:id">
             <Task
               requests={state.requests}
+            />
+          </Route>  
+          <Route path="/leaderboard">
+            <Leaderboard
+              users={state.leaderboard}
             />
           </Route>
           <Route path="/profile">

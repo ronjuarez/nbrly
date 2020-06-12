@@ -4,10 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
 
 
-export default function Request (props) {
+export default function Request ({
+  requests
+}) {
   const map = <FontAwesomeIcon icon={faMapMarkedAlt}/> 
 
-  const list = props.requests && props.requests.length && props.requests.map(task => {
+  const list = requests && requests.length && requests.map(task => {
 
     return (
     <RequestList
