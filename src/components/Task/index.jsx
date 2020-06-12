@@ -36,7 +36,7 @@ export default function Task ({
 }) {
 
   const { id } = useParams();
-
+  console.log(requests)
 
   const groceryList = requests && requests.length && requests[id].items.map(item => {
     return(

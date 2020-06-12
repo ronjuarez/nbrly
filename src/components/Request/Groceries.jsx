@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import "./styles.css"
 import GroceryList from "./GroceryList"
+
 export default function Groceries (props) {
   
-  const [grocery, setGroceryList] = useState(["5 Peaches", "7 Pinapples","5 Oranges"])
+  const [grocery, setGroceryList] = useState([])
 
   const [text, setText] = useState("")
-    const handleAddItem = event => {
-      event.preventDefault();
-      console.log(text)
-    
-      setGroceryList(grocery => [...grocery, text]);
-      setText("")
-    }
 
-    function removeGroceryItem(id) {
-      setGroceryList(grocery => grocery.filter((_, index) => index !== id))
-    }
+  const handleAddItem = event => {
+    event.preventDefault();
+    
+    setGroceryList(grocery => [...grocery, text]);
+    props.addItem(text)
+    setText("")
+  }
+
+  function removeGroceryItem(id) {
+    setGroceryList(grocery => grocery.filter((_, index) => index !== id))
+  }
 
   return (
     <div>
@@ -27,9 +29,16 @@ export default function Groceries (props) {
           onDelete ={removeGroceryItem}/>
         
           <form onSubmit={handleAddItem}>
-            <input onChange={event => setText(event.target.value)} type="text" name ="groceryList" value={text}   placeholder="Add a new item"/>
-            
-            <input   type="submit" value="+" />
+            <input 
+            onChange={event => setText(event.target.value)} 
+            type="text" 
+            name ="groceryList" 
+            value={text}   
+            placeholder="Add a new item"/>
+            <input   
+            type="submit" 
+            value="+" 
+            />
           </form>
 
         

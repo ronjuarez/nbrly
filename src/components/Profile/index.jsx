@@ -24,7 +24,7 @@ export default function Profile (props) {
     )
   })
   console.log(user)
-  return {}
+  return (
     <main>
       <h1>Profile</h1>
       <header>

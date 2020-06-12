@@ -2,7 +2,7 @@ import React from 'react';
 import RequestList from './RequestList';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
-
+import NewRequest from "./NewRequest"
 
 export default function Request (props) {
   const map = <FontAwesomeIcon icon={faMapMarkedAlt}/> 
@@ -22,13 +22,14 @@ export default function Request (props) {
   return (
     <main>
       <button>Request Form</button>
+      <NewRequest/>
       <button>Request List</button>
       <button>{map}</button>
       <h1>Request</h1>
       {list}
 
     </main>
-     
+    
   )
 
 }

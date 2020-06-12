@@ -7,7 +7,7 @@ import Leaderboard from './components/Leaderboard';
 import Request from './components/Request';
 import Homepage from './components/Homepage';
 import Task from './components/Task';
-import Profile from './components/Profile'
+import Profile from './components/Profile';
 
 
 
@@ -40,7 +40,7 @@ import Profile from './components/Profile'
       <div>
         <Navigation />
         <Switch>
-          <Route path="/request">
+          <Route path="/requests">
             <Request
               requests={state.requests}
             />
@@ -55,11 +55,13 @@ import Profile from './components/Profile'
               requests={state.requests}
             />
           </Route>
+
           <Route path="/profile">
             <Profile 
               users={state.users}
             />
           </Route>
+         
           <Route path="/">
             <Homepage/>
           </Route>
