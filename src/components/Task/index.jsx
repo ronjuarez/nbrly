@@ -33,6 +33,8 @@ const GroceryLi = styled.li`
 
 
 
+
+
 export default function Task ({
   requests
 }) {
@@ -40,7 +42,7 @@ export default function Task ({
     console.log('Yay! Swipe Success');
   }
   const { id } = useParams();
-  console.log(requests)
+ 
 
   const groceryList = requests && requests.length && requests[id].items.map(item => {
     return(
