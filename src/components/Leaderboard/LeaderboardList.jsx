@@ -38,7 +38,7 @@ export default function LeaderboardList(props) {
 ]
     return (
         <ul>
-            {props.players.slice(1).map((player, index) => <LeaderboardListItem
+            {props.players && props.players.slice(1).map((player, index) => <LeaderboardListItem
                 position = {index + 2}
                 key = {player.id}
                 name = {player.name}
