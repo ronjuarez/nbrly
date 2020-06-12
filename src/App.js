@@ -7,7 +7,9 @@ import Leaderboard from './components/Leaderboard';
 import Request from './components/Request';
 import Homepage from './components/Homepage';
 import Task from './components/Task';
-import Profile from './components/Profile'
+import Profile from './components/Profile';
+import MostDeliveries from './components/Leaderboard/MostDeliveries';
+import RequestForm from './components/Request/RequestForm';
 
 
 
@@ -45,15 +47,21 @@ import Profile from './components/Profile'
               requests={state.requests}
             />
           </Route>
+          <Route path="/requests/new">
+            <RequestForm/>
+          </Route>
           <Route path="/requests/:id">
             <Task
               requests={state.requests}
             />
           </Route>  
-          <Route path="/leaderboard">
+          <Route exact path="/leaderboard">
             <Leaderboard
               users={state.leaderboard}
             />
+          </Route>
+          <Route path ="/leaderboard/mostdeliveries">
+            <MostDeliveries/>
           </Route>
           <Route path="/profile">
             <Profile 
