@@ -1,7 +1,7 @@
 import React from 'react';
 import AcceptButton from './AcceptButton';
 import styled from 'styled-components';
-import ReactSwipeButton from 'react-swipe-button'
+
 
 const RequestLi = styled.li`
   color: white;
@@ -39,18 +39,12 @@ export default function RequestListItem (props) {
   }
 
   // if date for complete by is under 24 hours then show an urgent stick next to teh pickup
-  const onSuccess =()=> {
-    console.log('Yay! Swipe Success');
-  }
+  
   
   return (
     <RequestLi>
       <RequestLiDiv>
-        <ReactSwipeButton 
-          text='SWIPE TO UNLOCK'
-          color='#f00'
-          onSuccess={onSuccess}
-        />
+        
         <h2>{pickup(props.items)}</h2>
         
         <h4>Address: {props.delivery_address}</h4>

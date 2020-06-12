@@ -7,6 +7,8 @@ import {
   useParams 
 } from "react-router-dom";
 
+import ReactSwipeButton from 'react-swipe-button'
+
 const Main = styled.main`
   background: cornflowerblue;
   color: white;
@@ -34,13 +36,20 @@ const GroceryLi = styled.li`
 export default function Task ({
   requests
 }) {
-
+  const onSuccess =()=> {
+    console.log('Yay! Swipe Success');
+  }
   const { id } = useParams();
   console.log(requests)
 
   const groceryList = requests && requests.length && requests[id].items.map(item => {
     return(
       <GroceryLi>
+        <ReactSwipeButton 
+          text='SWIPE TO UNLOCK'
+          color='#f00'
+          onSuccess={onSuccess}
+        />
         <span>{item}</span>
         <input type="checkbox" label="Check me out" />
       
