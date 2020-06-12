@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
 export default function Registration(props) {
 
     const [user, setUser] = useState ({
         name: "",
         email: "",
         password: "",
+        avatar: "https://robohash.org/sitsequiquia.png?size=300x300&set=set1",
         errors: ""
     })
 
@@ -23,12 +25,15 @@ export default function Registration(props) {
             user: {
                 name: user.name,
                 email: user.email,
-                password: user.password
+                password: user.password,
+                avatar: user.avatar
             }
         },
         { withCredentials: true }
         ).then(response => {
-            console.log("registration res", response);
+            if(response.data.status === 'created') {
+                props.handleSuccessfulAuth(response.data);
+            }
         })
         .catch(error => {
             console.log("registration error", error);

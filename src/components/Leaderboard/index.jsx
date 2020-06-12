@@ -7,7 +7,7 @@ export default function Leaderboard (props) {
     return (
         
         <div>
-            
+            <h1>status: {props.loggedInStatus}</h1>
             <Header
                 name = {props.users && props.users.length && props.users[0].name}
                 avatar = {props.users && props.users.length && props.users[0].avatar}

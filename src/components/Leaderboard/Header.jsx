@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function Header(props) {
-
+    console.log('props', props)
     const leaderboard = <FontAwesomeIcon icon={faTrophy}/> 
     return (
         <header>

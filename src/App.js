@@ -19,6 +19,11 @@ import Registration from './components/auth/Registration';
     leaderboard: []
   });
 
+  const [logged, setLogged] = useState({
+    loggedInStatus: "Not logged in",
+    user: {}
+  });
+
   useEffect(() => {
     Promise.all([
     axios.get('http://localhost:3000/users'),
@@ -26,15 +31,22 @@ import Registration from './components/auth/Registration';
     axios.get('http://localhost:3000/leaderboard')
     ])
     .then((all) => {
-      // console.log(all)
       setState(prev => ({
         ...prev,
-        users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
+        users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.data}));
         })
       .catch((error) => {
         console.log(error)
       })
     }, []);
+
+    function handleLogin(data) {
+      setLogged({
+        loggedInStatus: "LOGGED_IN",
+        user: data
+      })
+
+    }
 
   return (
     <Router>
@@ -47,7 +59,7 @@ import Registration from './components/auth/Registration';
             />
           </Route>
           <Route path="/leaderboard">
-            <Leaderboard
+            <Leaderboard 
               users={state.leaderboard}
             />
           </Route>
@@ -62,8 +74,7 @@ import Registration from './components/auth/Registration';
             />
           </Route>
           <Route path="/">
-            <Homepage/>
-            <Registration/>
+            <Homepage {...props} handleLogin={handleLogin} loggedInStatus={logged.loggedInStatus}/>
           </Route>
         </Switch>
       </div>
