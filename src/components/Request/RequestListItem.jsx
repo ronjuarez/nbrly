@@ -9,7 +9,7 @@ const RequestLi = styled.li`
   list-style:none;
   padding: 20px;
   border-radius: 40px;
-  display: flex;
+  display:u flex;
   margin: 20px;
 `
 const RequestLiDiv = styled.div`
@@ -18,18 +18,10 @@ padding: 20px;
 
 
 export default function RequestListItem (props) {
-  const requestData = {
-    delivery_address: "500 Kingston Rd, Toronto, ON M4L 1V3",
-    reimbursement_type: "cash",
-    complete_by: "2020-06-15",
-    items: [
-      "milk",
-      "sugar",
-      "eggs"
-      ],
-  }
+  // console.log("items", props.items.length)
+
   const pickup = (requestData) => {
-    let itemsLength = requestData.items.length;
+    let itemsLength = requestData.length;
     if (itemsLength < 5) {
       return "Small Pickup"
     } else if (5 < itemsLength < 10) {
@@ -38,24 +30,28 @@ export default function RequestListItem (props) {
       return "Large Pickup"
     }
   }
-
+  
   const earnedPoints = (requestData) => {
-    let itemsLength = requestData.items.length;
-    return itemsLength * 100
+    let itemsLength = requestData.length;
+    // if satement checking date completed by is under 24 hours then add an extra 100 points
+    return (itemsLength * 100);
+    
   }
 
+  // if date for complete by is under 24 hours then show an urgent stick next to teh pickup
+ 
   
   return (
     <RequestLi>
       <RequestLiDiv>
-        <h2>{pickup(requestData)}</h2>
+        <h2>{pickup(props.items)}</h2>
         
-        <h4>Address: {requestData.delivery_address}</h4>
-        <h4>Date: {requestData.complete_by}</h4>
-        <h4>Reimbursement: {requestData.reimbursement_type}</h4>
-        <h3>{earnedPoints(requestData)} points</h3>
+        <h4>Address: {props.delivery_address}</h4>
+        <h4>Date: {props.complete_by}</h4>
+        <h4>Reimbursement: {props.reimbursement_type}</h4>
+        <h3>{earnedPoints(props.items)} points</h3>
       </RequestLiDiv>
-      <AcceptButton/>
+      <AcceptButton id={props.id}/>
     </RequestLi>
   )
 

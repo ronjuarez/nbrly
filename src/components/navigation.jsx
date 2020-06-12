@@ -13,6 +13,7 @@ const StyledLink = styled(NavLink).attrs({ activeClassName })`
     display: flex;
     flex-direction: column;
     align-items: center;
+
     &.${activeClassName} {
         color: red;
         border: 2px dotted black;

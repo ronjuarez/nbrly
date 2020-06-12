@@ -11,6 +11,16 @@ import RequestList from '../components/Request/RequestList';
 import RequestForm from '../components/Request/RequestForm';
 import ReimbursementDropDown from '../components/Request/Reimbursement';
 import Groceries from '../components/Request/Groceries';
+import TaskCompleted from '../components/Task/taskCompleted'
+import Task from '../components/Task/index'
+import Profile from '../components/Profile/index'
+import SignIn from '../components/Profile/SignIn'
+
+
+
+
+
+
 
 storiesOf('Leaderboard', module)
 	.add( 'Volunteer panel', () => <Leaderboard/>)
@@ -30,3 +40,12 @@ storiesOf('Request', module)
 	.add("Groceries", () => <Groceries/>)
 	
 
+storiesOf('Task', module)
+	.add("Task", () => <Task/>)
+	.add("TaskCompleted", () => <TaskCompleted/>)
+
+
+
+storiesOf('Profile', module)
+	.add("Profile", () => <Profile/>)
+	.add("SignIn", () => <SignIn/> )

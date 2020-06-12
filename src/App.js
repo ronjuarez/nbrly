@@ -39,18 +39,26 @@ import Profile from './components/Profile'
       <div>
         <Navigation />
         <Switch>
+          <Route path="/request">
+            <Request
+              requests={state.requests}
+            />
+          </Route>
           <Route path="/leaderboard">
             <Leaderboard
               users={state.leaderboard}
-            /></Route>
-          <Route path="/task">
+            />
+          </Route>
+          <Route path="/requests/:id">
             <Task
               requests={state.requests}
-            /></Route>
+            />
+          </Route>
           <Route path="/profile">
             <Profile 
-              user={state.users}
-          /></Route>
+              users={state.users}
+            />
+          </Route>
           <Route path="/">
             <Homepage/>
           </Route>

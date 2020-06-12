@@ -23,6 +23,9 @@ export default function RequestForm (props) {
         />
       </div>
       <Groceries/>
+      <button>
+        Submit
+        </button>
     </form>
   )
 }

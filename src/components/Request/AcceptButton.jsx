@@ -1,7 +1,7 @@
 import React from "react";
 // const classnames = require('classnames');
 import styled from 'styled-components';
-
+import { NavLink } from 'react-router-dom';
 
 const Acceptbutton = styled.button` 
 font-size: 20px; 
@@ -18,11 +18,12 @@ width: 200px;
 `
 
 export default function AcceptButton (props) {
-  
+  // console.log('props', props.id)
   return(
-    <Acceptbutton  >
-      Accept
-    
-    </Acceptbutton>
+    <NavLink to={`/requests/${props.id}`}>
+      <Acceptbutton>
+        Accept
+      </Acceptbutton>
+    </NavLink>
   )
 }
