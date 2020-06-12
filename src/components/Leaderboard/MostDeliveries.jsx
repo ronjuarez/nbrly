@@ -7,6 +7,7 @@ export default function MostDeliveries ({
 
     return (
         <ul>
+          <h1>Most Completed</h1>
             {players.slice(1).map((player, index) => <LeaderboardListItem
                 position = {index + 2}
                 key = {player.id}

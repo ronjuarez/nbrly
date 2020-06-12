@@ -61,7 +61,8 @@ import RequestForm from './components/Request/RequestForm';
             />
           </Route>
           <Route path ="/leaderboard/mostdeliveries">
-            <MostDeliveries/>
+            <MostDeliveries
+            players={state.leaderboard}/>
           </Route>
           <Route path="/profile">
             <Profile 
