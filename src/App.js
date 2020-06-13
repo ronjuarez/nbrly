@@ -72,10 +72,6 @@ import NewRequest from './components/Request/NewRequest'
         user: data
       })
     }
-<<<<<<< HEAD
-    console.log()
-=======
->>>>>>> master
     function handleLogout() {
       setLogged({
         loggedInStatus: "Not logged in",
@@ -101,7 +97,6 @@ import NewRequest from './components/Request/NewRequest'
             <Task
               currentUser={logged.user}
               requests={state.requests}
-              user={state.users[2]}
             />
           </Route>
           <Route path={`/requests/complete`}>
@@ -119,7 +114,7 @@ import NewRequest from './components/Request/NewRequest'
 
           <Route path="/profile">
             <Profile 
-              user={state.users[0]}
+              currentUser={logged.user}
             />
           </Route>
          

@@ -80,7 +80,7 @@ export default function Task ({
     axios.put(`http://localhost:3000/requests/${id}`, {
       volunteer_completed_task: true
     }),
-    axios.put('http://localhost:3000/users/2', {
+    axios.put(`http://localhost:3000/users/${currentUser.id}`, {
       points: addPoints(currentUser, groceryList)
     })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     .then(all => {
