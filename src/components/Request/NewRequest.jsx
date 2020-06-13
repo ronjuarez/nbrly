@@ -3,55 +3,54 @@ import ReimbursementDropDown from './Reimbursement';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Groceries from './Groceries'
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import axios from 'axios';
 
 
 export default function NewRequest (props) {
   const initialState = {
     user_id: 2,
-    delivery_address: "",
     items: [],
+    delivery_address: "",
     reimbursement_type: "",
     volunteer_completed_task: false,
     requester_confirmed_completion: false,
-    volunteer_id: "",
+
   };
 
-  const [request, setRequest] = useState(initialState);
+  const [requests, setRequest] = useState(initialState);
   
   function changeRequest(event) {
     const name = event.target.name;
     const value = event.target.value;
-    setRequest(request => ({
-        ...request,
+    setRequest(requests => ({
+        ...requests,
         [name]: value
     })) 
   }
   const [value, setValue] = useState(new Date())
-
+  
   function handleNewRequest(event) {
-
+    
     axios.post("http://localhost:3000/requests", {
-      request: {
+      requests: {
         user_id: 2,
-        delivery_address: request.delivery_address,
-        items:request.items,
-        reimbursement_type: request.reimbursement_type,
+        delivery_address: requests.delivery_address,
+        items: [requests.items],
+        reimbursement_type: requests.reimbursement_type,
         complete_by: value,
-        volunteer_completed_task: false,
-        requester_confirmed_completion: false,
-        volunteer_id: ""
+        volunteer_completed_task: requests.volunteer_completed_task,
+        requester_confirmed_completion: requests.requester_confirmed_completion,
       }
     } 
     ).then(response => {
-      console.log("updated request", response);
+      console.log("new request created!", response.data);
     })
     .catch(error => {
       console.log('oups', error);
     })
-    
     event.preventDefault();
+    
   }
     
 
@@ -63,7 +62,7 @@ export default function NewRequest (props) {
       <input 
         type="text" 
         name="delivery_address"
-        value={request.delivery_address}
+        value={requests.delivery_address}
         onChange={changeRequest}
         required
         ></input>
@@ -73,7 +72,11 @@ export default function NewRequest (props) {
         value={request.reimbursement_type}
         required
       /> */}
-      <select name="reimbursement_type" value={request.reimbursement_type} onChange={changeRequest}  >
+      <select 
+        name="reimbursement_type" 
+        value={requests.reimbursement_type} 
+        onChange={changeRequest}  
+      >
         <option name="reimbursement_type" value="cash">cash</option>
         <option  name="reimbursement_type"value="prepaid">prepaid</option>
         <option name="reimbursement_type" value="e-transfer">e-transfer</option>
@@ -82,23 +85,29 @@ export default function NewRequest (props) {
       <div>
         < br />
         <Calendar
-          
           value={value}
           onChange={setValue}
           required
-        
         />
       </div>
       <Groceries 
         name="items"
+        value={requests.items}
+        
+        addItem={(item) => setRequest(prev => ({...prev, items:[...prev.items, item]}))}
         onChange={changeRequest}
-        value={request.items}
-        addItem={(item ) => setRequest(prev => ({...prev, items:[...prev.items, item]}))}
         required
       />
-      <button type="submit">
-        Submit
-      </button>
+
+
+      
+        <button type="submit">
+          Submit
+        </button>
+   
     </form>
   )
 }
+
+      
+      

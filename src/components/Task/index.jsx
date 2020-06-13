@@ -42,18 +42,19 @@ export default function Task ({
     console.log('Yay! Swipe Success');
   }
   const { id } = useParams();
- 
+  
 
   const groceryList = requests && requests.length && requests[id].items.map(item => {
+   
+   
     return(
       <GroceryLi>
         <ReactSwipeButton 
-          text='SWIPE TO UNLOCK'
-          color='#f00'
+          text={item}
+          color='cornflowerblue'
           onSuccess={onSuccess}
-        />
+        /> 
         <span>{item}</span>
-        <input type="checkbox" label="Check me out" />
       
       </GroceryLi>
       
