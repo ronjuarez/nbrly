@@ -94,12 +94,8 @@ export default function NewRequest (props) {
       </div>
       <Groceries 
         name="items"
-<<<<<<< HEAD
-        value={requests.items}        
-=======
         value={requests.items}
         deleteItem={removeItem}
->>>>>>> master
         addItem={(item) => setRequest(prev => ({...prev, items:[...prev.items, item]}))}
         // onChange={changeRequest}
         required
