@@ -63,13 +63,13 @@ import NewRequest from './components/Request/NewRequest'
         console.log(error); 
       })
     }
+
     function handleLogin(data) {
       setLogged({
         loggedInStatus: "Logged in",
         user: data
       })
     }
-
     function handleLogout() {
       setLogged({
         loggedInStatus: "Not logged in",
@@ -88,10 +88,12 @@ import NewRequest from './components/Request/NewRequest'
             />
           </Route>
           <Route path="/requests/new">
-            <NewRequest/>
+            <NewRequest
+            currentUser={logged.user}/>
           </Route>
           <Route path="/requests/:id">
             <Task
+              currentUser={logged.user}
               requests={state.requests}
             />
           </Route>  

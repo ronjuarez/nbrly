@@ -36,25 +36,16 @@ const GroceryLi = styled.li`
 
 
 export default function Task ({
-  requests
+  requests,
+  currentUser
 }) {
   const onSuccess =()=> {
     console.log('Yay! Swipe Success');
   }
   const { id } = useParams();
-<<<<<<< HEAD
-
   let index = requests.findIndex(obj => obj.id == id)
-  
-  
+  console.log(currentUser)
   const groceryList = requests && requests.length && requests[index].items.map(item => {
-=======
-  
-
-  const groceryList = requests && requests.length && requests[id].items.map(item => {
-   
-   
->>>>>>> master
     return(
       <GroceryLi>
         <ReactSwipeButton 
@@ -73,6 +64,7 @@ export default function Task ({
   return (
     <Main>
       <h1>Task # {id}</h1>
+      <h4>{currentUser.id}</h4>
       <GroceryUl>
         <GroceryLi> 
         Requesters Name:<span> </span>
