@@ -27,17 +27,14 @@ export default function Groceries (props) {
           grocery={grocery}
           onDelete ={removeGroceryItem}/>
         
-          <form onSubmit={handleAddItem}>
+          <form >
             <input 
             onChange={event => setText(event.target.value)} 
             type="text" 
             name ="groceryList" 
             value={text}   
             placeholder="Add a new item"/>
-            <input   
-            type="submit" 
-            value="+" 
-            />
+            <button type="button" onClick={handleAddItem}>+</button>
            
           </form>
 
