@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 import { 
   useParams,
   NavLink 
@@ -33,17 +34,27 @@ const GroceryLi = styled.li`
 
 
 
-
-
 export default function Task ({
-  requests
+  requests,
+  currentUser
 }) {
+
+
+  const addPoints = (user, numOfItems) => {
+ 
+    let itemsLength = numOfItems.length;
+    return (user.points + itemsLength * 100);
+  }  
+  
   const onSuccess =()=> {
     console.log('Yay! Swipe Success');
   }
+  
   const { id } = useParams();
 
   let index = requests.findIndex(obj => obj.id == id)
+
+
   
   
   const groceryList = requests && requests.length && requests[index].items.map(item => {
@@ -60,11 +71,30 @@ export default function Task ({
       
     )
   })
+
   
-  
+
+
+  function updateDatabase () {
+    Promise.all([ 
+    axios.put(`http://localhost:3000/requests/${id}`, {
+      volunteer_completed_task: true
+    }),
+    axios.put(`http://localhost:3000/users/${currentUser.id}`, {
+      points: addPoints(currentUser, groceryList)
+    })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+    .then(all => {
+      console.log(all);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
   return (
     <Main>
       <h1>Task # {id}</h1>
+      <h4>{currentUser.id}</h4>
       <GroceryUl>
         <GroceryLi> 
         Requesters Name:<span> </span>
@@ -83,7 +113,13 @@ export default function Task ({
       </GroceryUl>
       {/* if you click completed, it will render the task completed page */}
       
-      <Button variant="success">Completed</Button>
+      {/* <NavLink to={`/requests/complete`}> */}
+      <Button 
+        variant="success"
+        onClick={updateDatabase}
+        > Completed
+      </Button>
+      {/* </NavLink> */}
       < br />
       < br />
       <NavLink to="/requests">

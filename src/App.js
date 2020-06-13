@@ -7,6 +7,7 @@ import Leaderboard from './components/Leaderboard';
 import Request from './components/Request';
 import Homepage from './components/Homepage';
 import Task from './components/Task';
+import TaskCompleted from './components/Task/TaskCompleted';
 import Profile from './components/Profile';
 import Registration from './components/auth/Registration';
 import MostDeliveries from './components/Leaderboard/MostDeliveries';
@@ -37,6 +38,7 @@ import NewRequest from './components/Request/NewRequest'
       setState(prev => ({
         ...prev,
         users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
+
         })
       .catch((error) => {
         console.log(error)
@@ -63,13 +65,13 @@ import NewRequest from './components/Request/NewRequest'
         console.log(error); 
       })
     }
+
     function handleLogin(data) {
       setLogged({
         loggedInStatus: "Logged in",
         user: data
       })
     }
-
     function handleLogout() {
       setLogged({
         loggedInStatus: "Not logged in",
@@ -88,13 +90,18 @@ import NewRequest from './components/Request/NewRequest'
             />
           </Route>
           <Route path="/requests/new">
-            <NewRequest/>
+            <NewRequest
+            currentUser={logged.user}/>
           </Route>
           <Route path="/requests/:id">
             <Task
+              currentUser={logged.user}
               requests={state.requests}
             />
-          </Route>  
+          </Route>
+          <Route path={`/requests/complete`}>
+            <TaskCompleted/>
+            </Route>  
           <Route exact path="/leaderboard">
             <Leaderboard
               users={state.leaderboard}
@@ -107,7 +114,7 @@ import NewRequest from './components/Request/NewRequest'
 
           <Route path="/profile">
             <Profile 
-              users={state.users}
+              currentUser={logged.user}
             />
           </Route>
          
