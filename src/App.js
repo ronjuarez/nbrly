@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
 import Navigation from './components/navigation';
@@ -11,73 +10,17 @@ import TaskCompleted from './components/Task/TaskCompleted';
 import Profile from './components/Profile';
 import Registration from './components/auth/Registration';
 import MostDeliveries from './components/Leaderboard/MostDeliveries';
-
+import  useApplicationData from "./hooks/useApplicationData";
 import NewRequest from './components/Request/NewRequest'
 
 
  export default function App(props) {
-  const [state, setState] = useState ({
-    users: [],
-    requests: [],
-    leaderboard: []
-  });
+  const {
+    state, 
+    handleLogin, 
+    handleLogout 
+  } = useApplicationData()
 
-  const [logged, setLogged] = useState({
-    loggedInStatus: "Not logged in",
-    user: {}
-  });
-
-  useEffect(() => {
-    checkLoginStatus()
-    Promise.all([
-    axios.get('http://localhost:3000/users'),
-    axios.get('http://localhost:3000/requests'),
-    axios.get('http://localhost:3000/leaderboard')
-    ])
-    .then((all) => {
-      setState(prev => ({
-        ...prev,
-        users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
-
-        })
-      .catch((error) => {
-        console.log(error)
-      })
-    }, []);
-
-    function checkLoginStatus() {
-      axios.get('http://localhost:3000/logged_in', { withCredentials: true }
-      ).then(response => {
-        if (response.data.logged_in && logged.loggedInStatus === "Not logged in") {
-          setLogged({
-            loggedInStatus: "Logged in",
-            user: response.data.user
-          })
-        } else if (!response.data.logged_in && logged.loggedInStatus === "Logged in") {
-          setLogged({
-            loggedInStatus: "Not logged in",
-            user: {}
-          })
-        }
-
-      })
-      .catch(error => {
-        console.log(error); 
-      })
-    }
-
-    function handleLogin(data) {
-      setLogged({
-        loggedInStatus: "Logged in",
-        user: data
-      })
-    }
-    function handleLogout() {
-      setLogged({
-        loggedInStatus: "Not logged in",
-        user: {}  
-      })
-    }
 
   return (
     <Router>
@@ -91,11 +34,11 @@ import NewRequest from './components/Request/NewRequest'
           </Route>
           <Route path="/requests/new">
             <NewRequest
-            currentUser={logged.user}/>
+            currentUser={state.logged.user}/>
           </Route>
           <Route path="/requests/:id">
             <Task
-              currentUser={logged.user}
+              currentUser={state.logged.user}
               requests={state.requests}
             />
           </Route>
@@ -114,7 +57,7 @@ import NewRequest from './components/Request/NewRequest'
 
           <Route path="/profile">
             <Profile 
-              currentUser={logged.user}
+              currentUser={state.logged.user}
             />
           </Route>
          
@@ -123,7 +66,7 @@ import NewRequest from './components/Request/NewRequest'
               {...props} 
               handleLogin={handleLogin}
               handleLogout={handleLogout} 
-              loggedInStatus={logged.loggedInStatus}
+              loggedInStatus={state.logged.loggedInStatus}
             />
           </Route>
         </Switch>
