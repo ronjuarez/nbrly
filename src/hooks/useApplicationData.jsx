@@ -4,15 +4,26 @@ import axios from "axios";
 // This custom hook is the beiung used to manage the overall data of our app.
 export default function useApplicationData() {
 
+
   const [state, setState] = useState ({
     users: [],
     requests: [],
+    request: {
+      user_id: "",
+      items: [],
+      delivery_address: "",
+      reimbursement_type: "",
+      volunteer_completed_task: false,
+      requester_confirmed_completion: false
+    },
     leaderboard: [],
-    logged : {
+    logged: {
       loggedInStatus: "Not logged in",
       user: {}
-    }
+    },
+    requestDate: new Date()
   });
+
 
  
   useEffect(() => {
@@ -78,11 +89,67 @@ export default function useApplicationData() {
       })
     }  
     
-    
+
+    function submitNewRequest() {
+      axios.post("http://localhost:3000/requests", {
+        requests: {
+          user_id: state.logged.user.id,
+          delivery_address: state.request.delivery_address,
+          items: state.request.items,
+          reimbursement_type: state.request.reimbursement_type,
+          complete_by: state.requestDate,
+          volunteer_completed_task: state.request.volunteer_completed_task,
+          requester_confirmed_completion: state.request.requester_confirmed_completion,
+        }
+      })
+      .then(response => {
+      console.log("new request created!", response.data);
+      })
+      .catch(error => {
+      console.log('oups', error);
+      })
+
+  }
+  
+    function removeItem(id) {
+      setState (prev => ({
+        ...prev, 
+        requests: {
+          items: prev.items.filter((_, index) => index !== id)
+        }
+      }))
+    }
+
+    function changeRequest(event) {
+      const name = event.target.name;
+      const value = event.target.value;
+      setState(prev => ({
+        ...prev,
+        request: {
+          [name]: value
+        }
+      })) 
+    }
+
+    function setRequestDate(value) {
+      setState({
+        requestDate : value
+      })
+    }
+
+    function addRequestItem(item) { 
+      setState(prev => ({...prev, 
+        request: { items:[...prev.items, item]}}))
+    }
       return { 
         state, 
         handleLogin, 
-        handleLogout 
+        handleLogout,
+        submitNewRequest, 
+        changeRequest,
+        removeItem,
+        setRequestDate,
+        addRequestItem
       }
     
     }

@@ -18,7 +18,12 @@ import NewRequest from './components/Request/NewRequest'
   const {
     state, 
     handleLogin, 
-    handleLogout 
+    handleLogout,
+    submitNewRequest,
+    changeRequest,
+    removeItem,
+    setRequestDate,
+    addRequestItem
   } = useApplicationData()
 
 
@@ -30,11 +35,18 @@ import NewRequest from './components/Request/NewRequest'
           <Route exact path="/requests">
             <Request
               requests={state.requests}
+              setDate={setRequestDate}
             />
           </Route>
           <Route path="/requests/new">
             <NewRequest
-            currentUser={state.logged.user}/>
+              newRequest={submitNewRequest}
+              changeRequest={changeRequest}
+              removeItem={removeItem}
+              request={state.request}
+              requestDate={state.requestDate}
+              addItem={addRequestItem}              
+            />
           </Route>
           <Route path="/requests/:id">
             <Task
@@ -58,6 +70,7 @@ import NewRequest from './components/Request/NewRequest'
           <Route path="/profile">
             <Profile 
               currentUser={state.logged.user}
+              requests={state.request}
             />
           </Route>
          
