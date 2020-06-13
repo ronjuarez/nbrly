@@ -6,7 +6,6 @@ import Groceries from './Groceries'
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
 
-
 export default function NewRequest (props) {
   const initialState = {
     user_id: 2,
@@ -30,13 +29,14 @@ export default function NewRequest (props) {
   }
   const [value, setValue] = useState(new Date())
   
+
   function handleNewRequest(event) {
     
     axios.post("http://localhost:3000/requests", {
       requests: {
         user_id: 2,
         delivery_address: requests.delivery_address,
-        items: [requests.items],
+        items: requests.items,
         reimbursement_type: requests.reimbursement_type,
         complete_by: value,
         volunteer_completed_task: requests.volunteer_completed_task,
@@ -52,8 +52,8 @@ export default function NewRequest (props) {
     event.preventDefault();
     
   }
-    
-
+  
+  
   
   return(
     <form onSubmit={handleNewRequest}>
