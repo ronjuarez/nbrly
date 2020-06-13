@@ -35,12 +35,15 @@ const GroceryLi = styled.li`
 
 
 export default function Task ({
-  requests
+  requests,
+  user
 }) {
-  
-  const earnedPoints = (requestData) => {
-    let itemsLength = requestData.length;
-    return (itemsLength * 100);
+
+
+  const addPoints = (user, numOfItems) => {
+ 
+    let itemsLength = numOfItems.length;
+    return (user.points + itemsLength * 100);
   }  
   
   const onSuccess =()=> {
@@ -68,14 +71,17 @@ export default function Task ({
       
     )
   })
+
   
+
+
   function updateDatabase () {
     Promise.all([ 
     axios.put(`http://localhost:3000/requests/${id}`, {
       volunteer_completed_task: true
     }),
     axios.put('http://localhost:3000/users/2', {
-      points: earnedPoints(groceryList)
+      points: addPoints(user, groceryList)
     })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     .then(all => {
       console.log(all);

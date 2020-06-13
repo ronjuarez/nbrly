@@ -38,6 +38,7 @@ import NewRequest from './components/Request/NewRequest'
       setState(prev => ({
         ...prev,
         users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
+
         })
       .catch((error) => {
         console.log(error)
@@ -70,7 +71,7 @@ import NewRequest from './components/Request/NewRequest'
         user: data
       })
     }
-
+    console.log()
     function handleLogout() {
       setLogged({
         loggedInStatus: "Not logged in",
@@ -94,6 +95,7 @@ import NewRequest from './components/Request/NewRequest'
           <Route path="/requests/:id">
             <Task
               requests={state.requests}
+              user={state.users[2]}
             />
           </Route>
           <Route path={`/requests/complete`}>
@@ -111,7 +113,7 @@ import NewRequest from './components/Request/NewRequest'
 
           <Route path="/profile">
             <Profile 
-              users={state.users}
+              user={state.users[0]}
             />
           </Route>
          

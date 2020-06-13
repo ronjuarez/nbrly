@@ -36,7 +36,7 @@ export default function NewRequest (props) {
       requests: {
         user_id: 2,
         delivery_address: requests.delivery_address,
-        items: [requests.items],
+        items: requests.items,
         reimbursement_type: requests.reimbursement_type,
         complete_by: value,
         volunteer_completed_task: requests.volunteer_completed_task,
@@ -92,15 +92,11 @@ export default function NewRequest (props) {
       </div>
       <Groceries 
         name="items"
-        value={requests.items}
-        
+        value={requests.items}        
         addItem={(item) => setRequest(prev => ({...prev, items:[...prev.items, item]}))}
         onChange={changeRequest}
         required
       />
-
-
-      
         <button type="submit">
           Submit
         </button>
