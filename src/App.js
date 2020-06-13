@@ -7,6 +7,7 @@ import Leaderboard from './components/Leaderboard';
 import Request from './components/Request';
 import Homepage from './components/Homepage';
 import Task from './components/Task';
+import TaskCompleted from './components/Task/TaskCompleted';
 import Profile from './components/Profile';
 import Registration from './components/auth/Registration';
 import MostDeliveries from './components/Leaderboard/MostDeliveries';
@@ -94,7 +95,10 @@ import NewRequest from './components/Request/NewRequest'
             <Task
               requests={state.requests}
             />
-          </Route>  
+          </Route>
+          <Route path={`/requests/complete`}>
+            <TaskCompleted/>
+            </Route>  
           <Route exact path="/leaderboard">
             <Leaderboard
               users={state.leaderboard}
