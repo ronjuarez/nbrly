@@ -42,6 +42,7 @@ export default function NewRequest (props) {
         volunteer_completed_task: requests.volunteer_completed_task,
         requester_confirmed_completion: requests.requester_confirmed_completion,
       }
+    
     } 
     ).then(response => {
       console.log("new request created!", response.data);
