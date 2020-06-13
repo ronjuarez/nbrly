@@ -9,7 +9,7 @@ import axios from 'axios';
 
 export default function NewRequest (props) {
   const initialState = {
-    user_id: 2,
+    user_id: props.currentUser.id,
     items: [],
     delivery_address: "",
     reimbursement_type: "",
@@ -17,7 +17,7 @@ export default function NewRequest (props) {
     requester_confirmed_completion: false,
 
   };
-
+  
   const [requests, setRequest] = useState(initialState);
   
   function changeRequest(event) {
@@ -28,15 +28,15 @@ export default function NewRequest (props) {
         [name]: value
     })) 
   }
+
   const [value, setValue] = useState(new Date())
   
   function handleNewRequest(event) {
-    
     axios.post("http://localhost:3000/requests", {
       requests: {
-        user_id: 2,
+        user_id: props.currentUser.id,
         delivery_address: requests.delivery_address,
-        items: [requests.items],
+        items: requests.items,
         reimbursement_type: requests.reimbursement_type,
         complete_by: value,
         volunteer_completed_task: requests.volunteer_completed_task,
@@ -52,8 +52,10 @@ export default function NewRequest (props) {
     event.preventDefault();
     
   }
-    
 
+  function removeItem(id) {
+    setRequest(prev => ({...prev, items: prev.items.filter((_, index) => index !== id)}))
+  }
   
   return(
     <form onSubmit={handleNewRequest}>
@@ -93,9 +95,9 @@ export default function NewRequest (props) {
       <Groceries 
         name="items"
         value={requests.items}
-        
+        deleteItem={removeItem}
         addItem={(item) => setRequest(prev => ({...prev, items:[...prev.items, item]}))}
-        onChange={changeRequest}
+        // onChange={changeRequest}
         required
       />
 

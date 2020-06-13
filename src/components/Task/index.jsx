@@ -35,7 +35,8 @@ const GroceryLi = styled.li`
 
 
 export default function Task ({
-  requests
+  requests,
+  currentUser
 }) {
   
   const earnedPoints = (requestData) => {
@@ -88,6 +89,7 @@ export default function Task ({
   return (
     <Main>
       <h1>Task # {id}</h1>
+      <h4>{currentUser.id}</h4>
       <GroceryUl>
         <GroceryLi> 
         Requesters Name:<span> </span>
