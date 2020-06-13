@@ -42,9 +42,11 @@ export default function Task ({
     console.log('Yay! Swipe Success');
   }
   const { id } = useParams();
- 
 
-  const groceryList = requests && requests.length && requests[id].items.map(item => {
+  let index = requests.findIndex(obj => obj.id == id)
+  
+  
+  const groceryList = requests && requests.length && requests[index].items.map(item => {
     return(
       <GroceryLi>
         <ReactSwipeButton 
@@ -70,7 +72,7 @@ export default function Task ({
         </GroceryLi>
   
         <GroceryLi>
-          Delivery Address: <p>{requests && requests.length && requests[id].delivery_address}</p>
+          Delivery Address: <p>{requests && requests.length && requests[index].delivery_address}</p>
         </GroceryLi>
 
         <GroceryLi>

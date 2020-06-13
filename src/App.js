@@ -27,6 +27,7 @@ import NewRequest from './components/Request/NewRequest'
   });
 
   useEffect(() => {
+    checkLoginStatus()
     Promise.all([
     axios.get('http://localhost:3000/users'),
     axios.get('http://localhost:3000/requests'),
@@ -42,12 +43,38 @@ import NewRequest from './components/Request/NewRequest'
       })
     }, []);
 
+    function checkLoginStatus() {
+      axios.get('http://localhost:3000/logged_in', { withCredentials: true }
+      ).then(response => {
+        if (response.data.logged_in && logged.loggedInStatus === "Not logged in") {
+          setLogged({
+            loggedInStatus: "Logged in",
+            user: response.data.user
+          })
+        } else if (!response.data.logged_in && logged.loggedInStatus === "Logged in") {
+          setLogged({
+            loggedInStatus: "Not logged in",
+            user: {}
+          })
+        }
+
+      })
+      .catch(error => {
+        console.log(error); 
+      })
+    }
     function handleLogin(data) {
       setLogged({
-        loggedInStatus: "LOGGED_IN",
+        loggedInStatus: "Logged in",
         user: data
       })
+    }
 
+    function handleLogout() {
+      setLogged({
+        loggedInStatus: "Not logged in",
+        user: {}  
+      })
     }
 
   return (
@@ -85,7 +112,12 @@ import NewRequest from './components/Request/NewRequest'
           </Route>
          
           <Route path="/">
-            <Homepage {...props} handleLogin={handleLogin} loggedInStatus={logged.loggedInStatus}/>
+            <Homepage 
+              {...props} 
+              handleLogin={handleLogin}
+              handleLogout={handleLogout} 
+              loggedInStatus={logged.loggedInStatus}
+            />
           </Route>
         </Switch>
       </div>
