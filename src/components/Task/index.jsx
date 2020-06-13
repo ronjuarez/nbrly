@@ -42,19 +42,11 @@ export default function Task ({
     console.log('Yay! Swipe Success');
   }
   const { id } = useParams();
-<<<<<<< HEAD
 
   let index = requests.findIndex(obj => obj.id == id)
   
   
   const groceryList = requests && requests.length && requests[index].items.map(item => {
-=======
-  
-
-  const groceryList = requests && requests.length && requests[id].items.map(item => {
-   
-   
->>>>>>> master
     return(
       <GroceryLi>
         <ReactSwipeButton 
