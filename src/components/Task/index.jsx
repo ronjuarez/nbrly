@@ -36,7 +36,7 @@ const GroceryLi = styled.li`
 
 export default function Task ({
   requests,
-  user
+  currentUser
 }) {
 
 
@@ -81,7 +81,7 @@ export default function Task ({
       volunteer_completed_task: true
     }),
     axios.put('http://localhost:3000/users/2', {
-      points: addPoints(user, groceryList)
+      points: addPoints(currentUser, groceryList)
     })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     .then(all => {
       console.log(all);
@@ -94,6 +94,7 @@ export default function Task ({
   return (
     <Main>
       <h1>Task # {id}</h1>
+      <h4>{currentUser.id}</h4>
       <GroceryUl>
         <GroceryLi> 
         Requesters Name:<span> </span>

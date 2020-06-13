@@ -10,7 +10,7 @@ export default function GroceryList (props) {
   const groceryList = props.grocery.map((item, index) => 
     <li>
       {item}
-     <GroceryButton onClick={() => props.onDelete(index)}></GroceryButton> 
+      <button className="btn btn-lg btn-outline-danger ml-4" onClick={()=> props.onDelete(index)}>Delete</button>
   </li>)
 
   return(
