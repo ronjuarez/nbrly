@@ -36,16 +36,10 @@ const GroceryLi = styled.li`
 
 export default function Task ({
   requests,
-  currentUser
+  currentUser,
+  updateDatabase
 }) {
-
-
-  const addPoints = (user, numOfItems) => {
- 
-    let itemsLength = numOfItems.length;
-    return (user.points + itemsLength * 100);
-  }  
-  
+ console.log('current user', currentUser)
   const onSuccess =()=> {
     console.log('Yay! Swipe Success');
   }
@@ -53,11 +47,9 @@ export default function Task ({
   const { id } = useParams();
 
   let index = requests.findIndex(obj => obj.id == id)
-
-
-  
   
   const groceryList = requests && requests.length && requests[index].items.map(item => {
+    
     return(
       <GroceryLi>
         <ReactSwipeButton 
@@ -71,25 +63,6 @@ export default function Task ({
       
     )
   })
-
-  
-
-
-  function updateDatabase () {
-    Promise.all([ 
-    axios.put(`http://localhost:3000/requests/${id}`, {
-      volunteer_completed_task: true
-    }),
-    axios.put(`http://localhost:3000/users/${currentUser.id}`, {
-      points: addPoints(currentUser, groceryList)
-    })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-    .then(all => {
-      console.log(all);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
 
   return (
     <Main>
@@ -116,7 +89,7 @@ export default function Task ({
       {/* <NavLink to={`/requests/complete`}> */}
       <Button 
         variant="success"
-        onClick={updateDatabase}
+        onClick={(event) => updateDatabase(event, id, currentUser, groceryList)}
         > Completed
       </Button>
       {/* </NavLink> */}

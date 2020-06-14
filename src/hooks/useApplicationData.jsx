@@ -150,6 +150,30 @@ export default function useApplicationData() {
           }))
       }))
     }
+
+    function addPoints (user, numOfItems){
+ 
+      let itemsLength = numOfItems.length;
+      return (user.points + itemsLength * 100);
+    }  
+
+    function updateDatabase (event, arID, user, itemsToCount) {
+      Promise.all([ 
+      axios.put(`http://localhost:3000/requests/${arID}`, {
+        volunteer_completed_task: true
+      }),
+      axios.put(`http://localhost:3000/users/${user.id}`, {
+        points: addPoints(user, itemsToCount)
+      })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+      .then(all => {
+        console.log('Marked Completed', all[0], "Points Added", all[1]);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      
+      event.preventDefault();
+  }
       return { 
         state, 
         handleLogin, 
@@ -158,7 +182,9 @@ export default function useApplicationData() {
         changeRequest,
         removeItem,
         setRequestDate,
-        addRequestItem
+        addRequestItem,
+        addPoints,
+        updateDatabase
       }
     
     }

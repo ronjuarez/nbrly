@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./styles.css"
-import GroceryList from "./GroceryList"
 
 export default function Groceries (props) {
   

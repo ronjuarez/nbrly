@@ -23,7 +23,9 @@ import NewRequest from './components/Request/NewRequest'
     changeRequest,
     removeItem,
     setRequestDate,
-    addRequestItem
+    addRequestItem,
+    addPoints,
+    updateDatabase
   } = useApplicationData()
 
 
@@ -52,6 +54,8 @@ import NewRequest from './components/Request/NewRequest'
             <Task
               currentUser={state.logged.user}
               requests={state.requests}
+              addPoints={addPoints}
+              updateDatabase={updateDatabase}
             />
           </Route>
           <Route path={`/requests/complete`}>
