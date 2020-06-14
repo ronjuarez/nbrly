@@ -72,25 +72,27 @@ export default function useApplicationData() {
     }
 
     function handleLogin(data) {
-      setState({
+      setState(prev => ({
+        ...prev, 
         logged : {
           loggedInStatus: "Logged in",
           user: data
         }
-      })
+      }))
     }
 
     function handleLogout() {
-      setState({
+      setState(prev => ({
+        ...prev, 
         logged : {
           loggedInStatus: "Not logged in",
           user: {}  
         }
-      })
+      }))
     }  
     
 
-    function submitNewRequest() {
+    function submitNewRequest(event) {
       axios.post("http://localhost:3000/requests", {
         requests: {
           user_id: state.logged.user.id,
@@ -108,15 +110,16 @@ export default function useApplicationData() {
       .catch(error => {
       console.log('oups', error);
       })
-
+      event.preventDefault();
   }
   
     function removeItem(id) {
       setState (prev => ({
         ...prev, 
-        requests: {
+        requests: (prev => ({
+          ...prev,
           items: prev.items.filter((_, index) => index !== id)
-        }
+        }))
       }))
     }
 
@@ -132,14 +135,20 @@ export default function useApplicationData() {
     }
 
     function setRequestDate(value) {
-      setState({
-        requestDate : value
-      })
+      setState(prev => ({
+        ...prev,
+        requestDate: value
+      }))
     }
 
     function addRequestItem(item) { 
-      setState(prev => ({...prev, 
-        request: { items:[...prev.items, item]}}))
+      setState(prev => ({
+        ...prev, 
+        request: (prev => ({
+          ...prev, 
+          items:[...prev.items, item] 
+          }))
+      }))
     }
       return { 
         state, 
