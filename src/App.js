@@ -87,6 +87,7 @@ import NewRequest from './components/Request/NewRequest'
           <Route exact path="/requests">
             <Request
               requests={state.requests}
+              currentUser={logged.user}
             />
           </Route>
           <Route path="/requests/new">
@@ -109,12 +110,14 @@ import NewRequest from './components/Request/NewRequest'
           </Route>
           <Route path ="/leaderboard/mostdeliveries">
             <MostDeliveries
-            players={state.leaderboard}/>
+            players={state.leaderboard}
+            />
           </Route>
 
           <Route path="/profile">
             <Profile 
               currentUser={logged.user}
+              requests={state.requests}
             />
           </Route>
          

@@ -79,7 +79,8 @@ export default function NewRequest (props) {
         name="reimbursement_type" 
         value={requests.reimbursement_type} 
         onChange={changeRequest}  
-      >
+      > 
+        <option selected name="reimbursement_type" value="">choose one</option>
         <option name="reimbursement_type" value="cash">cash</option>
         <option  name="reimbursement_type"value="prepaid">prepaid</option>
         <option name="reimbursement_type" value="e-transfer">e-transfer</option>
