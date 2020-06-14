@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 import { 
   useParams,
   NavLink 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import './App.css';
 import Navigation from './components/navigation';
 import Leaderboard from './components/Leaderboard';
@@ -78,13 +78,15 @@ import NewRequest from './components/Request/NewRequest'
             />
           </Route>
          
-          <Route path="/">
-            <Homepage 
-              {...props} 
-              handleLogin={handleLogin}
-              handleLogout={handleLogout} 
-              loggedInStatus={state.logged.loggedInStatus}
-            />
+          <Route exact path="/">
+            {state.logged.loggedInStatus ?         
+              <Redirect to="/requests" /> :
+              <Homepage 
+                {...props} 
+                handleLogin={handleLogin}
+                handleLogout={handleLogout} 
+                loggedInStatus={state.logged.loggedInStatus}
+              />}
           </Route>
         </Switch>
       </div>
