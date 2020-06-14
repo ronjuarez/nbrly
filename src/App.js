@@ -72,13 +72,20 @@ import NewRequest from './components/Request/NewRequest'
           </Route>
 
           <Route path="/profile">
+          {state.logged.loggedInStatus ?
             <Profile 
               currentUser={state.logged.user}
-              requests={state.request}
-            />
+              requests={state.request}/> : 
+            <Homepage 
+              {...props} 
+              handleLogin={handleLogin}
+              handleLogout={handleLogout} 
+              loggedInStatus={state.logged.loggedInStatus}
+          />}
           </Route>
          
           <Route exact path="/">
+
             {state.logged.loggedInStatus ?         
               <Redirect to="/requests" /> :
               <Homepage 
