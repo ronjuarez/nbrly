@@ -11,7 +11,6 @@ export default function Request ({
   assignVolunteer,
   currentUser
 }) {
- 
   const map = <FontAwesomeIcon icon={faMapMarkedAlt}/> 
   
   const list = requests && requests.length && requests.map(task => {

@@ -87,7 +87,7 @@ export default function Profile ({
         volunteer_completed_task: false,
         requester_confirmed_completion: false,
         user_id: 14,
-        volunteer_id: null,
+        volunteer_id: 11,
         items: [
         "peaches",
         "berries"
@@ -103,7 +103,7 @@ export default function Profile ({
           volunteer_completed_task: true,
           requester_confirmed_completion: true,
           user_id: 14,
-          volunteer_id: 8,
+          volunteer_id: 11,
           items: [
           "peaches",
           "berries"
