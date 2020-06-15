@@ -23,6 +23,7 @@ export default function RequestListItem ({
   complete_by,
   reimbursement_type,
   id,
+  addID
 }) {
   // console.log("items", props.items.length)
 
@@ -56,7 +57,9 @@ export default function RequestListItem ({
         <h4>Reimbursement: {reimbursement_type}</h4>
         <h3>{earnedPoints(items)} points</h3>
       </RequestLiDiv>
-      <AcceptButton id={id}/>
+      <AcceptButton 
+        id={id} 
+        addID={addID}/>
     </RequestLi>
   )
 

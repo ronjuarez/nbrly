@@ -18,12 +18,13 @@ width: 200px;
 `
 
 export default function AcceptButton ({
-  id
+  id,
+  addID
 }) {
   // console.log('props', props.id)
   return(
     <NavLink to={`/requests/${id}`}>
-      <Acceptbutton>
+      <Acceptbutton onClick={addID} >
         Accept
       </Acceptbutton>
     </NavLink>

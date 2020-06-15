@@ -63,12 +63,10 @@ export default function useApplicationData() {
               user: {}
             }
           }))
-        }
-
-      })
-      .catch(error => {
+        }})
+        .catch(error => {
         console.log(error); 
-      })
+        })
     }
 
     function handleLogin(data) {
@@ -91,6 +89,11 @@ export default function useApplicationData() {
       }))
     }  
     
+    function getTask (requests, user) { 
+      requests.filter(request => {
+        return (request.volunteer_id === user.id)
+      })
+    }
 
     function submitNewRequest(event) {
       axios.post("http://localhost:3000/requests", {
@@ -151,11 +154,25 @@ export default function useApplicationData() {
       }))
     }
 
-    function addPoints (user, numOfItems){
+    function addPoints (user, numOfItems) {
  
       let itemsLength = numOfItems.length;
       return (user.points + itemsLength * 100);
     }  
+    
+
+    function assignVolunteer (arID, user) {
+      axios.put(`http://localhost:3000/requests/${arID}`, {
+        volunteer_id: user.id
+      })
+      .then(all => {
+        console.log('User Assigned', all);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+
 
     function updateDatabase (event, arID, user, itemsToCount) {
       Promise.all([ 
@@ -184,7 +201,9 @@ export default function useApplicationData() {
         setRequestDate,
         addRequestItem,
         addPoints,
-        updateDatabase
+        updateDatabase,
+        getTask,
+        assignVolunteer
       }
     
     }

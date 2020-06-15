@@ -7,7 +7,8 @@ export default function RequestList ({
   delivery_address,
   complete_by,
   reimbursement_type,
-  items
+  items,
+  addID
 }) {
   
 return(
@@ -18,6 +19,7 @@ return(
         complete_by={complete_by}
         reimbursement_type={reimbursement_type}
         items={items}
+        addID={addID}
       />
     </ul>
   )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import './App.css';
 import Navigation from './components/navigation';
@@ -8,7 +8,6 @@ import Homepage from './components/Homepage';
 import Task from './components/Task';
 import TaskCompleted from './components/Task/TaskCompleted';
 import Profile from './components/Profile';
-import Registration from './components/auth/Registration';
 import MostDeliveries from './components/Leaderboard/MostDeliveries';
 import  useApplicationData from "./hooks/useApplicationData";
 import NewRequest from './components/Request/NewRequest'
@@ -25,7 +24,9 @@ import NewRequest from './components/Request/NewRequest'
     setRequestDate,
     addRequestItem,
     addPoints,
-    updateDatabase
+    updateDatabase,
+    getTask,
+    assignVolunteer
   } = useApplicationData()
 
 
@@ -38,7 +39,7 @@ import NewRequest from './components/Request/NewRequest'
             <Request
               requests={state.requests}
               setDate={setRequestDate}
-            />
+              addID={assignVolunteer}/>
           </Route>
           <Route path="/requests/new">
             <NewRequest
@@ -47,53 +48,45 @@ import NewRequest from './components/Request/NewRequest'
               removeItem={removeItem}
               request={state.request}
               requestDate={state.requestDate}
-              addItem={addRequestItem}              
-            />
+              currentUser={state.logged.user}
+              addItem={addRequestItem}/>}
           </Route>
           <Route path="/requests/:id">
-            <Task
-              currentUser={state.logged.user}
-              requests={state.requests}
-              addPoints={addPoints}
-              updateDatabase={updateDatabase}
-            />
+            {state.logged.loggedInStatus ?
+              <Task
+                currentUser={state.logged.user}
+                requests={state.requests}
+                addPoints={addPoints}
+                updateDatabase={updateDatabase}/> :
+              <Redirect to exact="/"/>}
           </Route>
           <Route path={`/requests/complete`}>
             <TaskCompleted/>
-            </Route>  
+          </Route>  
           <Route exact path="/leaderboard">
             <Leaderboard
-              users={state.leaderboard}
-            />
+              users={state.leaderboard}/>
           </Route>
           <Route path ="/leaderboard/mostdeliveries">
             <MostDeliveries
-            players={state.leaderboard}/>
+              players={state.leaderboard}/>
           </Route>
-
           <Route path="/profile">
-          {state.logged.loggedInStatus ?
-            <Profile 
-              currentUser={state.logged.user}
-              requests={state.request}/> : 
-            <Homepage 
-              {...props} 
-              handleLogin={handleLogin}
-              handleLogout={handleLogout} 
-              loggedInStatus={state.logged.loggedInStatus}
-          />}
+            {state.logged.loggedInStatus ?
+              <Profile 
+                currentUser={state.logged.user}
+                request={state.request}
+                getTask={getTask}/> : 
+              <Redirect to exact="/" />}
           </Route>
-         
           <Route exact path="/">
-
             {state.logged.loggedInStatus ?         
               <Redirect to="/requests" /> :
-              <Homepage 
-                {...props} 
-                handleLogin={handleLogin}
-                handleLogout={handleLogout} 
-                loggedInStatus={state.logged.loggedInStatus}
-              />}
+                <Homepage 
+                  {...props} 
+                  handleLogin={handleLogin}
+                  handleLogout={handleLogout} 
+                  loggedInStatus={state.logged.loggedInStatus}/>}
           </Route>
         </Switch>
       </div>

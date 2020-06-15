@@ -1,25 +1,20 @@
 import React from 'react';
 
 export default function Profile ({
-  users,
+  currentUser,
+  getTask,
+  request
 }) {
  
-
-
-  const user = users.map(user => {
-    return (
-      <div>
-        <img src={user.avatar} alt="profile picture"></img>
-        <h3>{user.name}</h3>
-        <h3>{user.email}</h3>
-      </div>
-    )
-  })
   return (
     <main>
       <h1>Profile</h1>
       <header>
-        {user}
+      <div>
+        <img src={currentUser.avatar} alt="profile picture"></img>
+        <h3>{currentUser.name}</h3>
+        <h3>{currentUser.email}</h3>
+      </div>
       </header>
     
       <div>
@@ -27,7 +22,7 @@ export default function Profile ({
           <h2>
             Current Points
           </h2>
-          <p>{users[0].points}</p>
+          <p>{currentUser.points}</p>
         </div>
         <div>
           <h2>

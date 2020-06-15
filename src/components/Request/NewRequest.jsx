@@ -12,7 +12,7 @@ export default function NewRequest ({
   setDate,
   request,
   addItem,
-  requestDate
+  requestDate,
 }) {
 
   
