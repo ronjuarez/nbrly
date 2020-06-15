@@ -48,7 +48,7 @@ const libraries = ["places"];
     loggedInStatus: "Not logged in",
     user: {}
   });
-
+ 
   useEffect(() => {
     checkLoginStatus()
     Promise.all([
@@ -65,6 +65,7 @@ const libraries = ["places"];
         console.log(error)
       })
     }, []);
+
     function checkLoginStatus() {
       axios.get('http://localhost:3000/logged_in', { withCredentials: true }
       ).then(response => {
@@ -125,6 +126,7 @@ const libraries = ["places"];
               <Switch>
                 <Route exact path="/requests">
                   <Request
+                    currentUser={logged.user}
                     requests={state.requests}
                   />
                 </Route>
