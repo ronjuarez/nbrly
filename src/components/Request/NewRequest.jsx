@@ -19,67 +19,25 @@ import {
 } from "@reach/combobox";
 const libraries = ["places"];
 
-export default function NewRequest (props) {
-  const initialState = {
-    user_id: props.currentUser.id,
-    items: [],
-    delivery_address: "",
-    latitude: "",
-    longitude: "",
-    reimbursement_type: "",
-    volunteer_completed_task: false,
-    requester_confirmed_completion: false,
 
-  };
+export default function NewRequest ({
+  newRequest,
+  changeRequest,
+  removeItem,
+  setDate,
+  request,
+  addItem,
+  requestDate,
+  setCoords,
+  setDeliveryAddress,
+  currentUser
+}) {
+
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
      libraries 
     })
     
-
-  const [requests, setRequest] = useState(initialState);
-  const [value, setValue] = useState(new Date())
-
-  function changeRequest(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-    setRequest(requests => ({
-        ...requests,
-        [name]: value
-    })) 
-  }
-
-  
-  
-
-  function handleNewRequest(event) {
-    axios.post("http://localhost:3000/requests", {
-      requests: {
-        user_id: props.currentUser.id,
-        delivery_address: requests.delivery_address,
-        items: requests.items,
-        latitude: requests.latitude,
-        longitude: requests.longitude,
-        reimbursement_type: requests.reimbursement_type,
-        complete_by: value,
-        volunteer_completed_task: requests.volunteer_completed_task,
-        requester_confirmed_completion: requests.requester_confirmed_completion,
-      }
-    
-    } 
-    ).then(response => {
-      console.log("new request created!", response.data);
-    })
-    .catch(error => {
-      console.log('oups', error);
-    })
-    event.preventDefault();
-    
-  }
-
-  function removeItem(id) {
-    setRequest(prev => ({...prev, items: prev.items.filter((_, index) => index !== id)}))
-  }
 
   function Search() {
     const {
@@ -100,19 +58,14 @@ export default function NewRequest (props) {
             clearSuggestions();
             try {
               const results = await getGeocode({address})
-              setRequest(requests => ({
-                ...requests,
-                delivery_address: results[0].formatted_address
-              }))
+              // console.log(results[0].formatted_address)
+              setDeliveryAddress(results[0].formatted_address)
               const lat = await getLatLng(results[0])
               const lng = await getLatLng(results[0])
               const latitude = lat.lat;
               const longitude = lng.lng;
-              setRequest(requests => ({
-                ...requests,
-                latitude: latitude,
-                longitude: longitude
-              }))
+              // console.log(latitude, longitude)
+              setCoords(latitude, longitude)
         
             } catch(error) {
               console.log(error)
@@ -137,14 +90,14 @@ export default function NewRequest (props) {
       
   
      )
-  
-  
-  
-  
   }
   
+console.log('logged in request', currentUser)   
+
+
+
   return(
-    <form onSubmit={handleNewRequest}>
+    <form onSubmit={newRequest}>
       <h1>Form</h1>
       <label>Delivery Address</label>
       <Search
@@ -152,10 +105,9 @@ export default function NewRequest (props) {
 
     
 
-   
       <select 
         name="reimbursement_type" 
-        value={requests.reimbursement_type} 
+        value={request.reimbursement_type} 
         onChange={changeRequest}  
       > 
         <option selected name="reimbursement_type" value="">choose one</option>
@@ -167,16 +119,16 @@ export default function NewRequest (props) {
       <div>
         < br />
         <Calendar
-          value={value}
-          onChange={setValue}
+          value={requestDate}
+          onChange={setDate}
           required
         />
       </div>
       <Groceries 
         name="items"
-        value={requests.items}
+        value={request.items}
         deleteItem={removeItem}
-        addItem={(item) => setRequest(prev => ({...prev, items:[...prev.items, item]}))}
+        addItem={addItem}
         // onChange={changeRequest}
         required
       />

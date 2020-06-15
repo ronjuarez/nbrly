@@ -11,7 +11,9 @@ import TaskCompleted from './components/Task/TaskCompleted';
 import Profile from './components/Profile';
 import Registration from './components/auth/Registration';
 import MostDeliveries from './components/Leaderboard/MostDeliveries';
-import NewRequest from './components/Request/NewRequest';
+import  useApplicationData from "./hooks/useApplicationData";
+import NewRequest from './components/Request/NewRequest'
+
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import Geocode from "react-geocode";
 import usePlacesAutocomplete, {
@@ -26,17 +28,10 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 const libraries = ["places"];
-    const mapContainerStyle= { 
-      width: '100vw',
-      height: "100vh"
-    }
-    const center = { 
-      lat: 43.653225,
-      lng: -79.383186
-    };
 
 
  export default function App(props) {
+<<<<<<< HEAD
   const [state, setState] = useState ({
     users: [],
     requests: [],
@@ -80,16 +75,38 @@ const libraries = ["places"];
             user: {}
           })
         }
+=======
+  const {
+    state, 
+    handleLogin, 
+    handleLogout,
+    submitNewRequest,
+    changeRequest,
+    removeItem,
+    setRequestDate,
+    addRequestItem,
+    addPoints,
+    updateDatabase,
+    setCoords,
+    setDeliveryAddress
+  } = useApplicationData()
+>>>>>>> a85b84a82b0cfa0133820b1d103edf90b4687974
 
+  const {isLoaded, loadError} = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
+      libraries 
       })
-      .catch(error => {
-        console.log(error); 
-      })
-    }
-    const {isLoaded, loadError} = useLoadScript({
-      googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
-       libraries 
-      })
+      
+  const mapContainerStyle= { 
+    width: '100vw',
+    height: "100vh"
+  }
+  
+  const center = { 
+    lat: 43.653225,
+    lng: -79.383186
+  };
+  
   const [markers, setMarkers] = useState([]);
   const[selected, setSelected] = useState(null);
 
@@ -119,6 +136,7 @@ const libraries = ["places"];
      if (!isLoaded) return "Loading maps";
     
      return (
+<<<<<<< HEAD
       <div> 
         <Router>
             <div>
@@ -172,6 +190,73 @@ const libraries = ["places"];
             </div>
       
           </Router>
+=======
+      <div>
+      <Router>
+      <div>
+        <Navigation />
+        <Switch>
+          <Route exact path="/requests">
+            <Request
+              requests={state.requests}
+              currentUser={state.logged.user}
+            />
+          </Route>
+          <Route path="/requests/new">
+            <NewRequest
+              newRequest={submitNewRequest}
+              currentUser={state.logged.user}
+              changeRequest={changeRequest}
+              removeItem={removeItem}
+              request={state.request}
+              requestDate={state.requestDate}
+              addItem={addRequestItem}
+              setCoords={setCoords}
+              setDate={setRequestDate}
+              setDeliveryAddress={setDeliveryAddress}              
+            />
+          </Route>
+          <Route path="/requests/:id">
+            <Task
+              currentUser={state.logged.user}
+              requests={state.requests}
+              addPoints={addPoints}
+              updateDatabase={updateDatabase}
+            />
+          </Route>
+          <Route path={`/requests/complete`}>
+            <TaskCompleted/>
+            </Route>  
+          <Route exact path="/leaderboard">
+            <Leaderboard
+              users={state.leaderboard}
+            />
+          </Route>
+          <Route path ="/leaderboard/mostdeliveries">
+            <MostDeliveries
+            players={state.leaderboard}/>
+          </Route>
+  
+          <Route path="/profile">
+            <Profile 
+              currentUser={state.logged.user}
+              requests={state.request}
+            />
+          </Route>
+         
+          <Route path="/">
+            <Homepage 
+              {...props} 
+              handleLogin={handleLogin}
+              handleLogout={handleLogout} 
+              loggedInStatus={state.logged.loggedInStatus}
+            />
+          </Route>
+        </Switch>
+      </div>
+      </Router>
+
+>>>>>>> a85b84a82b0cfa0133820b1d103edf90b4687974
         <h1>NBRLY</h1>
        
 
@@ -219,23 +304,7 @@ const libraries = ["places"];
         </InfoWindow>
       )}
       </GoogleMap>
-      </div>
-    )
-
-
-
-    function handleLogin(data) {
-      setLogged({
-        loggedInStatus: "Logged in",
-        user: data
-      })
-    }
-    function handleLogout() {
-      setLogged({
-        loggedInStatus: "Not logged in",
-        user: {}  
-      })
-    }
+      </div>)
 
 
 function Locate({panTo}) {
@@ -244,7 +313,7 @@ function Locate({panTo}) {
   onClick={() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position)
+        // console.log(position)
         panTo({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
@@ -278,7 +347,7 @@ function Search({ panTo }) {
 
     try {
       const results = await getGeocode({address});
-      console.log(results[0])
+      // console.log(results[0])
       const { lat, lng } = await getLatLng(results[0]);
       panTo({ lat, lng })
     } catch(error){

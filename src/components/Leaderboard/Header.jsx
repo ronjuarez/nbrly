@@ -11,7 +11,7 @@ export default function Header({
   avatar,
   points  
 }) {
-
+console.log(points)
     const leaderboard = <FontAwesomeIcon icon={faTrophy}/> 
 
     return (
