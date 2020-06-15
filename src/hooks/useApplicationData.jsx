@@ -12,6 +12,8 @@ export default function useApplicationData() {
       user_id: "",
       items: [],
       delivery_address: "",
+      longitude: "",
+      latitude: "",
       reimbursement_type: "",
       volunteer_completed_task: false,
       requester_confirmed_completion: false
@@ -24,8 +26,27 @@ export default function useApplicationData() {
     requestDate: new Date()
   });
 
+  function setCoords(lat, lon) {
+    setState(prev => ({
+    ...prev,
+      request:{ 
+        ...prev.request, 
+        latitude: lat,
+        longitude: lon
+      } 
+    }))
+  }
 
- 
+  function setDeliveryAddress (address) {
+      setState(prev => ({
+      ...prev,
+        request: {
+          ...prev.request, 
+          delivery_address: address
+        }
+      }))
+  }
+
   useEffect(() => {
     checkLoginStatus()
     Promise.all([
@@ -99,6 +120,8 @@ export default function useApplicationData() {
           delivery_address: state.request.delivery_address,
           items: state.request.items,
           reimbursement_type: state.request.reimbursement_type,
+          latitude: state.request.latitude,
+          longitude: state.request.longitude,
           complete_by: state.requestDate,
           volunteer_completed_task: state.request.volunteer_completed_task,
           requester_confirmed_completion: state.request.requester_confirmed_completion,
@@ -135,6 +158,7 @@ export default function useApplicationData() {
     }
 
     function setRequestDate(value) {
+      console.log('this is a val', value)
       setState(prev => ({
         ...prev,
         requestDate: value
@@ -144,10 +168,10 @@ export default function useApplicationData() {
     function addRequestItem(item) { 
       setState(prev => ({
         ...prev, 
-        request: (prev => ({
-          ...prev, 
-          items:[...prev.items, item] 
-          }))
+        request: {
+          ...prev.request, 
+          items:[...prev.request.items, item] 
+        }  
       }))
     }
 
@@ -184,7 +208,11 @@ export default function useApplicationData() {
         setRequestDate,
         addRequestItem,
         addPoints,
-        updateDatabase
+        updateDatabase,
+        setCoords,
+        setDeliveryAddress
       }
     
     }
+
+ 
