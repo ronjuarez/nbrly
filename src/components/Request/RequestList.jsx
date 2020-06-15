@@ -8,7 +8,8 @@ export default function RequestList ({
   complete_by,
   reimbursement_type,
   items,
-  addID
+  addID,
+  userID
 }) {
   
 return(
@@ -20,6 +21,7 @@ return(
         reimbursement_type={reimbursement_type}
         items={items}
         addID={addID}
+        userID={userID}
       />
     </ul>
   )

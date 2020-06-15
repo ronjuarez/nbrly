@@ -4,6 +4,21 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Groceries from './Groceries'
 import { NavLink } from "react-router-dom";
+import axios from 'axios';
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxPopover,
+  ComboboxList,
+  ComboboxOption,
+} from "@reach/combobox";
+const libraries = ["places"];
+
 
 export default function NewRequest ({
   newRequest,
@@ -13,33 +28,87 @@ export default function NewRequest ({
   request,
   addItem,
   requestDate,
+  setCoords,
+  setDeliveryAddress,
 }) {
 
+  const {isLoaded, loadError} = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
+     libraries 
+    })
+    
+
+  function Search() {
+    const {
+      ready,  
+      value, 
+      suggestions: {status, data}, 
+      setValue, 
+      clearSuggestions
+    } = usePlacesAutocomplete({
+    
+    })
+    return (
+      <div>
+      <Combobox 
+          onSelect={async (address) => {
+            setValue(address, false);
+            
+            clearSuggestions();
+            try {
+              const results = await getGeocode({address})
+              // console.log(results[0].formatted_address)
+              setDeliveryAddress(results[0].formatted_address)
+              const lat = await getLatLng(results[0])
+              const lng = await getLatLng(results[0])
+              const latitude = lat.lat;
+              const longitude = lng.lng;
+              // console.log(latitude, longitude)
+              setCoords(latitude, longitude)
+        
+            } catch(error) {
+              console.log(error)
+            }
+          }}>
+        <ComboboxInput
+        value={value} 
+        onChange={(e) => {setValue(e.target.value)}}
+        disabled={!ready}
+        placeholder="Enter your address"
+        />
+        <ComboboxPopover>
+        <ComboboxList>
+          {status === "OK" && data.map(({id, description}) => 
+          (<ComboboxOption key={id} value ={description}/>
+          ))}
+          </ComboboxList>
   
+        </ComboboxPopover>
+      </Combobox>
+      </div>
+      
   
+     )
+  }
+   
+
+
 
   return(
     <form onSubmit={newRequest}>
       <h1>Form</h1>
       <label>Delivery Address</label>
-      <input 
-        type="text" 
-        name="delivery_address"
-        value={request.delivery_address}
-        onChange={changeRequest}
-        required
-        ></input>
-      {/* <ReimbursementDropDown  
-        onChange={changeRequest}
-        onChange={changeRequest}
-        value={request.reimbursement_type}
-        required
-      /> */}
+      <Search
+      />
+
+    
+
       <select 
         name="reimbursement_type" 
         value={request.reimbursement_type} 
         onChange={changeRequest}  
-      >
+      > 
+        <option selected name="reimbursement_type" value="">choose one</option>
         <option name="reimbursement_type" value="cash">cash</option>
         <option  name="reimbursement_type"value="prepaid">prepaid</option>
         <option name="reimbursement_type" value="e-transfer">e-transfer</option>
@@ -70,4 +139,4 @@ export default function NewRequest ({
 }
 
       
-      
+    

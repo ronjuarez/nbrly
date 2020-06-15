@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import "./styles.css"
 
-export default function Groceries (props) {
+
+export default function Groceries ({
+  addItem,
+  deleteItem,
+}) {
   
   const [grocery, setGroceryList] = useState([])
 
@@ -10,12 +13,12 @@ export default function Groceries (props) {
     event.preventDefault();
     
     setGroceryList(grocery => [...grocery, text]);
-    props.addItem(text)
+    addItem(text)
     setText("")
   }
   
   function removeGroceryItem(id) {
-    props.deleteItem(id);
+    deleteItem(id);
     setGroceryList(grocery => grocery.filter((_, index) => index !== id))
   }
 
