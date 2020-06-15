@@ -235,6 +235,61 @@ const libraries = ["places"];
       })
     }
 
+<<<<<<< HEAD
+=======
+  return (
+    <Router>
+      <div>
+        <Navigation />
+        <Switch>
+          <Route exact path="/requests">
+            <Request
+              requests={state.requests}
+              currentUser={logged.user}
+            />
+          </Route>
+          <Route path="/requests/new">
+            <NewRequest
+            currentUser={logged.user}/>
+          </Route>
+          <Route path="/requests/:id">
+            <Task
+              currentUser={logged.user}
+              requests={state.requests}
+            />
+          </Route>
+          <Route path={`/requests/complete`}>
+            <TaskCompleted/>
+            </Route>  
+          <Route exact path="/leaderboard">
+            <Leaderboard
+              users={state.leaderboard}
+            />
+          </Route>
+          <Route path ="/leaderboard/mostdeliveries">
+            <MostDeliveries
+            players={state.leaderboard}
+            />
+          </Route>
+
+          <Route path="/profile">
+            <Profile 
+              currentUser={logged.user}
+              requests={state.requests}
+            />
+          </Route>
+         
+          <Route path="/">
+            <Homepage 
+              {...props} 
+              handleLogin={handleLogin}
+              handleLogout={handleLogout} 
+              loggedInStatus={logged.loggedInStatus}
+            />
+          </Route>
+        </Switch>
+      </div>
+>>>>>>> master
 
 function Locate({panTo}) {
   return (

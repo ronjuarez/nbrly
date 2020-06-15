@@ -13,10 +13,10 @@ import ReimbursementDropDown from '../components/Request/Reimbursement';
 import Groceries from '../components/Request/Groceries';
 import GroceryButton from '../components/Request/GroceryButton';
 import GroceryList from '../components/Request/GroceryList';
-import TaskCompleted from '../components/Task/taskCompleted'
-import Task from '../components/Task/index'
-import Profile from '../components/Profile/index'
-import SignIn from '../components/SignIn'
+import TaskCompleted from '../components/Task/TaskCompleted';
+import Task from '../components/Task/index';
+import Profile from '../components/Profile/index';
+import SignIn from '../components/SignIn';
 
 
 
