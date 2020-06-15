@@ -31,51 +31,7 @@ const libraries = ["places"];
 
 
  export default function App(props) {
-<<<<<<< HEAD
-  const [state, setState] = useState ({
-    users: [],
-    requests: [],
-    leaderboard: []
-  });
 
-
-  const [logged, setLogged] = useState({
-    loggedInStatus: "Not logged in",
-    user: {}
-  });
- 
-  useEffect(() => {
-    checkLoginStatus()
-    Promise.all([
-    axios.get('http://localhost:3000/users'),
-    axios.get('http://localhost:3000/requests'),
-    axios.get('http://localhost:3000/leaderboard')
-    ])
-    .then((all) => {
-      setState(prev => ({
-        ...prev,
-        users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
-        })
-      .catch((error) => {
-        console.log(error)
-      })
-    }, []);
-
-    function checkLoginStatus() {
-      axios.get('http://localhost:3000/logged_in', { withCredentials: true }
-      ).then(response => {
-        if (response.data.logged_in && logged.loggedInStatus === "Not logged in") {
-          setLogged({
-            loggedInStatus: "Logged in",
-            user: response.data.user
-          })
-        } else if (!response.data.logged_in && logged.loggedInStatus === "Logged in") {
-          setLogged({
-            loggedInStatus: "Not logged in",
-            user: {}
-          })
-        }
-=======
   const {
     state, 
     handleLogin, 
@@ -90,7 +46,6 @@ const libraries = ["places"];
     setCoords,
     setDeliveryAddress
   } = useApplicationData()
->>>>>>> a85b84a82b0cfa0133820b1d103edf90b4687974
 
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
@@ -136,61 +91,6 @@ const libraries = ["places"];
      if (!isLoaded) return "Loading maps";
     
      return (
-<<<<<<< HEAD
-      <div> 
-        <Router>
-            <div>
-              <Navigation />
-              <Switch>
-                <Route exact path="/requests">
-                  <Request
-                    currentUser={logged.user}
-                    requests={state.requests}
-                  />
-                </Route>
-                <Route path="/requests/new">
-                  <NewRequest
-                  currentUser={logged.user}/>
-                </Route>
-                <Route path="/requests/:id">
-                  <Task
-                    currentUser={logged.user}
-                    requests={state.requests}
-                  />
-                </Route>
-                <Route path={`/requests/complete`}>
-                  <TaskCompleted/>
-                  </Route>  
-                <Route exact path="/leaderboard">
-                  <Leaderboard
-                    users={state.leaderboard}
-                  />
-                </Route>
-                <Route path ="/leaderboard/mostdeliveries">
-                  <MostDeliveries
-                  players={state.leaderboard}/>
-                </Route>
-      
-                <Route path="/profile">
-                  <Profile 
-                    currentUser={logged.user}
-                  />
-                </Route>
-               
-                <Route path="/">
-                  
-                  <Homepage 
-                    {...props} 
-                    handleLogin={handleLogin}
-                    handleLogout={handleLogout} 
-                    loggedInStatus={logged.loggedInStatus}
-                  />
-                </Route>
-              </Switch>
-            </div>
-      
-          </Router>
-=======
       <div>
       <Router>
       <div>
@@ -256,7 +156,6 @@ const libraries = ["places"];
       </div>
       </Router>
 
->>>>>>> a85b84a82b0cfa0133820b1d103edf90b4687974
         <h1>NBRLY</h1>
        
 
