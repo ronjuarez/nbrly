@@ -1,9 +1,33 @@
 import React, { useState } from "react";
 import {Grid, Input, Button, List, ListItem, ListItemText, Box } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { makeStyles } from '@material-ui/core/styles';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import styled from 'styled-components';
+
+const StyledList = styled(List)`
+margin-top: 10px;
+height: 200px;
+overflow-y: scroll;
+/* background: cornflowerblue; */
+color: grey;
+font-size: 20px;
+background: azure;
+`
+const NewItem = styled.li`
+  /* border: red 1px solid; */
+  display: flex;
+  padding: 5px 10px;
+
+  &:hover {
+    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.50);
+  }
+`
+
+
+const ButtonWrapper = styled.div`
+margin-left: auto;
+`
 
 export default function Groceries ({
   addItem,
@@ -29,18 +53,10 @@ export default function Groceries ({
 
   const groceryList = grocery.map((item, index) => 
   
-      <ListItem 
-      alignItems="flex-start">
-        <ListItemText>
+      <NewItem>
           {item}
-        </ListItemText>
-        
-        <Box 
-        ml="auto"
-        >
+        <ButtonWrapper>
           <Button 
-          
-          
           // className={classes.button}
           variant="contained"
           color="secondary"
@@ -49,29 +65,14 @@ export default function Groceries ({
         >
           Delete
         </Button>
-        </Box>
-        
-      </ListItem>
+        </ButtonWrapper>
+      </NewItem>
   )
 
   return (
-    <Grid 
-      style={{border:"1px solid blue"}}
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-      >
-      <Grid 
-      list>
-          <h5 style={{border:"1px solid blue"}}>Grocery List</h5>
-      </Grid>
-      <Grid>
-        <List>
-          {groceryList}
-        </List>
-
-        <form >
+      <div>
+      <h5>Grocery List:</h5>
+      <form >
           <Input 
           
             onChange={event => setText(event.target.value)} 
@@ -89,7 +90,10 @@ export default function Groceries ({
               />
           </Button>
         </form>
-      </Grid>
-    </Grid>
+        <StyledList>
+          {groceryList}
+        </StyledList>
+      </div>
+
   )
 }

@@ -6,11 +6,12 @@ import styled from 'styled-components';
 import Button from 'react-bootstrap/Button'
 
 const RequestHeader = styled.div`
-  padding: 10px 20px;
-  margin: 20px 0;
+  padding: 30px 20px;
+  /* margin: 20px 0; */
   display: flex;
   width: 100%;
   justify-content: space-around;
+  /* height: 10%; */
 `
 
 export default function Header(){

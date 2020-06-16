@@ -32,7 +32,8 @@ justify-content: space-around;
 
 
 const NavSpan = styled.span`
-font-size: 15px;`
+font-size: 15px;
+`
 
 export default function Navigation() {
     const home = <FontAwesomeIcon icon={faHome}/> 

@@ -61,7 +61,7 @@
     "bootstrap": "^4.5.0",
     "moment": "^2.26.0",
     "react-bootstrap": "^1.0.1",
-    "react-calendar": "^3.1.0",
+    "react-datepicker": "^3.0.0",
     "react-moment": "^0.9.7",
     "react-swipe-button": "^1.0.1"
   }

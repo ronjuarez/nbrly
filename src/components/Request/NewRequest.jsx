@@ -1,13 +1,12 @@
 import React, {useEffect}  from 'react';
-// import ReimbursementDropDown from './Reimbursement';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Groceries from './Groceries'
 import Header from './Header'
-// import { NavLink } from "react-router-dom";
-import { FormControl, FormHelperText, InputLabel, Button, Grid, Typography, Select, MenuItem } from '@material-ui/core';
-
-// import axios from 'axios';
+import { FormControl, FormHelperText, InputLabel, Button, Typography, Select, MenuItem } from '@material-ui/core';
+import Form from 'react-bootstrap/Form'
+import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
 import { useLoadScript} from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
@@ -24,6 +23,36 @@ import "@reach/combobox/styles.css";
 const libraries = ["places"];
 
 
+const GroceryContainer = styled(Form.Group)`
+height: 300px;
+margin-top: 10px;
+width: 100%;
+
+
+`
+const NewRequestContainer = styled.div`
+height: 80%;
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+flex-direction: column;
+padding: 0 30px;
+font-size: 20px;
+`
+const StyledDiv = styled.div`
+margin: 20px 0;
+width: 100%;
+`
+
+const StyledInputLabel = styled(InputLabel)`
+font-size: 20px;`
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    minWidth: 500,
+    font: 20,
+  },
+}));
 
 export default function NewRequest ({
   newRequest,
@@ -36,6 +65,7 @@ export default function NewRequest ({
   setCoords,
   setDeliveryAddress,
 }) {
+  const classes = useStyles();
 
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
@@ -55,11 +85,9 @@ export default function NewRequest ({
     })
     
     useEffect(() => {
-        console.log('value', value)
     }, [value])
 
     useEffect(() => {
-      console.log('new')
   }, [])
     return (
       <div>
@@ -82,7 +110,7 @@ export default function NewRequest ({
 
           
         <ComboboxInput
-          style={{width:"100%"}}
+          style={{width:"100%" }}
           value={value} 
           onChange={(e) => {setValue(e.target.value)}}
           setValue={setValue}
@@ -103,44 +131,35 @@ export default function NewRequest ({
   
      )
   }
+
+
    
-
-
-
-  return (
-    <Grid
-      container
-      direction="row"
-
-      >
-        <Header />
-      <Grid item 
-      xs={false}
-      sm={2}
-      />
-      <Grid
-        item
-        container
-        xs={12} 
-        sm={8}
-        direction="column"
-        justify="space-evenly"
-        alignItems="center"
-        >
-          <Typography variant="h3">Form</Typography>
-          <FormControl  
-          onSubmit={newRequest}
-          >
-        
-          <Typography>Delivery Address</Typography>
-
-            <div><Search/></div>
-
   
 
-      <FormControl>
-        <InputLabel>Reimbursement</InputLabel>
+  return (
+    <div>
+      <div>
+        <Header />
+      </div>
+      <NewRequestContainer>
+        <Typography variant="h3">Form</Typography>
+          <Form
+          onSubmit={newRequest}
+          >
+          <Form.Group>
+            <Form.Label>Delivery Address</Form.Label>
+            <Search/>
+            <Form.Text className="text-muted">
+              Please input a delivery address
+            </Form.Text>
+          </Form.Group>
+  
+
+      <StyledDiv>
+        <FormControl className={classes.formControl} >
+        <StyledInputLabel variant="outlined">Reimbursement</StyledInputLabel>
         <Select
+        style={{width:"100%" }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           name="reimbursement_type" 
@@ -156,31 +175,21 @@ export default function NewRequest ({
           <MenuItem value={"check"}>Check</MenuItem>
         </Select>
         <FormHelperText>Please choose a Reimbursement Method</FormHelperText>
-      </FormControl>
-    
-      {/* <select 
-        name="reimbursement_type" 
-        value={request.reimbursement_type} 
-        onChange={changeRequest}  
-      > 
-        <option selected name="reimbursement_type" value="">choose one</option>
-        <option name="reimbursement_type" value="cash">cash</option>
-        <option  name="reimbursement_type"value="prepaid">prepaid</option>
-        <option name="reimbursement_type" value="e-transfer">e-transfer</option>
-        <option name="reimbursement_type" value="check">check</option>
-      </select> */}
-      <div>
-        < br />
-        <Calendar 
-          minDate={new Date()}
+        </FormControl>
+      </StyledDiv>
+      <Form.Group>
+        <Form.Label>Delivery Date:</Form.Label>
+        <DatePicker
           value={requestDate}
-          onChange={setDate}
-          required
+          selected={requestDate}
+          onChange={date => setDate(date)}
+          minDate={new Date()}
+          isClearable
+          placeholderText="Please pick a date"
         />
-      </div>
-      <Grid 
-      item
-      >
+      </Form.Group>
+      
+      <GroceryContainer>
         <Groceries 
           name="items"
           value={request.items}
@@ -189,21 +198,15 @@ export default function NewRequest ({
           // onChange={changeRequest}
           required
         />
-      </Grid>
-      
-        <Button color="primary" variant="contained" type="submit">
+      </GroceryContainer>
+
+        <Button style={{width:"100%" }} color="primary" variant="contained" type="submit">
           Submit
         </Button>
-   
-        </FormControl>
 
-      </Grid>
-      <Grid 
-      xs={false}
-      sm={2}
-      />
-    </Grid>
-    
+        </Form>
+      </NewRequestContainer>
+    </div>
   )
 }
 

@@ -21,7 +21,7 @@ height: 900px;
 border: solid 3px grey;
 width: 600px;
 position: fixed;
-left: 700px;
+left: 500px;
 top: 50px;
 border-radius: 10px;
 `
@@ -82,7 +82,7 @@ width: 100%;
               addItem={addRequestItem}
               setCoords={setCoords}
               setDate={setRequestDate}
-              setDeliveryAddress={setDeliveryAddress}/> :
+              setDeliveryAddress={setDeliveryAddress}/>
               {/* <Redirect to ="/login"/>} */}
           </Route>
           <Route path={`/requests/:id/complete`}>
