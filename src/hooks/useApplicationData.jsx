@@ -7,6 +7,12 @@ export default function useApplicationData() {
 
   const [state, setState] = useState ({
     users: [],
+    user: {
+      name: "",
+      email: "",
+      password: "",
+      loginErrors: ""
+    },
     requests: [],
     request: {
       user_id: "",
@@ -119,6 +125,30 @@ export default function useApplicationData() {
         return (request.volunteer_id === user.id)
       })
     }
+
+
+
+    function newRegistration(event) {
+      axios.post("http://localhost:3000/registrations", {
+          user: {
+              name: state.user.name,
+              email: state.user.email,
+              password: state.user.password,
+              avatar: "https://robohash.org/sitsequiquia.png?size=300x300&set=set1"
+          }
+      },
+      { withCredentials: true }
+      ).then(response => {
+          if(response.data.status === 'created') {
+              handleLogin(response.data);
+          }
+      })
+      .catch(error => {
+          console.log("registration error", error);
+      });
+      event.preventDefault();
+  }
+
 
     function submitNewRequest(event) {
       axios.post("http://localhost:3000/requests", {
@@ -245,7 +275,8 @@ export default function useApplicationData() {
         assignVolunteer,
         setCoords,
         setDeliveryAddress,
-        confirmRequest
+        confirmRequest,
+        newRegistration
       }
     
     }

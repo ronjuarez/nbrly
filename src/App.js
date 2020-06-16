@@ -9,7 +9,7 @@ import Task from './components/Task';
 import TaskCompleted from './components/Task/TaskCompleted';
 import Profile from './components/Profile';
 import MostDeliveries from './components/Leaderboard/MostDeliveries';
-import  useApplicationData from "./hooks/useApplicationData";
+import useApplicationData from "./hooks/useApplicationData";
 import NewRequest from './components/Request/NewRequest'
 import Login from './components/auth/Login';
 import Registration from './components/auth/Registration';
@@ -32,7 +32,8 @@ import Registration from './components/auth/Registration';
     assignVolunteer,
     setCoords,
     setDeliveryAddress,
-    confirmRequest
+    confirmRequest,
+    newRegistration
   } = useApplicationData()
 
     
@@ -96,8 +97,10 @@ import Registration from './components/auth/Registration';
           <Route path="/register">         
             <Registration
               {...props} 
-              handleLogin={handleLogin}
+              handleSubmit={newRegistration}
               handleLogout={handleLogout}
+              handleChange={changeRequest}
+              user={state.user}
               loggedInStatus={state.logged.loggedInStatus}/>}
           </Route>
           <Route path="/login">         
@@ -110,14 +113,12 @@ import Registration from './components/auth/Registration';
               handleLogout={handleLogout}/>}
           </Route>
           <Route exact path="/">
-            {/* {state.logged.loggedInStatus ?          */}
               <Homepage 
                 {...props}
                 requests={state.requests}
                 handleLogin={handleLogin}
                 handleLogout={handleLogout} 
                 loggedInStatus={state.logged.loggedInStatus}/> 
-              {/* <Redirect to="/login"/>} */}
           </Route>
         </Switch>
       </div>
