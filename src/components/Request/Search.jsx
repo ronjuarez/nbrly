@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useLoadScript} from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -13,13 +12,6 @@ import {
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
 
-
-
-const libraries = ["places"];
-const {isLoaded, loadError} = useLoadScript({
-  googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
-   libraries 
-  })
   
 
   export default function Search({

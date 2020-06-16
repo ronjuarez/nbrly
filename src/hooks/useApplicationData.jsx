@@ -188,7 +188,7 @@ export default function useApplicationData() {
     setState(prev => ({
       ...prev, 
       request: {
-        ...prev.request.items, 
+        ...prev.request, 
         items: prev.request.items.filter((_, index) => index !== id)
       }
     }))
@@ -227,7 +227,7 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         request: {
-          ...prev.request.items, 
+          ...prev.request, 
           items:[...prev.request.items, item] 
         }  
       }))
