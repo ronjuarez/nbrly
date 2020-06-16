@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect}  from 'react';
 // import ReimbursementDropDown from './Reimbursement';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -52,6 +52,14 @@ export default function NewRequest ({
     } = usePlacesAutocomplete({
     
     })
+    
+    useEffect(() => {
+        console.log('value', value)
+    }, [value])
+
+    useEffect(() => {
+      console.log('new')
+  }, [])
     return (
       <div>
       <Combobox 
@@ -62,19 +70,16 @@ export default function NewRequest ({
             clearSuggestions();
             try {
               const results = await getGeocode({address})
-              // console.log(results[0].formatted_address)
               setDeliveryAddress(results[0].formatted_address)
-              const lat = await getLatLng(results[0])
-              const lng = await getLatLng(results[0])
-              const latitude = lat.lat;
-              const longitude = lng.lng;
-              // console.log(latitude, longitude)
-              setCoords(latitude, longitude)
+              const coords = await getLatLng(results[0])
+              setCoords(coords.lat, coords.lng)
         
             } catch(error) {
               console.log(error)
             }
           }}>
+
+          
         <ComboboxInput
           style={{width:"100%"}}
           value={value} 

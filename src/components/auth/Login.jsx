@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 export default function Login(props) {
@@ -28,7 +29,7 @@ export default function Login(props) {
         { withCredentials: true }
         ).then(response => {
             if(response.data.logged_in) {
-                props.handleSuccessfulAuth(response.data);
+                handleSuccessfulAuth(response.data);
             }
         })
         .catch(error => {
@@ -36,8 +37,28 @@ export default function Login(props) {
         });
         event.preventDefault();
     }
+
+    function handleLogoutClick() {
+        axios.delete('http://localhost:3000/logout', { withCredentials: true }
+        ).then(response => {
+            console.log(response)
+            props.handleLogout()
+        }).catch(error => {
+            console.log("logout error", error)
+        }) 
+    }
+
+    function handleSuccessfulAuth(data) {
+        props.handleLogin(data);
+    }
+
+    
+    console.log(props.currentUser)
+
     return (
+        
         <div>
+            <h1>Status: {props.loggedInStatus}</h1>
             <form onSubmit={handleSubmit}>
                 <input 
                     type="email" 
@@ -56,7 +77,12 @@ export default function Login(props) {
                     required 
                 />
                 <button type="submit">Login</button>
+                <div>
+                    <p>Don't have an account:<Link to="/register">Click to Register</Link></p>
+                </div>  
             </form>
+            
+            {props.currentUser.user &&  <button onClick={() => handleLogoutClick()}>Logout</button>}
         </div>
     )
 }

@@ -11,8 +11,9 @@ import Image from 'react-bootstrap/Image'
 
 export default function Profile ({
   currentUser,
-  getTask,
-  request
+  requests,
+  request,
+  confirmRequest
 }) {
 
   // Hardcoded Task

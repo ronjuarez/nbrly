@@ -20,7 +20,7 @@ export default function useApplicationData() {
     },
     leaderboard: [],
     logged: {
-      loggedInStatus: false,
+      loggedInStatus: "",
       user: {}
     },
     requestDate: new Date()
@@ -29,7 +29,7 @@ export default function useApplicationData() {
   function setCoords(lat, lon) {
     setState(prev => ({
     ...prev,
-      request:{ 
+      request: { 
         ...prev.request, 
         latitude: lat,
         longitude: lon
@@ -71,8 +71,9 @@ export default function useApplicationData() {
         if (response.data.logged_in && state.logged.loggedInStatus === "Not logged in") {
           setState(prev => ({
             ...prev,
-            logged: { 
-              loggedInStatus: true,
+            logged: {
+              ...prev.logged, 
+              loggedInStatus: "logged in",
               user: response.data.user 
           }
           }))
@@ -80,7 +81,8 @@ export default function useApplicationData() {
           setState(prev => ({
             ...prev,
             logged: { 
-              loggedInStatus: false,
+              ...prev.logged,
+              loggedInStatus: "Not logged in",
               user: {}
             }
           }))
@@ -94,7 +96,8 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         logged : {
-          loggedInStatus: true,
+          ...prev.logged,
+          loggedInStatus: "Logged in",
           user: data
         }
       }))
@@ -104,7 +107,8 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         logged : {
-          loggedInStatus: false,
+          ...prev.logged,
+          loggedInStatus: "Not logged in",
           user: {}  
         }
       }))
@@ -139,15 +143,15 @@ export default function useApplicationData() {
       event.preventDefault();
   }
   
-    function removeItem(id) {
-      setState (prev => ({
-        ...prev, 
-        request: (prev => ({
-          ...prev.request.items,
-          items: prev.request.items.filter((_, index) => index !== id)
-        }))
-      }))
-    }
+  function removeItem(id) {
+    setState(prev => ({
+      ...prev, 
+      request: {
+        ...prev.request, 
+        items: prev.request.items.filter((_, index) => index !== id)
+      }
+    }))
+  }
 
     function changeRequest(event) {
       const name = event.target.name;
@@ -161,7 +165,6 @@ export default function useApplicationData() {
     }
 
     function setRequestDate(value) {
-      console.log('this is a val', value)
       setState(prev => ({
         ...prev,
         requestDate: value
@@ -172,7 +175,7 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         request: {
-          ...prev.request.items, 
+          ...prev.request, 
           items:[...prev.request.items, item] 
         }  
       }))
@@ -197,8 +200,20 @@ export default function useApplicationData() {
       });
     }
 
+    function confirmRequest (arID) {
+      axios.put(`http://localhost:3000/requests/${arID}`, {
+        requester_confirmed_completion: true
+      })
+      .then(all => {
+        console.log('Request Completion Confirmed', all);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    
+    }
 
-    function updateDatabase (event, arID, user, itemsToCount) {
+    function updateDatabase (arID, user, itemsToCount) {
       Promise.all([ 
       axios.put(`http://localhost:3000/requests/${arID}`, {
         volunteer_completed_task: true
@@ -212,11 +227,11 @@ export default function useApplicationData() {
       .catch(error => {
         console.log(error);
       });
-      
-      event.preventDefault();
+    
   }
       return { 
         state, 
+        checkLoginStatus,
         handleLogin, 
         handleLogout,
         submitNewRequest, 
@@ -229,7 +244,8 @@ export default function useApplicationData() {
         getTask,
         assignVolunteer,
         setCoords,
-        setDeliveryAddress
+        setDeliveryAddress,
+        confirmRequest
       }
     
     }
