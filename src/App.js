@@ -19,7 +19,6 @@ import Registration from './components/auth/Registration';
 
   const {
     state,
-    checkLoginStatus, 
     handleLogin, 
     handleLogout,
     submitNewRequest,
