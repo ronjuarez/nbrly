@@ -1,44 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
-import Pointsbutton from './PointsButton';
+
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink } from 'react-router-dom';
 
 
+const LeaderHeader = styled.header`
+background: silver;
+justify-content: center;
+margin-bottom: 20px;
+border-radius: 2px;
+padding: 20px;
+color: white;
+`
+const LeaderDiv = styled.div`
+display:flex;
+flex-direction: row;
+
+
+`
+const LeaderTrophy = styled.p`
+color: orange;
+font-size: 100px;
+
+`
+
+const LeaderImg = styled.img`
+border-radius: 100%;
+margin: auto;
+`
 export default function Header({
   name,
   avatar,
   points  
 }) {
-console.log(points)
+
     const leaderboard = <FontAwesomeIcon icon={faTrophy}/> 
 
     return (
-        <header>
-            <div>
-                <NavLink to ="/leaderboard">
-                    <Pointsbutton>
-                        Highest Points
-                    </Pointsbutton>
-                </NavLink>
-                <NavLink to="leaderboard/mostdeliveries">
-                    <Pointsbutton>
-                        Most Deliveries
-                    </Pointsbutton>
-                </NavLink>
-            </div>
-            <div>
-                <div>
-                    <p>{leaderboard}</p>
-                    <p>{name}</p>
-                </div>
-                <img src={avatar}></img>
-                <div>
-                    <p>#1</p>
-                    <p>{points}</p>
-                </div>
-            </div>
-        </header>
+        <LeaderHeader>
+            <h1>{name}</h1>
+            <LeaderDiv>
+             
+                <h2>#1</h2>
+                <LeaderTrophy>{leaderboard}</LeaderTrophy>
+                <LeaderImg src={avatar}></LeaderImg>
+                
+                <p>{points}</p>
+            </LeaderDiv> 
+        </LeaderHeader>
     )
 }

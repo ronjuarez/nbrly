@@ -148,13 +148,12 @@ const libraries = ["places"];
               <Redirect to exact="/" />}
           </Route>
           <Route exact path="/">
-            {/* {state.logged.loggedInStatus ?         
-              <Redirect to="/requests" /> : */}
+  
                 <Homepage 
                   {...props} 
                   handleLogin={handleLogin}
                   handleLogout={handleLogout} 
-                  loggedInStatus={state.logged.loggedInStatus}/>}
+                  loggedInStatus={state.logged.loggedInStatus}/>
           </Route>
         </Switch>
       </div>
@@ -207,8 +206,9 @@ const libraries = ["places"];
         </InfoWindow>
       )}
       </GoogleMap>
-      </div>)
-
+      </div>
+    )
+}
 
 function Locate({panTo}) {
   return (
@@ -275,8 +275,5 @@ function Search({ panTo }) {
      
   </Combobox>
   )
-
-
-
-  }
 }
+

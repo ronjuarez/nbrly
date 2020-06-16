@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import {Grid, Input, Button, List, ListItem, ListItemText, Box } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/core/styles';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 
 export default function Groceries ({
   addItem,
   deleteItem,
 }) {
-  
+
   const [grocery, setGroceryList] = useState([])
 
   const [text, setText] = useState("")
@@ -24,32 +28,68 @@ export default function Groceries ({
 
 
   const groceryList = grocery.map((item, index) => 
-    <li>
-      {item}
-      <button className="btn btn-lg btn-outline-danger ml-4" onClick={()=> removeGroceryItem(index)}>Delete</button>
-  </li>)
+  
+      <ListItem 
+      alignItems="flex-start">
+        <ListItemText>
+          {item}
+        </ListItemText>
+        
+        <Box 
+        ml="auto"
+        >
+          <Button 
+          
+          
+          // className={classes.button}
+          variant="contained"
+          color="secondary"
+          startIcon={<DeleteIcon />}
+          onClick={()=> removeGroceryItem(index)}
+        >
+          Delete
+        </Button>
+        </Box>
+        
+      </ListItem>
+  )
 
   return (
-    <div>
-      <h1>Grocery List</h1>
-      <div>
-        <ul>
+    <Grid 
+      style={{border:"1px solid blue"}}
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      >
+      <Grid 
+      list>
+          <h1 style={{border:"1px solid blue"}}>Grocery List</h1>
+      </Grid>
+      <Grid>
+        <List>
           {groceryList}
-        </ul>
-       
+        </List>
+
         <form >
-          <input 
+          <Input 
+          
             onChange={event => setText(event.target.value)} 
             type="text" 
             name ="groceryList" 
             value={text}   
-            placeholder="Add a new item"/>
-            <button type="button" onClick={handleAddItem}>+</button>
-           
-        </form>
+            placeholder="Add a new item"
+            required 
+            />
 
-        
-      </div>
-    </div>
+          <Button 
+            type="button"
+            onClick={handleAddItem}>
+              <AddCircleOutlineIcon color="primary"
+              />
+          </Button>
+        </form>
+      </Grid>
+    </Grid>
   )
 }

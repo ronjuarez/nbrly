@@ -142,9 +142,9 @@ export default function useApplicationData() {
     function removeItem(id) {
       setState (prev => ({
         ...prev, 
-        requests: (prev => ({
-          ...prev,
-          items: prev.items.filter((_, index) => index !== id)
+        request: (prev => ({
+          ...prev.request.items,
+          items: prev.request.items.filter((_, index) => index !== id)
         }))
       }))
     }
@@ -172,7 +172,7 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         request: {
-          ...prev.request, 
+          ...prev.request.items, 
           items:[...prev.request.items, item] 
         }  
       }))

@@ -1,11 +1,13 @@
-import React, {useState, useEffect} from 'react';
-import ReimbursementDropDown from './Reimbursement';
+import React from 'react';
+// import ReimbursementDropDown from './Reimbursement';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Groceries from './Groceries'
-import { NavLink } from "react-router-dom";
-import axios from 'axios';
-import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
+// import { NavLink } from "react-router-dom";
+import { FormControl, FormHelperText, InputLabel, Button, Grid, Typography, Select, MenuItem } from '@material-ui/core';
+
+// import axios from 'axios';
+import { useLoadScript} from "@react-google-maps/api";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -17,7 +19,9 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
+import "@reach/combobox/styles.css";
 const libraries = ["places"];
+
 
 
 export default function NewRequest ({
@@ -51,6 +55,7 @@ export default function NewRequest ({
     return (
       <div>
       <Combobox 
+          
           onSelect={async (address) => {
             setValue(address, false);
             
@@ -71,10 +76,12 @@ export default function NewRequest ({
             }
           }}>
         <ComboboxInput
-        value={value} 
-        onChange={(e) => {setValue(e.target.value)}}
-        disabled={!ready}
-        placeholder="Enter your address"
+          style={{width:"100%"}}
+          value={value} 
+          onChange={(e) => {setValue(e.target.value)}}
+          setValue={setValue}
+          disabled={!ready}
+          placeholder="Enter your address"
         />
         <ComboboxPopover>
         <ComboboxList>
@@ -94,16 +101,57 @@ export default function NewRequest ({
 
 
 
-  return(
-    <form onSubmit={newRequest}>
-      <h1>Form</h1>
-      <label>Delivery Address</label>
-      <Search
+  return (
+    <Grid 
+      container
+      direction="row"
+
+      >
+      <Grid item 
+      xs={false}
+      sm={2}
       />
+      <Grid
+        item
+        container
+        xs={12} 
+        sm={8}
+        direction="column"
+        justify="space-evenly"
+        alignItems="center"
+        >
+          <Typography variant="h2">Form</Typography>
+          <FormControl  
+          onSubmit={newRequest}
+          >
+        
+          <Typography>Delivery Address</Typography>
 
+            <div><Search/></div>
+
+  
+
+      <FormControl>
+        <InputLabel>Reimbursement</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          name="reimbursement_type" 
+          value={request.reimbursement_type} 
+          onChange={changeRequest} 
+          inputProps={{ 'aria-label': 'label'}}
+          Placeholder="Reimbursement Method"
+
+        >
+          <MenuItem value={"cash"}>Cash</MenuItem>
+          <MenuItem value={"prepaid"}>Prepaid</MenuItem>
+          <MenuItem value={"e-transfer"}>E-transfer</MenuItem>
+          <MenuItem value={"check"}>Check</MenuItem>
+        </Select>
+        <FormHelperText>Please choose a Reimbursement Method</FormHelperText>
+      </FormControl>
     
-
-      <select 
+      {/* <select 
         name="reimbursement_type" 
         value={request.reimbursement_type} 
         onChange={changeRequest}  
@@ -113,28 +161,42 @@ export default function NewRequest ({
         <option  name="reimbursement_type"value="prepaid">prepaid</option>
         <option name="reimbursement_type" value="e-transfer">e-transfer</option>
         <option name="reimbursement_type" value="check">check</option>
-      </select>
+      </select> */}
       <div>
         < br />
-        <Calendar
+        <Calendar 
+          minDate={new Date()}
           value={requestDate}
           onChange={setDate}
           required
         />
       </div>
-      <Groceries 
-        name="items"
-        value={request.items}
-        deleteItem={removeItem}
-        addItem={addItem}
-        // onChange={changeRequest}
-        required
-      />
-        <button type="submit">
+      <Grid 
+      item
+      >
+        <Groceries 
+          name="items"
+          value={request.items}
+          deleteItem={removeItem}
+          addItem={addItem}
+          // onChange={changeRequest}
+          required
+        />
+      </Grid>
+      
+        <Button color="primary" variant="contained" type="submit">
           Submit
-        </button>
+        </Button>
    
-    </form>
+        </FormControl>
+
+      </Grid>
+      <Grid 
+      xs={false}
+      sm={2}
+      />
+    </Grid>
+    
   )
 }
 
