@@ -2,22 +2,22 @@ import React from "react";
 import styled from 'styled-components';
 
 const SignInForm = styled.form`
-display: flex;
-flex-direction: column;
-margin: 20px 50px;
-background: cornflowerblue;
-padding: 50px;
-border-radius: 20px;
-color: white;
-input { 
-  margin-bottom: 20px;
-  background: peachpuff;
-  border: none;
-}
-button{ 
-  padding: 0;
-  margin: 0;
-  border: none;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 50px;
+  background: cornflowerblue;
+  padding: 50px;
+  border-radius: 20px;
+  color: white;
+  input { 
+    margin-bottom: 20px;
+    background: peachpuff;
+    border: none;
+  }
+  button{ 
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 `
 

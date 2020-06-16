@@ -3,6 +3,7 @@ import React, {useEffect}  from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Groceries from './Groceries'
+import Header from './Header'
 // import { NavLink } from "react-router-dom";
 import { FormControl, FormHelperText, InputLabel, Button, Grid, Typography, Select, MenuItem } from '@material-ui/core';
 
@@ -107,11 +108,12 @@ export default function NewRequest ({
 
 
   return (
-    <Grid 
+    <Grid
       container
       direction="row"
 
       >
+        <Header />
       <Grid item 
       xs={false}
       sm={2}
@@ -125,7 +127,7 @@ export default function NewRequest ({
         justify="space-evenly"
         alignItems="center"
         >
-          <Typography variant="h2">Form</Typography>
+          <Typography variant="h3">Form</Typography>
           <FormControl  
           onSubmit={newRequest}
           >

@@ -6,29 +6,46 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const LeaderHeader = styled.header`
-background: silver;
-justify-content: center;
-margin-bottom: 20px;
-border-radius: 2px;
-padding: 20px;
-color: white;
+    background: royalblue;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    padding: 20px;
+    color: white;
+    height: 25%;
+    h1{
+        text-align: center;
+        margin: 0;
+    }
 `
 const LeaderDiv = styled.div`
-display:flex;
-flex-direction: row;
-
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
 `
 const LeaderTrophy = styled.p`
-color: orange;
-font-size: 100px;
+color: gold;
+font-size: 45px;
 
 `
 
 const LeaderImg = styled.img`
-border-radius: 100%;
-margin: auto;
+    border-radius: 100%;
+    height: 100px;
+    background: powderblue;
 `
+
+const LeaderImgContainer = styled.div`
+    height: 100%;
+    margin: 0 25px;
+`
+
+const LeaderPoints = styled.p`
+font-size: 45px;
+`
+
 export default function Header({
   name,
   avatar,
@@ -42,11 +59,13 @@ export default function Header({
             <h1>{name}</h1>
             <LeaderDiv>
              
-                <h2>#1</h2>
+                {/* <h2>#1</h2> */}
                 <LeaderTrophy>{leaderboard}</LeaderTrophy>
-                <LeaderImg src={avatar}></LeaderImg>
+                <LeaderImgContainer >
+                    <LeaderImg src={avatar}></LeaderImg>
+                </LeaderImgContainer>
                 
-                <p>{points}</p>
+                <LeaderPoints>{points}</LeaderPoints>
             </LeaderDiv> 
         </LeaderHeader>
     )

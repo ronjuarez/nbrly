@@ -7,30 +7,29 @@ const ListLeaderboard = styled.li`
     background: cornflowerblue;
     color: white;
     display: flex;
-    margin-bottom: 10px;
-    padding: 20px;
-    height: 80px;
     border-radius: 5px;
+    padding: 2px 10px;
     align-items: center;
- 
 `
 const Place = styled.h2`
-margin: auto;
-
+    float: left;
+    font-size: 25px;
+    margin: 0;
 `
 const AvatarImg = styled.img`
 border-radius: 100%;
-height: 150%;
-margin: 0 20px;
+height:50px;
+background: lightsteelblue;
+margin-left: 5px;
 `
 const RewardPMedal = styled.p`
-color: yellow;
+color: goldenrod;
 font-size: 30px;
 margin: 0; 
 
 `
 const RewardPRibbon = styled.p`
-color: pink;
+color: palegreen;
 font-size: 30px;
 margin: 0; 
 `
@@ -40,6 +39,8 @@ flex-grow: 3;
 text-align: center;
 margin: 0;
 padding: 10px;
+font-size: 20px;
+
 `
 
 export default function LeaderboardListItem({
@@ -62,10 +63,10 @@ export default function LeaderboardListItem({
     return (
         <ListLeaderboard>
             <Place>{position}</Place>
-            {reward(position)}
             <AvatarImg src={avatar}></AvatarImg>
             <LeaderName>{name}</LeaderName>
             <Place>{points}</Place>
+            {reward(position)}
         </ListLeaderboard>
     )
 }
