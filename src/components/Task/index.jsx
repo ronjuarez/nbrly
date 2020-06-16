@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { 
+import {
   useParams,
-  NavLink 
+  NavLink
 } from "react-router-dom";
 
 import ReactSwipeButton from 'react-swipe-button'
@@ -33,33 +33,33 @@ const GroceryLi = styled.li`
 
 
 
-export default function Task ({
+export default function Task({
   requests,
   currentUser,
   updateDatabase
 }) {
- console.log('current user', currentUser)
-  const onSuccess =()=> {
+  console.log('current user', currentUser)
+  const onSuccess = () => {
     console.log('Yay! Swipe Success');
   }
-  
+
   const { id } = useParams();
 
-  let index = requests.findIndex(obj => obj.id == id)
-  
+  let index = requests.findIndex(obj => obj.id === parseInt(id))
+
   const groceryList = requests && requests.length && requests[index].items.map(item => {
-    
-    return(
+
+    return (
       <GroceryLi>
-        <ReactSwipeButton 
+        <ReactSwipeButton
           text={item}
           color='cornflowerblue'
           onSuccess={onSuccess}
-        /> 
+        />
         <span>{item}</span>
-      
+
       </GroceryLi>
-      
+
     )
   })
 
@@ -68,10 +68,10 @@ export default function Task ({
       <h1>Task # {id}</h1>
       <h4>{currentUser.id}</h4>
       <GroceryUl>
-        <GroceryLi> 
-        Requesters Name:<span> </span>
+        <GroceryLi>
+          Requesters Name:<span> </span>
         </GroceryLi>
-  
+
         <GroceryLi>
           Delivery Address: <p>{requests && requests.length && requests[index].delivery_address}</p>
         </GroceryLi>
@@ -84,11 +84,11 @@ export default function Task ({
 
       </GroceryUl>
       {/* if you click completed, it will render the task completed page */}
-      
+
       <NavLink to={`/requests/${id}/complete`}>
-      <Button 
-        variant="success"
-        onClick={(event) => updateDatabase(id, currentUser.user, groceryList)}
+        <Button
+          variant="success"
+          onClick={(event) => updateDatabase(id, currentUser.user, groceryList)}
         > Completed
       </Button>
       </NavLink>
@@ -99,12 +99,12 @@ export default function Task ({
       </NavLink>
 
 
-     
+
     </Main>
   )
 
 
 }
- 
 
-  
+
+
