@@ -1,9 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect, } from 'react';
-import axios from 'axios';
-import Registration from '../auth/Registration';
-import Login from '../auth/Login';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import Geocode from "react-geocode";
+import { NavLink } from 'react-router-dom';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -15,6 +13,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
+import AcceptButton from '../Request/AcceptButton';
 const libraries = ["places"];
 
 export default function Homepage(props) {
@@ -97,6 +96,11 @@ export default function Homepage(props) {
                     <li>{item}</li>
                     ))}
                 </ul>
+                <NavLink to={`/requests/${selected.id}`}>
+                    <button onClick={props.assignVolunteer(selected.id, props.currentUser.id)} >
+                        Accept
+                    </button>
+                </NavLink>
             </div>
         </InfoWindow>
     )}

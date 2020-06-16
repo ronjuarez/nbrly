@@ -113,6 +113,8 @@ import Registration from './components/auth/Registration';
             {/* {state.logged.loggedInStatus ?          */}
               <Homepage 
                 {...props}
+                currentUser={state.logged.user}
+                assignVolunteer={assignVolunteer}
                 requests={state.requests}
                 handleLogin={handleLogin}
                 handleLogout={handleLogout} 
