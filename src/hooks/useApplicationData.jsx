@@ -98,6 +98,17 @@ export default function useApplicationData() {
         })
     }
 
+
+    function destroySession() {
+      axios.delete('http://localhost:3000/logout', { withCredentials: true }
+      ).then(response => {
+          console.log(response)
+          handleLogout()
+      }).catch(error => {
+          console.log("logout error", error)
+      }) 
+  }
+
     function handleLogin(data) {
       setState(prev => ({
         ...prev, 
@@ -217,6 +228,25 @@ export default function useApplicationData() {
       return (user.points + itemsLength * 100);
     }  
     
+    function createSession(event) {
+      axios.post("http://localhost:3000/sessions", {
+          user: {
+              email: user.email,
+              password: user.password,
+          }
+      },
+      { withCredentials: true }
+      ).then(response => {
+          if(response.data.logged_in) {
+              handleLogin(response.data);
+          }
+      })
+      .catch(error => {
+          console.log("login error", error);
+      });
+      event.preventDefault();
+    }
+    
 
     function assignVolunteer (arID, userID) {
       axios.put(`http://localhost:3000/requests/${arID}`, {
@@ -276,7 +306,9 @@ export default function useApplicationData() {
         setCoords,
         setDeliveryAddress,
         confirmRequest,
-        newRegistration
+        newRegistration,
+        createSession,
+        destroySession
       }
     
     }

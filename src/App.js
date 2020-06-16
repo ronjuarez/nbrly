@@ -33,7 +33,9 @@ import Registration from './components/auth/Registration';
     setCoords,
     setDeliveryAddress,
     confirmRequest,
-    newRegistration
+    newRegistration,
+    createSession,
+    destroySession
   } = useApplicationData()
 
     
@@ -64,9 +66,9 @@ import Registration from './components/auth/Registration';
           </Route>
           <Route path={`/requests/:id/complete`}>
             <TaskCompleted
-                currentUser={state.logged.user}
-                requests={state.requests}
-                addPoints={addPoints}/>
+              currentUser={state.logged.user}
+              requests={state.requests}
+              addPoints={addPoints}/>
           </Route>  
           <Route path="/requests/:id">
             {state.logged.loggedInStatus ?
@@ -106,19 +108,20 @@ import Registration from './components/auth/Registration';
           <Route path="/login">         
             <Login 
               {...props} 
-              checkLoginStatus={checkLoginStatus}
               currentUser={state.logged.user} 
-              handleLogin={handleLogin}
-              loggedInStatus={state.logged.loggedInStatus}
-              handleLogout={handleLogout}/>}
+              user={state.user}
+              handleSubmit={createSession}
+              handleLogoutClick={destroySession}
+              handleChange={changeRequest}
+              loggedInStatus={state.logged.loggedInStatus}/>}
           </Route>
           <Route exact path="/">
-              <Homepage 
-                {...props}
-                requests={state.requests}
-                handleLogin={handleLogin}
-                handleLogout={handleLogout} 
-                loggedInStatus={state.logged.loggedInStatus}/> 
+            <Homepage 
+              {...props}
+              requests={state.requests}
+              handleLogin={handleLogin}
+              handleLogout={handleLogout} 
+              loggedInStatus={state.logged.loggedInStatus}/> 
           </Route>
         </Switch>
       </div>
