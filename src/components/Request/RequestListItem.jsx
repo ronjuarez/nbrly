@@ -10,15 +10,29 @@ import Alert from '@material-ui/lab/Alert';
 
 const RequestLi = styled.li`
   color: white;
+  list-style: none;
   background: cornflowerblue;
-  list-style:none;
-  padding: 20px;
+  padding: 25px;
   border-radius: 40px;
-  display:u flex;
-  margin: 20px;
+  margin-bottom: 10px;
 `
-const RequestLiDiv = styled.div`
-padding: 20px;
+
+const RequestDivWrapper = styled.div`
+  display: flex;
+    
+`
+
+const RequestInfoDiv = styled.div`
+  /* display: flex;
+  flex-direction: row; */
+  padding: 10px;
+  p{
+    margin: 0;
+    font-size: 15px;
+  }
+  span{
+    font-weight: bold;
+  }
 `
 
 
@@ -42,7 +56,6 @@ export default function RequestListItem ({
       return "Large Pickup"
     }
   }
-  console.log()
   const earnedPoints = (requestData, completedDate) => {
     let itemsLength = requestData.length;
     let currentDate = new Date()
@@ -61,32 +74,35 @@ export default function RequestListItem ({
     let currentDate = new Date()
     if ( (moment(completedDate).diff(moment(currentDate), 'hours')) < 24 ) { 
       return (
-        <Alert variant="filled" severity="warning">Urgent!!</Alert>
+        <Alert 
+          variant="filled" 
+          severity="warning"
+          >Urgent!!
+        </Alert>
       ) 
     } 
     return 
   }
   
  
-  isUrgent(complete_by)
+
   return (
     <RequestLi>
-      <RequestLiDiv>
-        <h3>
-          {isUrgent(complete_by)}
-        </h3>
-        <h2>{pickup(items)}</h2>
-        <h4>Address: {delivery_address}</h4>
-        <h4>Date: <Moment format="MMM Do YYYY" date={complete_by}/>
-        </h4>
-        <h4>Reimbursement: {reimbursement_type}</h4>
-        <h3>{earnedPoints(items, complete_by)} points</h3>
-      </RequestLiDiv>
-      <AcceptButton 
-        id={id} 
-        addID={addID}
-        userID={userID}
-      />
+      {isUrgent(complete_by)}
+      <RequestDivWrapper>
+        <RequestInfoDiv>
+          <div><h3>{pickup(items)}</h3></div>
+          <div><p><span>Address:</span> {delivery_address}</p></div>
+          <div><p><span>Date:</span> <Moment format="MMM Do YYYY" date={complete_by}/></p></div>
+          <div><p><span>Reimbursement: </span>{reimbursement_type}</p></div>
+          <div><p><span>Points: </span>{earnedPoints(items, complete_by)}</p></div>
+        </RequestInfoDiv>
+        <AcceptButton 
+          id={id} 
+          addID={addID}
+          userID={userID}
+        />
+      </RequestDivWrapper>
     </RequestLi>
   )
 

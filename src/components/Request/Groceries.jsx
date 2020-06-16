@@ -64,7 +64,7 @@ export default function Groceries ({
       >
       <Grid 
       list>
-          <h1 style={{border:"1px solid blue"}}>Grocery List</h1>
+          <h5 style={{border:"1px solid blue"}}>Grocery List</h5>
       </Grid>
       <Grid>
         <List>

@@ -1,20 +1,27 @@
 import React from 'react';
 import RequestList from './RequestList';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
-// import NewRequest from "./NewRequest"
-import { NavLink } from "react-router-dom"
+import Header from './Header'
+import styled from 'styled-components';
 
+const ReqMain = styled.div`
+  width: 100%;
+  overflow: scroll;
+ 
+`
+const ReqUl = styled.div`
+  overflow:scroll;
+  width: 100%;
+  height: 700px;
+`
 
 export default function Request ({
   requests,
   assignVolunteer,
   currentUser
 }) {
-  const map = <FontAwesomeIcon icon={faMapMarkedAlt}/> 
+   
   
   const list = requests && requests.length && requests.map(task => {
-   
     return (
     <RequestList
       id={task.id}
@@ -28,19 +35,13 @@ export default function Request ({
     )
   })
   return (
-    <main>
-      <NavLink to ="/requests/new" >
-        <button>Request Form</button>
-      </NavLink>
-      <NavLink to ="/requests">
-        <button>Request List</button>
-      </NavLink>
-      <button>{map}</button>
-      <h1>Request</h1>
-      {list}
+    <ReqMain>
+      <Header/>
+      <ReqUl>
 
-    </main>
-    
+        {list}
+      </ReqUl>
+    </ReqMain>
   )
 
 }

@@ -4,18 +4,22 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 const Acceptbutton = styled.button` 
-font-size: 20px; 
-background:peachpuff;
-border-radius: 10px;
-border: 3px solid grey;
-color: darkgrey;
-margin: 20px;
-margin-left: auto;
-padding: 50px;
-width: 200px;
+  font-size: 20px; 
+  background:lightsalmon;
+  border-radius: 10px;
+  border: 3px solid grey;
+  color: dimgrey;
+  margin-left: auto;
+  padding: 20px;
+  width: 200px;
+  margin: auto;
 
 
 `
+const StyledNavLink = styled(NavLink)`
+  margin: auto;
+`
+
 
 export default function AcceptButton ({
   id,
@@ -24,10 +28,10 @@ export default function AcceptButton ({
 }) {
   
   return(
-    <NavLink to={`/requests/${id}`}>
+    <StyledNavLink to={`/requests/${id}`}>
       <Acceptbutton onClick={addID(id, userID)} >
         Accept
       </Acceptbutton>
-    </NavLink>
+    </StyledNavLink>
   )
 }
