@@ -26,7 +26,7 @@ export default function useApplicationData() {
     },
     leaderboard: [],
     logged: {
-      loggedInStatus: "",
+      loggedInStatus: "Not logged in",
       user: {}
     },
     requestDate: new Date()
@@ -61,6 +61,7 @@ export default function useApplicationData() {
     axios.get('http://localhost:3000/leaderboard')
     ])
     .then((all) => {
+      console.log(all)
       setState(prev => ({
         ...prev,
         users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
@@ -72,8 +73,11 @@ export default function useApplicationData() {
     }, []);
 
     function checkLoginStatus() {
+      console.log('hi')
       axios.get('http://localhost:3000/logged_in', { withCredentials: true }
       ).then(response => {
+        console.log(response)
+        console.log(state.logged.loggedInStatus)
         if (response.data.logged_in && state.logged.loggedInStatus === "Not logged in") {
           setState(prev => ({
             ...prev,
@@ -115,7 +119,7 @@ export default function useApplicationData() {
         logged : {
           ...prev.logged,
           loggedInStatus: "Logged in",
-          user: data
+          user: data.user
         }
       }))
     }
@@ -137,9 +141,11 @@ export default function useApplicationData() {
       })
     }
 
+    function handleSuccessfulAuth(data) {
+      handleLogin(data);
+    }
 
-
-    function newRegistration() {
+    function newRegistration(event) {
       axios.post("http://localhost:3000/registrations", {
           user: {
               name: state.user.name,
@@ -150,14 +156,15 @@ export default function useApplicationData() {
       },
       { withCredentials: true }
       ).then(response => {
+        console.log(response)
           if(response.data.status === 'created') {
-              handleLogin(response.data);
+            handleSuccessfulAuth(response.data);
           }
       })
       .catch(error => {
           console.log("registration error", error);
       });
-
+      event.preventDefault();
   }
 
 
@@ -188,7 +195,7 @@ export default function useApplicationData() {
     setState(prev => ({
       ...prev, 
       request: {
-        ...prev.request.items, 
+        ...prev.request, 
         items: prev.request.items.filter((_, index) => index !== id)
       }
     }))
@@ -211,6 +218,7 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev,
         user: {
+          ...prev.user,
           [name]: value
         }
       }))
@@ -227,7 +235,7 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         request: {
-          ...prev.request.items, 
+          ...prev.request, 
           items:[...prev.request.items, item] 
         }  
       }))
@@ -249,7 +257,7 @@ export default function useApplicationData() {
       { withCredentials: true }
       ).then(response => {
           if(response.data.logged_in) {
-              handleLogin(response.data);
+            handleSuccessfulAuth(response.data);
           }
       })
       .catch(error => {
@@ -302,9 +310,11 @@ export default function useApplicationData() {
   }
       return { 
         state, 
+        //handleChangeUser,
         checkLoginStatus,
         handleLogin, 
         handleLogout,
+        handleSuccessfulAuth,
         submitNewRequest, 
         changeRequest,
         changeUser,

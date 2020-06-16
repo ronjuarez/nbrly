@@ -1,26 +1,13 @@
-import React, {useEffect}  from 'react';
+import React from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Groceries from './Groceries'
-import Header from './Header'
-import { FormControl, FormHelperText, InputLabel, Button, Typography, Select, MenuItem } from '@material-ui/core';
-import Form from 'react-bootstrap/Form'
+import Groceries from './Groceries';
+import Header from './Header';
+import Search from './Search';
+import { FormControl, FormHelperText, InputLabel, Button, Grid, Typography, Select, MenuItem } from '@material-ui/core';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
-import { useLoadScript} from "@react-google-maps/api";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import "@reach/combobox/styles.css";
-const libraries = ["places"];
+import Form from 'react-bootstrap/Form'
 
 
 const GroceryContainer = styled(Form.Group)`
@@ -67,74 +54,7 @@ export default function NewRequest ({
 }) {
   const classes = useStyles();
 
-  const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
-     libraries 
-    })
-    
-
-  function Search() {
-    const {
-      ready,  
-      value, 
-      suggestions: {status, data}, 
-      setValue, 
-      clearSuggestions
-    } = usePlacesAutocomplete({
-    
-    })
-    
-    useEffect(() => {
-    }, [value])
-
-    useEffect(() => {
-  }, [])
-    return (
-      <div>
-      <Combobox 
-          
-          onSelect={async (address) => {
-            setValue(address, false);
-            
-            clearSuggestions();
-            try {
-              const results = await getGeocode({address})
-              setDeliveryAddress(results[0].formatted_address)
-              const coords = await getLatLng(results[0])
-              setCoords(coords.lat, coords.lng)
-        
-            } catch(error) {
-              console.log(error)
-            }
-          }}>
-
-          
-        <ComboboxInput
-          style={{width:"100%" }}
-          value={value} 
-          onChange={(e) => {setValue(e.target.value)}}
-          setValue={setValue}
-          disabled={!ready}
-          placeholder="Enter your address"
-        />
-        <ComboboxPopover>
-        <ComboboxList>
-          {status === "OK" && data.map(({id, description}) => 
-          (<ComboboxOption key={id} value ={description}/>
-          ))}
-          </ComboboxList>
-  
-        </ComboboxPopover>
-      </Combobox>
-      </div>
-      
-  
-     )
-  }
-
-
-   
-  
+ 
 
   return (
     <div>
@@ -148,7 +68,9 @@ export default function NewRequest ({
           >
           <Form.Group>
             <Form.Label>Delivery Address</Form.Label>
-            <Search/>
+            <Search 
+            setCoords={setCoords} 
+            setAddress={setDeliveryAddress}/>
             <Form.Text className="text-muted">
               Please input a delivery address
             </Form.Text>
@@ -195,7 +117,6 @@ export default function NewRequest ({
           value={request.items}
           deleteItem={removeItem}
           addItem={addItem}
-          // onChange={changeRequest}
           required
         />
       </GroceryContainer>

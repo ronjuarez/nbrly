@@ -12,8 +12,6 @@ export default function Login({
     currentUser,
 }) {
 
-    console.log(user)
-
     return (
         
         <div>
@@ -35,13 +33,13 @@ export default function Login({
                     onChange={handleChange} 
                     required 
                 />
-                <Link to ="/profile"><button type="submit">Login</button></Link>
+                <button type="submit">Login</button>
                 <div>
                     <p>Don't have an account:<Link to="/register">Click to Register</Link></p>
                 </div>  
             </form>
             
-            {currentUser.user &&  <button onClick={() => handleLogoutClick()}>Logout</button>}
+            {currentUser && <button onClick={() => handleLogoutClick()}>Logout</button>}
         </div>
     )
 }
