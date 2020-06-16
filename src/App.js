@@ -11,7 +11,9 @@ import TaskCompleted from './components/Task/TaskCompleted';
 import Profile from './components/Profile';
 import MostDeliveries from './components/Leaderboard/MostDeliveries';
 import  useApplicationData from "./hooks/useApplicationData";
-import NewRequest from './components/Request/NewRequest'
+import NewRequest from './components/Request/NewRequest';
+import Registration from './components/auth/Registration';
+import Login from './components/auth/Login';
 
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import Geocode from "react-geocode";
@@ -32,7 +34,8 @@ const libraries = ["places"];
  export default function App(props) {
 
   const {
-    state, 
+    state,
+    checkLoginStatus, 
     handleLogin, 
     handleLogout,
     submitNewRequest,
@@ -48,48 +51,48 @@ const libraries = ["places"];
     setDeliveryAddress
   } = useApplicationData()
 
-  const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
-      libraries 
-      })
+  // const {isLoaded, loadError} = useLoadScript({
+  //   googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
+  //     libraries 
+  //     })
       
-  const mapContainerStyle= { 
-    width: '100vw',
-    height: "100vh"
-  }
+  // const mapContainerStyle= { 
+  //   width: '100vw',
+  //   height: "100vh"
+  // }
   
-  const center = { 
-    lat: 43.653225,
-    lng: -79.383186
-  };
+  // const center = { 
+  //   lat: 43.653225,
+  //   lng: -79.383186
+  // };
   
-  const [markers, setMarkers] = useState([]);
-  const[selected, setSelected] = useState(null);
+  // const [markers, setMarkers] = useState([]);
+  // const[selected, setSelected] = useState(null);
 
-  const onMapClick = useCallback((event) => {
-    setMarkers(current => [...current, {
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(), 
-      time: new Date()
-    }])
-  }, [])
+  // const onMapClick = useCallback((event) => {
+  //   setMarkers(current => [...current, {
+  //     lat: event.latLng.lat(),
+  //     lng: event.latLng.lng(), 
+  //     time: new Date()
+  //   }])
+  // }, [])
 
-  const mapRef = useRef();
+  // const mapRef = useRef();
 
-  const onMapLoad= useCallback((map) => {
-    mapRef.current = map;
-  }, [])
+  // const onMapLoad= useCallback((map) => {
+  //   mapRef.current = map;
+  // }, [])
    
-  const panTo = useCallback(({lat, lng}) => {
-    mapRef.current.panTo({lat, lng});
+  // const panTo = useCallback(({lat, lng}) => {
+  //   mapRef.current.panTo({lat, lng});
     
-  }, []);
+  // }, []);
 
   
   
 
-     if (loadError) return "Error loading maps";
-     if (!isLoaded) return "Loading maps";
+  //    if (loadError) return "Error loading maps";
+  //    if (!isLoaded) return "Loading maps";
     
      return (
       <div>
@@ -147,27 +150,38 @@ const libraries = ["places"];
                 getTask={getTask}/> : 
               <Redirect to exact="/" />}
           </Route>
+          <Route exact path="/register">
+            <Registration 
+             {...props} 
+              handleLogin={handleLogin}
+              handleLogout={handleLogout}
+              loggedInStatus={state.logged.loggedInStatus}
+            />
+          </Route>
+          <Route exact path="/login">
+            <Login
+             {...props}
+             checkLoginStatus={checkLoginStatus}
+             currentUser={state.logged.user} 
+              handleLogin={handleLogin}
+              loggedInStatus={state.logged.loggedInStatus}
+              handleLogout={handleLogout}
+            />
+          </Route>
           <Route exact path="/">
             {/* {state.logged.loggedInStatus ?         
               <Redirect to="/requests" /> : */}
-                <Homepage 
-                  {...props} 
-                  handleLogin={handleLogin}
-                  handleLogout={handleLogout} 
-                  loggedInStatus={state.logged.loggedInStatus}/>}
+                <Homepage
+                  requests={state.requests}
+                />
           </Route>
         </Switch>
       </div>
       </Router>
 
-        <h1>NBRLY</h1>
-       
-
-
+        {/* <h1>NBRLY</h1>
         <Search panTo={panTo} />
         <Locate panTo={panTo} />
-
-
       <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
         zoom={8}  
@@ -206,77 +220,77 @@ const libraries = ["places"];
           </div>
         </InfoWindow>
       )}
-      </GoogleMap>
+      </GoogleMap> */}
       </div>)
 
 
-function Locate({panTo}) {
-  return (
-  <button  
-  onClick={() => {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        // console.log(position)
-        panTo({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      },
-      () => null
-    );
-  }}
-  >HElloooo</button>
-  )
-}
+// function Locate({panTo}) {
+//   return (
+//   <button  
+//   onClick={() => {
+//     navigator.geolocation.getCurrentPosition(
+//       (position) => {
+  
+//         panTo({
+//           lat: position.coords.latitude,
+//           lng: position.coords.longitude,
+//         });
+//       },
+//       () => null
+//     );
+//   }}
+//   >Submit</button>
+//   )
+// }
 
 
-function Search({ panTo }) {
-  const {
-    ready,
-    value, 
-    suggestions: {status, data}, 
-    setValue, 
-    clearSuggestions } = usePlacesAutocomplete({
-      requestOptions:{
-        location: { lat: () => 43.653225, lng: () => -79.383186},
-         radius: 200 * 1000,
-    },
-  })
-  return (
-  <Combobox 
-    onSelect={async (address) => {
-      setValue(address, false);
-      clearSuggestions()
+// function Search({ panTo }) {
+//   const {
+//     ready,
+//     value, 
+//     suggestions: {status, data}, 
+//     setValue, 
+//     clearSuggestions } = usePlacesAutocomplete({
+//       requestOptions:{
+//         location: { lat: () => 43.653225, lng: () => -79.383186},
+//          radius: 200 * 1000,
+//     },
+//   })
+//   return (
+//   <Combobox 
+//     onSelect={async (address) => {
+//       setValue(address, false);
+//       clearSuggestions()
 
-    try {
-      const results = await getGeocode({address});
-      // console.log(results[0])
-      const { lat, lng } = await getLatLng(results[0]);
-      panTo({ lat, lng })
-    } catch(error){
-      console.log("error!")
-    }
+//     try {
+//       const results = await getGeocode({address});
+//       // console.log(results[0])
+//       const { lat, lng } = await getLatLng(results[0]);
+//       panTo({ lat, lng })
+//     } catch(error){
+//       console.log("error!")
+//     }
     
-    }}>
-      <ComboboxInput 
-      value={value} 
-      onChange={(e) => {setValue(e.target.value)}}
-      disabled={!ready}
-      placeholder="Enter an address"
-      />
-      <ComboboxPopover>
-        <ComboboxList>
-        {status === "OK" && data.map(({id, description}) => 
-        (<ComboboxOption key={id} value ={description}/>
-        ))}
-        </ComboboxList>
+//     }}>
+//       <ComboboxInput 
+//       value={value} 
+//       onChange={(e) => {setValue(e.target.value)}}
+//       disabled={!ready}
+//       placeholder="Enter an address"
+//       />
+//       <ComboboxPopover>
+//         <ComboboxList>
+//         {status === "OK" && data.map(({id, description}) => 
+//         (<ComboboxOption key={id} value ={description}/>
+//         ))}
+//         </ComboboxList>
 
-      </ComboboxPopover>
+//       </ComboboxPopover>
      
-  </Combobox>
-  )
+//   </Combobox>
+//   )
 
 
 
-  }
+ // }
 }

@@ -12,6 +12,10 @@ export default function Registration(props) {
         errors: ""
     })
 
+    function handleSuccessfulAuth(data) {
+        props.handleLogin(data);
+    }
+
     function handleChange(event) {
         const name = event.target.name
         const value = event.target.value
@@ -32,7 +36,7 @@ export default function Registration(props) {
         { withCredentials: true }
         ).then(response => {
             if(response.data.status === 'created') {
-                props.handleSuccessfulAuth(response.data);
+                handleSuccessfulAuth(response.data);
             }
         })
         .catch(error => {
@@ -42,6 +46,7 @@ export default function Registration(props) {
     }
     return (
         <div>
+            <h3>Status: {props.loggedInStatus}</h3>
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 
@@ -50,7 +55,7 @@ export default function Registration(props) {
                     value={user.name} 
                     onChange={handleChange} 
                     required 
-                />
+                /><br/>
                 <input 
                     type="email" 
                     name="email" 
@@ -58,7 +63,7 @@ export default function Registration(props) {
                     value={user.email} 
                     onChange={handleChange} 
                     required 
-                />
+                /><br/>
                  <input 
                     type="password" 
                     name="password" 
@@ -66,7 +71,7 @@ export default function Registration(props) {
                     value={user.password} 
                     onChange={handleChange} 
                     required 
-                />
+                /><br/>
                 <button type="submit">Register</button>
             </form>
         </div>
