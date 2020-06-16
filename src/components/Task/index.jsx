@@ -85,13 +85,13 @@ export default function Task ({
       </GroceryUl>
       {/* if you click completed, it will render the task completed page */}
       
-      {/* <NavLink to={`/requests/complete`}> */}
+      <NavLink to={`/requests/${id}/complete`}>
       <Button 
         variant="success"
-        onClick={(event) => updateDatabase(event, id, currentUser, groceryList)}
+        onClick={(event) => updateDatabase(id, currentUser.user, groceryList)}
         > Completed
       </Button>
-      {/* </NavLink> */}
+      </NavLink>
       < br />
       < br />
       <NavLink to="/requests">

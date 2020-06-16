@@ -62,8 +62,8 @@ const libraries = ["places"];
     lat: 43.653225,
     lng: -79.383186
   };
-  
-  const [markers, setMarkers] = useState([]);
+ const [markers, setMarkers] = useState([]);  
+ 
   const[selected, setSelected] = useState(null);
 
   const onMapClick = useCallback((event) => {
@@ -118,6 +118,13 @@ const libraries = ["places"];
               setDeliveryAddress={setDeliveryAddress}              
             />
           </Route>
+          <Route path={`/requests/:id/complete`}>
+            <TaskCompleted
+                currentUser={state.logged.user}
+                requests={state.requests}
+                addPoints={addPoints}
+            />
+          </Route>  
           <Route path="/requests/:id">
             {state.logged.loggedInStatus ?
               <Task
@@ -127,9 +134,7 @@ const libraries = ["places"];
                 updateDatabase={updateDatabase}/> :
               <Redirect to exact="/"/>}
           </Route>
-          <Route path={`/requests/complete`}>
-            <TaskCompleted/>
-          </Route>  
+
           <Route exact path="/leaderboard">
             <Leaderboard
               users={state.leaderboard}/>

@@ -29,7 +29,7 @@ export default function useApplicationData() {
   function setCoords(lat, lon) {
     setState(prev => ({
     ...prev,
-      request:{ 
+      request: { 
         ...prev.request, 
         latitude: lat,
         longitude: lon
@@ -140,12 +140,13 @@ export default function useApplicationData() {
   }
   
     function removeItem(id) {
-      setState (prev => ({
+      setState(prev => ({
         ...prev, 
-        requests: (prev => ({
-          ...prev,
-          items: prev.items.filter((_, index) => index !== id)
-        }))
+        request: {
+          ...prev.request.items, 
+          items: {...prev.request.items.filter((_, index) => index !== id)
+          }
+        }
       }))
     }
 
@@ -161,7 +162,6 @@ export default function useApplicationData() {
     }
 
     function setRequestDate(value) {
-      console.log('this is a val', value)
       setState(prev => ({
         ...prev,
         requestDate: value
@@ -172,7 +172,7 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         request: {
-          ...prev.request, 
+          ...prev.request.items, 
           items:[...prev.request.items, item] 
         }  
       }))
@@ -198,7 +198,7 @@ export default function useApplicationData() {
     }
 
 
-    function updateDatabase (event, arID, user, itemsToCount) {
+    function updateDatabase (arID, user, itemsToCount) {
       Promise.all([ 
       axios.put(`http://localhost:3000/requests/${arID}`, {
         volunteer_completed_task: true
@@ -212,8 +212,7 @@ export default function useApplicationData() {
       .catch(error => {
         console.log(error);
       });
-      
-      event.preventDefault();
+    
   }
       return { 
         state, 
