@@ -12,7 +12,8 @@ import Profile from './components/Profile';
 import MostDeliveries from './components/Leaderboard/MostDeliveries';
 import  useApplicationData from "./hooks/useApplicationData";
 import NewRequest from './components/Request/NewRequest'
-
+import Login from './components/auth/Login';
+import Registration from './components/auth/Registration';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import Geocode from "react-geocode";
 import usePlacesAutocomplete, {
@@ -26,6 +27,7 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
+
 const libraries = ["places"];
 
 
@@ -101,8 +103,7 @@ const libraries = ["places"];
             <Request
               requests={state.requests}
               currentUser={state.logged.user}
-              assignVolunteer={assignVolunteer}
-            />
+              assignVolunteer={assignVolunteer}/>
           </Route>
           <Route path="/requests/new">
             <NewRequest
@@ -115,15 +116,13 @@ const libraries = ["places"];
               addItem={addRequestItem}
               setCoords={setCoords}
               setDate={setRequestDate}
-              setDeliveryAddress={setDeliveryAddress}              
-            />
+              setDeliveryAddress={setDeliveryAddress}/>
           </Route>
           <Route path={`/requests/:id/complete`}>
             <TaskCompleted
                 currentUser={state.logged.user}
                 requests={state.requests}
-                addPoints={addPoints}
-            />
+                addPoints={addPoints}/>
           </Route>  
           <Route path="/requests/:id">
             {state.logged.loggedInStatus ?
@@ -134,7 +133,6 @@ const libraries = ["places"];
                 updateDatabase={updateDatabase}/> :
               <Redirect to exact="/"/>}
           </Route>
-
           <Route exact path="/leaderboard">
             <Leaderboard
               users={state.leaderboard}/>
@@ -143,7 +141,6 @@ const libraries = ["places"];
             <MostDeliveries
               players={state.leaderboard}/>
           </Route>
-  
           <Route path="/profile">
             {state.logged.loggedInStatus ?
               <Profile 
@@ -153,14 +150,23 @@ const libraries = ["places"];
                 confirmRequest={confirmRequest}/> : 
               <Redirect to exact="/" />}
           </Route>
+          <Route path="/register">         
+              <Registration/>}
+          </Route>
+          <Route path="/login">         
+              <Login 
+                {...props} 
+                handleLogin={handleLogin}
+                handleLogout={handleLogout}/>}
+          </Route>
           <Route exact path="/">
-            {/* {state.logged.loggedInStatus ?         
-              <Redirect to="/requests" /> : */}
-                <Homepage 
-                  {...props} 
-                  handleLogin={handleLogin}
-                  handleLogout={handleLogout} 
-                  loggedInStatus={state.logged.loggedInStatus}/>}
+            {state.logged.loggedInStatus ?         
+              <Homepage 
+                {...props} 
+                handleLogin={handleLogin}
+                handleLogout={handleLogout} 
+                loggedInStatus={state.logged.loggedInStatus}/> :
+              <Redirect to="/login"/>}
           </Route>
         </Switch>
       </div>
