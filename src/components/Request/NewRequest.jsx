@@ -46,6 +46,14 @@ export default function NewRequest ({
     } = usePlacesAutocomplete({
     
     })
+    
+    useEffect(() => {
+        console.log('value', value)
+    }, [value])
+
+    useEffect(() => {
+      console.log('new')
+  }, [])
     return (
       <div>
       <Combobox 
@@ -63,6 +71,8 @@ export default function NewRequest ({
               console.log(error)
             }
           }}>
+
+          
         <ComboboxInput
         value={value} 
         onChange={(e) => {setValue(e.target.value)}}

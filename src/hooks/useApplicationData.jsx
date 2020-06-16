@@ -20,7 +20,7 @@ export default function useApplicationData() {
     },
     leaderboard: [],
     logged: {
-      loggedInStatus: false,
+      loggedInStatus: "",
       user: {}
     },
     requestDate: new Date()
@@ -71,8 +71,9 @@ export default function useApplicationData() {
         if (response.data.logged_in && state.logged.loggedInStatus === "Not logged in") {
           setState(prev => ({
             ...prev,
-            logged: { 
-              loggedInStatus: true,
+            logged: {
+              ...prev.logged, 
+              loggedInStatus: "logged in",
               user: response.data.user 
           }
           }))
@@ -80,7 +81,8 @@ export default function useApplicationData() {
           setState(prev => ({
             ...prev,
             logged: { 
-              loggedInStatus: false,
+              ...prev.logged,
+              loggedInStatus: "Not logged in",
               user: {}
             }
           }))
@@ -94,7 +96,8 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         logged : {
-          loggedInStatus: true,
+          ...prev.logged,
+          loggedInStatus: "Logged in",
           user: data
         }
       }))
@@ -104,7 +107,8 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         logged : {
-          loggedInStatus: false,
+          ...prev.logged,
+          loggedInStatus: "Not logged in",
           user: {}  
         }
       }))
@@ -228,6 +232,7 @@ export default function useApplicationData() {
   }
       return { 
         state, 
+        checkLoginStatus,
         handleLogin, 
         handleLogout,
         submitNewRequest, 
