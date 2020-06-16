@@ -16,7 +16,7 @@ export default function RequestList ({
 }) {
   
 return(
-    <ul> 
+
       <RequestListItem 
         id={id}
         delivery_address={delivery_address}
@@ -26,6 +26,5 @@ return(
         addID={addID}
         userID={userID}
       />
-    </ul>
   )
 }

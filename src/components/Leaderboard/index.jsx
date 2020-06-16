@@ -5,9 +5,14 @@ import styled from 'styled-components';
 import Pointsbutton from './PointsButton';
 import { NavLink } from 'react-router-dom';
 
-const Main = styled.main`
-margin: 10px 30px;
-border: 1px solid blue; 
+const Main = styled.div`
+    margin: 0;
+    /* border: 2px solid blue;  */
+    height: 100%;
+
+`
+const LeaderboardContainer = styled.div`
+    height: 70%;
 `
 
 export default function Leaderboard (props) {
@@ -31,9 +36,9 @@ export default function Leaderboard (props) {
                 name = {props.users && props.users.length && props.users[0].name}
                 avatar = {props.users && props.users.length && props.users[0].avatar}
                 points = {props.users && props.users.length && props.users[0].points}/>
-            <div>
+            <LeaderboardContainer>
                 <LeaderboardList players = {props.users}/>
-            </div>
+            </LeaderboardContainer>
         </Main>
     )
 

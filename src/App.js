@@ -14,6 +14,25 @@ import NewRequest from './components/Request/NewRequest'
 import Login from './components/auth/Login';
 import Registration from './components/auth/Registration';
 
+import styled from 'styled-components';
+
+const MainApp = styled.main`
+height: 900px;
+border: solid 3px grey;
+width: 600px;
+position: fixed;
+left: 700px;
+top: 50px;
+border-radius: 10px;
+`
+const Section = styled.section`
+height: 90%;
+width: 100%;
+`
+const StyledNav = styled.div`
+height: 10%;
+width: 100%;
+`
 
  export default function App(props) {
 
@@ -39,10 +58,10 @@ import Registration from './components/auth/Registration';
 
     
      return (
-      <div>
+      <MainApp>
       <Router>
-      <div>
-        <Navigation />
+       
+        <Section>
         <Switch>
           <Route exact path="/requests">
             <Request
@@ -115,16 +134,23 @@ import Registration from './components/auth/Registration';
               loggedInStatus={state.logged.loggedInStatus}/>}
           </Route>
           <Route exact path="/">
-            <Homepage 
-              {...props}
-              requests={state.requests}
-              handleLogin={handleLogin}
-              handleLogout={handleLogout} 
-              loggedInStatus={state.logged.loggedInStatus}/> 
+            {/* {state.logged.loggedInStatus ?          */}
+              <Homepage 
+                {...props}
+                currentUser={state.logged.user}
+                assignVolunteer={assignVolunteer}
+                requests={state.requests}
+                handleLogin={handleLogin}
+                handleLogout={handleLogout} 
+                loggedInStatus={state.logged.loggedInStatus}/> 
+              {/* <Redirect to="/login"/>} */}
           </Route>
         </Switch>
-      </div>
+        </Section>
+        <StyledNav>
+          <Navigation />
+        </StyledNav>
       </Router>
-    </div> 
+    </MainApp> 
     )
   }

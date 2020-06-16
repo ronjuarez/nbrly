@@ -1,9 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect, } from 'react';
-import axios from 'axios';
-import Registration from '../auth/Registration';
-import Login from '../auth/Login';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 import Geocode from "react-geocode";
+import { NavLink } from 'react-router-dom';
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -15,7 +13,12 @@ import {
   ComboboxList,
   ComboboxOption,
 } from "@reach/combobox";
+import AcceptButton from '../Request/AcceptButton';
 const libraries = ["places"];
+
+// const MapDiv = style.div`
+
+// `
 
 export default function Homepage(props) {
     
@@ -26,8 +29,7 @@ export default function Homepage(props) {
     });
 
     const mapContainerStyle= { 
-        width: '100vw',
-        height: "100vh"
+        height: "800px"
     };
 
     const center = { 
@@ -59,9 +61,6 @@ export default function Homepage(props) {
 
   return (
     <div>
-    <h1>NBRLY</h1>
-    
-    
     <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
         zoom={8}  
@@ -69,7 +68,7 @@ export default function Homepage(props) {
         onClick={onMapClick}
         onLoad={onMapLoad}
     >
-      {props.requests.map(request => (
+        {props.requests.map(request => (
         <Marker
             key={request.id}
             position={{lat: request.latitude, lng: request.longitude}}
@@ -77,17 +76,16 @@ export default function Homepage(props) {
             setSelected(request)
             }}
         />
-    ))}
-
-    {selected && (
-        <InfoWindow
-            position={{
-            lat: selected.latitude, lng: selected.longitude
+        ))}
+        {selected && (
+            <InfoWindow
+                position={{
+                lat: selected.latitude, lng: selected.longitude
+                }}
+                onCloseClick={()=> {
+                setSelected(null);
             }}
-            onCloseClick={()=> {
-            setSelected(null);
-            }}
-        >
+            >
             <div>
                 <h4>Delivery Address</h4>
                 <p>{selected.delivery_address}</p>
@@ -97,10 +95,15 @@ export default function Homepage(props) {
                     <li>{item}</li>
                     ))}
                 </ul>
+                <NavLink to={`/requests/${selected.id}`}>
+                    <button onClick={props.assignVolunteer(selected.id, props.currentUser.id)} >
+                        Accept
+                    </button>
+                </NavLink>
             </div>
-        </InfoWindow>
-    )}
-  </GoogleMap>
+            </InfoWindow>
+         )}
+        </GoogleMap>
     </div>
     )
 }
