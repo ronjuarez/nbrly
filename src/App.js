@@ -38,6 +38,8 @@ width: 100%;
 
   const {
     state,
+    handleChangeUser,
+    handleSuccessfulAuth,
     handleLogin, 
     handleLogout,
     submitNewRequest,
@@ -56,8 +58,7 @@ width: 100%;
     destroySession,
     changeUser
   } = useApplicationData()
-
-    
+ 
      return (
       <MainApp>
       <Router>
@@ -119,11 +120,12 @@ width: 100%;
           </Route>
           <Route path="/register">         
             <Registration
-              {...props} 
+              {...props}
+              handleSuccessfulAuth={handleSuccessfulAuth} 
               handleSubmit={newRegistration}
               handleChange={changeUser}
               user={state.user}
-              loggedInStatus={state.logged.loggedInStatus}/>}
+              loggedInStatus={state.logged.loggedInStatus}/>
           </Route>
           <Route path="/login">         
             <Login 

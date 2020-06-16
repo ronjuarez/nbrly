@@ -20,7 +20,6 @@ export default function Request ({
   currentUser
 }) {
    
-  
   const list = requests && requests.length && requests.map(task => {
     return (
     <RequestList

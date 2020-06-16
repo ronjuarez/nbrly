@@ -22,7 +22,7 @@ const libraries = ["places"];
 
 export default function Homepage(props) {
     
-
+    console.log(props.loggedInStatus)
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
           libraries 
