@@ -79,7 +79,7 @@ export default function useApplicationData() {
             ...prev,
             logged: {
               ...prev.logged, 
-              loggedInStatus: "logged in",
+              loggedInStatus: "Logged in",
               user: response.data.user 
           }
           }))
@@ -139,7 +139,7 @@ export default function useApplicationData() {
 
 
 
-    function newRegistration(event) {
+    function newRegistration() {
       axios.post("http://localhost:3000/registrations", {
           user: {
               name: state.user.name,
@@ -157,7 +157,7 @@ export default function useApplicationData() {
       .catch(error => {
           console.log("registration error", error);
       });
-      event.preventDefault();
+
   }
 
 
@@ -188,7 +188,7 @@ export default function useApplicationData() {
     setState(prev => ({
       ...prev, 
       request: {
-        ...prev.request, 
+        ...prev.request.items, 
         items: prev.request.items.filter((_, index) => index !== id)
       }
     }))
@@ -205,6 +205,17 @@ export default function useApplicationData() {
       })) 
     }
 
+    function changeUser(event) {
+      const name = event.target.name;
+      const value = event.target.value;
+      setState(prev => ({
+        ...prev,
+        user: {
+          [name]: value
+        }
+      }))
+    }
+
     function setRequestDate(value) {
       setState(prev => ({
         ...prev,
@@ -216,7 +227,7 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev, 
         request: {
-          ...prev.request, 
+          ...prev.request.items, 
           items:[...prev.request.items, item] 
         }  
       }))
@@ -296,6 +307,7 @@ export default function useApplicationData() {
         handleLogout,
         submitNewRequest, 
         changeRequest,
+        changeUser,
         removeItem,
         setRequestDate,
         addRequestItem,

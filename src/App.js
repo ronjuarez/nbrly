@@ -53,7 +53,8 @@ width: 100%;
     confirmRequest,
     newRegistration,
     createSession,
-    destroySession
+    destroySession,
+    changeUser
   } = useApplicationData()
 
     
@@ -70,6 +71,7 @@ width: 100%;
               assignVolunteer={assignVolunteer}/>
           </Route>
           <Route path="/requests/new">
+          {/* {state.logged.loggedInStatus === "Logged in" ? */}
             <NewRequest
               newRequest={submitNewRequest}
               currentUser={state.logged.user}
@@ -80,7 +82,8 @@ width: 100%;
               addItem={addRequestItem}
               setCoords={setCoords}
               setDate={setRequestDate}
-              setDeliveryAddress={setDeliveryAddress}/>
+              setDeliveryAddress={setDeliveryAddress}/> :
+              {/* <Redirect to ="/login"/>} */}
           </Route>
           <Route path={`/requests/:id/complete`}>
             <TaskCompleted
@@ -89,13 +92,13 @@ width: 100%;
               addPoints={addPoints}/>
           </Route>  
           <Route path="/requests/:id">
-            {state.logged.loggedInStatus ?
+            {/* {state.logged.loggedInStatus === "Logged in" ? */}
               <Task
                 currentUser={state.logged.user}
                 requests={state.requests}
                 addPoints={addPoints}
                 updateDatabase={updateDatabase}/> :
-              <Redirect to exact="/"/>}
+               {/* <Redirect to ="/login"/>} */}
           </Route>
           <Route exact path="/leaderboard">
             <Leaderboard
@@ -106,20 +109,19 @@ width: 100%;
               players={state.leaderboard}/>
           </Route>
           <Route path="/profile">
-            {state.logged.loggedInStatus ?
+            {/* {state.logged.loggedInStatus === "Logged in" ? */}
               <Profile 
                 currentUser={state.logged.user}
                 request={state.request}
                 requests={state.requests}
                 confirmRequest={confirmRequest}/> : 
-              <Redirect to exact="/" />}
+              {/* <Redirect to exact="/login" />} */}
           </Route>
           <Route path="/register">         
             <Registration
               {...props} 
               handleSubmit={newRegistration}
-              handleLogout={handleLogout}
-              handleChange={changeRequest}
+              handleChange={changeUser}
               user={state.user}
               loggedInStatus={state.logged.loggedInStatus}/>}
           </Route>
@@ -130,8 +132,8 @@ width: 100%;
               user={state.user}
               handleSubmit={createSession}
               handleLogoutClick={destroySession}
-              handleChange={changeRequest}
-              loggedInStatus={state.logged.loggedInStatus}/>}
+              handleChange={changeUser}
+              loggedInStatus={state.logged.loggedInStatus}/>
           </Route>
           <Route exact path="/">
             {/* {state.logged.loggedInStatus ?          */}

@@ -12,6 +12,7 @@ export default function Login({
     currentUser,
 }) {
 
+    console.log(user)
 
     return (
         
@@ -34,7 +35,7 @@ export default function Login({
                     onChange={handleChange} 
                     required 
                 />
-                <button type="submit">Login</button>
+                <Link to ="/profile"><button type="submit">Login</button></Link>
                 <div>
                     <p>Don't have an account:<Link to="/register">Click to Register</Link></p>
                 </div>  
