@@ -197,6 +197,18 @@ export default function useApplicationData() {
       });
     }
 
+    function confirmRequest (arID) {
+      axios.put(`http://localhost:3000/requests/${arID}`, {
+        requester_confirmed_completion: true
+      })
+      .then(all => {
+        console.log('Request Completion Confirmed', all);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    
+    }
 
     function updateDatabase (arID, user, itemsToCount) {
       Promise.all([ 
@@ -228,7 +240,8 @@ export default function useApplicationData() {
         getTask,
         assignVolunteer,
         setCoords,
-        setDeliveryAddress
+        setDeliveryAddress,
+        confirmRequest
       }
     
     }

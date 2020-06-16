@@ -42,10 +42,10 @@ const libraries = ["places"];
     addRequestItem,
     addPoints,
     updateDatabase,
-    getTask,
     assignVolunteer,
     setCoords,
-    setDeliveryAddress
+    setDeliveryAddress,
+    confirmRequest
   } = useApplicationData()
 
   const {isLoaded, loadError} = useLoadScript({
@@ -149,7 +149,8 @@ const libraries = ["places"];
               <Profile 
                 currentUser={state.logged.user}
                 request={state.request}
-                getTask={getTask}/> : 
+                requests={state.requests}
+                confirmRequest={confirmRequest}/> : 
               <Redirect to exact="/" />}
           </Route>
           <Route exact path="/">
