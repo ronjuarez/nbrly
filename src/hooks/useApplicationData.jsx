@@ -231,8 +231,8 @@ export default function useApplicationData() {
     function createSession(event) {
       axios.post("http://localhost:3000/sessions", {
           user: {
-              email: user.email,
-              password: user.password,
+              email: state.user.email,
+              password: state.user.password,
           }
       },
       { withCredentials: true }
