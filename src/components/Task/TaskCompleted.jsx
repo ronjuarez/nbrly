@@ -1,6 +1,32 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom';
+import styled from 'styled-components';
 
+
+const TaskCompletedContainer = styled.main`
+height: 80%;
+width: 100%;
+display: flex;
+flex-wrap: wrap;
+flex-direction: column;
+padding: 0 30px;
+font-size: 20px;
+`
+const StyledDiv = styled.div`
+margin: 20px 0;
+width: 100%;
+background-color: cornflowerblue;
+color: white;
+text-align: center;
+`
+
+const Points = styled.p`
+margin: 20px 0;
+width: 100%;
+background-color: cornflowerblue;
+color: white;
+text-align: center;
+`
 export default function TaskCompleted({
   currentUser,
   requests,
@@ -14,15 +40,15 @@ export default function TaskCompleted({
   console.log(groceryList)
 
   return (
-    <main>
-      <h1>Congratulations {currentUser.name} you earned </h1>
-      <h2>{addPoints(currentUser, groceryList)}</h2>
-      <h3>Points</h3>
-      <h5>Thank you for being nbrly</h5>
-      <p>You now have {currentUser.points} pts</p>
-      <p>You now have ______ pts</p>
+    <TaskCompletedContainer>
+      <StyledDiv>
+        <h1>Congratulations {currentUser.name} you earned </h1>
+        <Points>{addPoints(currentUser, groceryList)}
+        Points</Points>
+        <h5>Thank you for being nbrly</h5>
+      </StyledDiv>
       <Link to="/requests"> See all Requests</Link>
-    </main>
+    </TaskCompletedContainer>
 
   )
 
