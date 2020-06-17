@@ -30,7 +30,8 @@ text-align: center;
 export default function TaskCompleted({
   currentUser,
   requests,
-  addPoints
+  earnedPoints
+
 }) {
   console.log('current User', currentUser)
   const { id } = useParams();
@@ -43,8 +44,7 @@ export default function TaskCompleted({
     <TaskCompletedContainer>
       <StyledDiv>
         <h1>Congratulations {currentUser.name} you earned </h1>
-        <Points>{addPoints(currentUser, groceryList)}
-        Points</Points>
+        <Points>{earnedPoints(groceryList, requests[index].complete_by)} Points</Points>
         <h5>Thank you for being nbrly</h5>
       </StyledDiv>
       <Link to="/requests"> See all Requests</Link>

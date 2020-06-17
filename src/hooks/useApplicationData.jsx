@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import moment from 'moment';
+import Moment from 'react-moment';
 
 // This custom hook is the beiung used to manage the overall data of our app.
 export default function useApplicationData() {
@@ -245,7 +247,7 @@ export default function useApplicationData() {
         volunteer_id: null
       })
       .then(all => {
-        console.log('Request Completion Confirmed', all);
+        console.log('Removed volunteer id', all);
       })
       .catch(error => {
         console.log(error);
@@ -253,9 +255,9 @@ export default function useApplicationData() {
     }
 
     function addPoints (user, numOfItems) {
- 
+      
       let itemsLength = numOfItems.length;
-      return (user.points + itemsLength * 100);
+      return (user.points + itemsLength*100)
     }  
     
     function createSession(event) {
@@ -300,19 +302,37 @@ export default function useApplicationData() {
       .catch(error => {
         console.log(error);
       });
-    
     }
-
+    const earnedPoints = (requestData, completedDate) => {
+      let itemsLength = requestData.length;
+      let currentDate = new Date()
+      // if satement checking date completed by is under 24 hours then add an extra 100 points
+      if ( (moment(completedDate).diff(moment(currentDate), 'hours')) < 24) {
+        return ((itemsLength * 100) * 2)
+      } else {
+        return (itemsLength * 100);
+      }
+    }
+  
     function updateDatabase (arID, user, itemsToCount) {
       Promise.all([ 
       axios.put(`http://localhost:3000/requests/${arID}`, {
         volunteer_completed_task: true
       }),
       axios.put(`http://localhost:3000/users/${user.id}`, {
-        points: addPoints(user, itemsToCount)
+        points: user.points + earnedPoints(itemsToCount, state.request.complete_by)
       })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
       .then(all => {
-        console.log('Marked Completed', all[0], "Points Added", all[1]);
+        setState(prev => ({
+          ...prev,
+          logged: {
+            ...prev.logged,
+            user: {
+              ...prev.logged.user,
+              points: all[1].data.body.points
+            }
+          }
+        }))
       })
       .catch(error => {
         console.log(error);
@@ -341,7 +361,8 @@ export default function useApplicationData() {
         confirmRequest,
         newRegistration,
         createSession,
-        destroySession
+        destroySession,
+        earnedPoints,
       }
     
     }

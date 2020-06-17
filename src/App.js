@@ -63,9 +63,10 @@ width: 100%;
     newRegistration,
     createSession,
     destroySession,
+    earnedPoints,
     changeUser
   } = useApplicationData()
- 
+ console.log(state.logged.user)
      return (
       <MainApp>
       <Router>
@@ -95,6 +96,7 @@ width: 100%;
           </Route>
           <Route path={`/requests/:id/complete`}>
             <TaskCompleted
+            earnedPoints={earnedPoints}
               currentUser={state.logged.user}
               requests={state.requests}
               addPoints={addPoints}/>

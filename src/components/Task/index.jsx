@@ -53,7 +53,7 @@ export default function Task({
   const onSuccess = () => {
     console.log('Yay! Swipe Success');
   }
-
+  console.log(currentUser)
   const { id } = useParams();
   let index = requests.findIndex(obj => obj.id == id)
 
