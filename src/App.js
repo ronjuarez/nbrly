@@ -118,14 +118,15 @@ width: 100%;
               players={state.leaderboard}/>
           </Route>
           <Route path="/profile">
-            {state.logged.loggedInStatus === "Logged in" ?
+            {/* {state.logged.loggedInStatus === "Logged in" ? */}
               <Profile 
                 currentUser={state.logged.user}
                 request={state.request}
                 requests={state.requests}
                 confirmRequest={confirmRequest}
-                handleLogoutClick={destroySession}/> :
-                <Redirect to="/login" />} 
+                handleLogoutClick={destroySession}/> 
+                {/* :
+                <Redirect to="/login" />}  */}
           </Route>
           <Route path="/register">         
             <Registration
@@ -147,7 +148,6 @@ width: 100%;
               loggedInStatus={state.logged.loggedInStatus}/>
           </Route>
           <Route exact path="/">
-            {state.logged.loggedInStatus ?         
               <Homepage 
                 {...props}
                 currentUser={state.logged.user}
@@ -155,8 +155,8 @@ width: 100%;
                 requests={state.requests}
                 handleLogin={handleLogin}
                 handleLogout={handleLogout} 
-                loggedInStatus={state.logged.loggedInStatus}/> :
-               <Redirect to="/login"/>}
+                loggedInStatus={state.logged.loggedInStatus}/> 
+ 
           </Route>
         </Switch>
         </Section>

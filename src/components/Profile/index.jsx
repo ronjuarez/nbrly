@@ -5,10 +5,75 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from 'styled-components';
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
+import Table from 'react-bootstrap/Table'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Image from 'react-bootstrap/Image'
+// import Image from 'react-bootstrap/Image'
+import Moment from 'react-moment';
+import moment from 'moment';
 
+const ProfileWrapper = styled.div`
 
+height: 100%;
+padding: 20px;
+border-radius: 20px; 
+`
+const HeaderWrapper = styled.header`
+display: flex;
+
+`
+const UserHWrapper = styled.div`
+display: flex;
+flex-direction: column;
+color: white;
+padding: 10px;
+`
+const AvatarImg = styled.img`
+  background: white;
+  height: 200px;
+  border-radius: 10px;
+  
+`
+const PInnnerWrapper = styled.div`
+background: cornflowerblue;
+padding: 30px;
+border-radius: 20px;
+height: 100%;
+overflow-y: scroll;
+color: white;
+`
+const CurrentTaskWrapper = styled.div`
+background: white;
+padding: 10px;
+margin: 0;
+/* border: cornflowerblue 3px solid; */
+border-radius: 20px; 
+
+`
+const TaskUL = styled.ul`
+  background: cornflowerblue;
+  margin: 0;
+  padding: 10px;
+  color: white;
+  border-radius: 20px;
+  a{
+    text-decoration: none;
+    color: white;
+  }
+`
+const TaskOrderNum = styled.li`
+text-align: center;
+font-size: 30px;
+font-weight: bold;
+color: lightsalmon;
+`
+
+const CRWrapper = styled.div`
+ height: 180px;
+ overflow: scroll;
+  tr{
+    color: white;
+  }
+`
 export default function Profile ({
   currentUser,
   requests,
@@ -18,109 +83,109 @@ export default function Profile ({
 }) {
 
   // Hardcoded Task
-  const task = [
-    {
-    id: 4,
-    delivery_address: "26 Goodwood Park Cres, East York, ON M4C 2G5",
-    created_at: "2020-06-13T04:42:01.251Z",
-    updated_at: "2020-06-13T04:42:01.251Z",
-    volunteer_completed_task: true,
-    requester_confirmed_completion: true,
-    user_id: 3,
-    volunteer_id: null,
-    items: [
-    "milk"
-    ],
-    complete_by: "2020-06-12T00:00:00.000Z",
-    reimbursement_type: "cash"
-    },
-    {
-    id: 20,
-    delivery_address: "70 berry ave.",
-    created_at: "2020-06-13T20:32:44.040Z",
-    updated_at: "2020-06-13T20:32:44.040Z",
-    volunteer_completed_task: false,
-    requester_confirmed_completion: false,
-    user_id: 2,
-    volunteer_id: 14,
-    items: [
-    "peaches",
-    "berries"
-    ],
-    complete_by: "2020-06-14T04:00:00.000Z",
-    reimbursement_type: "cash"
-    },
-    {
-      id: 4,
-      delivery_address: "26 Goodwood Park Cres, East York, ON M4C 2G5",
-      created_at: "2020-06-13T04:42:01.251Z",
-      updated_at: "2020-06-13T04:42:01.251Z",
-      volunteer_completed_task: true,
-      requester_confirmed_completion: false,
-      user_id: 14,
-      volunteer_id: 2,
-      items: [
-      "milk"
-      ],
-      complete_by: "2020-06-12T00:00:00.000Z",
-      reimbursement_type: "cash"
-      },
-      {
-      id: 20,
-      delivery_address: "70 berry ave.",
-      created_at: "2020-06-13T20:32:44.040Z",
-      updated_at: "2020-06-13T20:32:44.040Z",
-      volunteer_completed_task: false,
-      requester_confirmed_completion: false,
-      user_id: 14,
-      volunteer_id: 2,
-      items: [
-      "peaches",
-      "berries"
-      ],
-      complete_by: "2020-06-14T04:00:00.000Z",
-      reimbursement_type: "cash"
-      }, 
-      {
-        id: 20,
-        delivery_address: "70 berry ave.",
-        created_at: "2020-06-13T20:32:44.040Z",
-        updated_at: "2020-06-13T20:32:44.040Z",
-        volunteer_completed_task: false,
-        requester_confirmed_completion: false,
-        user_id: 14,
-        volunteer_id: 11,
-        items: [
-        "peaches",
-        "berries"
-        ],
-        complete_by: "2020-06-14T04:00:00.000Z",
-        reimbursement_type: "cash"
-        },
-        {
-          id: 20,
-          delivery_address: "70 berry ave.",
-          created_at: "2020-06-13T20:32:44.040Z",
-          updated_at: "2020-06-13T20:32:44.040Z",
-          volunteer_completed_task: true,
-          requester_confirmed_completion: true,
-          user_id: 14,
-          volunteer_id: 11,
-          items: [
-          "peaches",
-          "berries"
-          ],
-          complete_by: "2020-06-14T04:00:00.000Z",
-          reimbursement_type: "cash"
-          }
-  ]
+  // const task = [
+  //   {
+  //   id: 4,
+  //   delivery_address: "26 Goodwood Park Cres, East York, ON M4C 2G5",
+  //   created_at: "2020-06-13T04:42:01.251Z",
+  //   updated_at: "2020-06-13T04:42:01.251Z",
+  //   volunteer_completed_task: true,
+  //   requester_confirmed_completion: true,
+  //   user_id: 3,
+  //   volunteer_id: null,
+  //   items: [
+  //   "milk"
+  //   ],
+  //   complete_by: "2020-06-12T00:00:00.000Z",
+  //   reimbursement_type: "cash"
+  //   },
+  //   {
+  //   id: 20,
+  //   delivery_address: "70 berry ave.",
+  //   created_at: "2020-06-13T20:32:44.040Z",
+  //   updated_at: "2020-06-13T20:32:44.040Z",
+  //   volunteer_completed_task: false,
+  //   requester_confirmed_completion: false,
+  //   user_id: 2,
+  //   volunteer_id: 14,
+  //   items: [
+  //   "peaches",
+  //   "berries"
+  //   ],
+  //   complete_by: "2020-06-14T04:00:00.000Z",
+  //   reimbursement_type: "cash"
+  //   },
+  //   {
+  //     id: 4,
+  //     delivery_address: "26 Goodwood Park Cres, East York, ON M4C 2G5",
+  //     created_at: "2020-06-13T04:42:01.251Z",
+  //     updated_at: "2020-06-13T04:42:01.251Z",
+  //     volunteer_completed_task: true,
+  //     requester_confirmed_completion: false,
+  //     user_id: 14,
+  //     volunteer_id: 2,
+  //     items: [
+  //     "milk"
+  //     ],
+  //     complete_by: "2020-06-12T00:00:00.000Z",
+  //     reimbursement_type: "cash"
+  //     },
+  //     {
+  //     id: 20,
+  //     delivery_address: "70 berry ave.",
+  //     created_at: "2020-06-13T20:32:44.040Z",
+  //     updated_at: "2020-06-13T20:32:44.040Z",
+  //     volunteer_completed_task: false,
+  //     requester_confirmed_completion: false,
+  //     user_id: 14,
+  //     volunteer_id: 2,
+  //     items: [
+  //     "peaches",
+  //     "berries"
+  //     ],
+  //     complete_by: "2020-06-14T04:00:00.000Z",
+  //     reimbursement_type: "cash"
+  //     }, 
+  //     {
+  //       id: 20,
+  //       delivery_address: "70 berry ave.",
+  //       created_at: "2020-06-13T20:32:44.040Z",
+  //       updated_at: "2020-06-13T20:32:44.040Z",
+  //       volunteer_completed_task: false,
+  //       requester_confirmed_completion: false,
+  //       user_id: 14,
+  //       volunteer_id: 11,
+  //       items: [
+  //       "peaches",
+  //       "berries"
+  //       ],
+  //       complete_by: "2020-06-14T04:00:00.000Z",
+  //       reimbursement_type: "cash"
+  //       },
+  //       {
+  //         id: 20,
+  //         delivery_address: "70 berry ave.",
+  //         created_at: "2020-06-13T20:32:44.040Z",
+  //         updated_at: "2020-06-13T20:32:44.040Z",
+  //         volunteer_completed_task: true,
+  //         requester_confirmed_completion: true,
+  //         user_id: 14,
+  //         volunteer_id: 11,
+  //         items: [
+  //         "peaches",
+  //         "berries"
+  //         ],
+  //         complete_by: "2020-06-14T04:00:00.000Z",
+  //         reimbursement_type: "cash"
+  //         }
+  // ]
   
 
 
   const thumbsUp = <FontAwesomeIcon icon={faThumbsUp}/> 
 
   // Check if  the user has any current request 
-  const userRequest = task.filter(request => {
+  const userRequest = requests.filter(request => {
     return (request.user_id === currentUser.id)
   })
   
@@ -156,21 +221,18 @@ export default function Profile ({
     }
 
     return(
-      <ul>
-        <li>Request order#:{request.id}</li>
-        <li>status: {status(request.volunteer_id, request.volunteer_completed_task)}</li>
-        <li>delivery_address: {request.delivery_address}</li>
-        <li>created at: {request.created_at}</li>
-        <li>reimbursement type: {request.reimbursement_type}</li>
-        
-        <li>items:{mapItems}</li>
-      </ul>
+      <tr>
+        <td>{request.id}</td>
+        <td><Moment format="MMM Do YYYY" date={request.created_at}/></td>
+        <td>{status(request.volunteer_id, request.volunteer_completed_task)}</td>
+        <td>{mapItems}</td>
+      </tr>
       
     )
   })
 
   // filter through tasks to see if they accepted any pending task
-  const userTask = task.filter(request => {
+  const userTask = requests.filter(request => {
     return (request.volunteer_id == currentUser.id)
   })
 
@@ -185,7 +247,7 @@ export default function Profile ({
 
     return(
       <NavLink to={`/requests/${request.id}`}>
-          <li>Request order#:{request.id}</li>
+          <TaskOrderNum>Request order#: {request.id}</TaskOrderNum>
           <li>delivery_address: {request.delivery_address}</li>
           <li>complete by: {request.created_at}</li>
           <li>reimbursement type:{request.reimbursement_type}</li>
@@ -200,41 +262,58 @@ export default function Profile ({
 
 
   return (
-    <main>
-      <h1>Profile {currentUser.id}</h1>
-      <header>
-        <Image src={currentUser.avatar} thumbnail></Image>
-        <h2>Hello, {currentUser.email}</h2>
-      </header>
+    <ProfileWrapper>
+      <PInnnerWrapper>
+      {/* <h1>Profile {currentUser.id}</h1> */}
+      <HeaderWrapper>
+        <AvatarImg src={currentUser.avatar}/>
+        <UserHWrapper>
+          <h2>Hello, {currentUser.email}</h2>
+        <h2>
+          Current Points: <span>{currentUser.points}</span>
+        </h2>
+        <button onClick={() => handleLogoutClick()}>Logout</button>
+        </UserHWrapper>
+      </HeaderWrapper>
     
       <div>
         <div>
-          <h2>
-            Current Points: <span>{currentUser.points}</span>
-          </h2>
+          
         </div>
         <div>
           <h2>
             Current Task 
           </h2>
-          <div>
-            <ul>
+          <CurrentTaskWrapper>
+            <TaskUL>
               {mapTask}
-            </ul>
-            
-          </div>
+            </TaskUL>
+              
+          </CurrentTaskWrapper>
         </div>
         <div>
-          <h2>
-            Current Request
-          </h2>
-          <div>
-            {mapRequest}
-          </div>
-          <button onClick={() => handleLogoutClick()}>Logout</button>
+          <h4>
+            Request History
+          </h4>
+          <CRWrapper>
+            <Table size="xs">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Created At</th>
+                <th>Status</th>
+                <th>Items</th>
+              </tr>
+            </thead>
+            <tbody>
+              {mapRequest}
+            </tbody>
+            </Table>
+          </CRWrapper>
+          
         </div>
       </div>
-      
-    </main>
+      </PInnnerWrapper>
+    </ProfileWrapper>
   )
 }

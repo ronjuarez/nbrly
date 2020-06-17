@@ -8,7 +8,10 @@ import { FormControl, FormHelperText, InputLabel, Button, Grid, Typography, Sele
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import Form from 'react-bootstrap/Form';
-
+import {
+  NavLink,
+  withRouter
+} from "react-router-dom";
 
 
 const GroceryContainer = styled(Form.Group)`
@@ -57,6 +60,7 @@ export default function NewRequest ({
   const classes = useStyles();
 
   
+  
 
   return (
     <div>
@@ -67,22 +71,20 @@ export default function NewRequest ({
         <Typography variant="h3">Form</Typography>
           <Form
           onSubmit={newRequest}
+          action="/requests"
           >
           <Form.Group>
             <Form.Label>Delivery Address</Form.Label>
-            {/* <div>
-            <Search 
-            setCoords={setCoords} 
-            setAddress={setDeliveryAddress}/>
-            </div> */}
+
+              <Search 
+              setCoords={setCoords} 
+              setAddress={setDeliveryAddress}/>
+
             <Form.Text className="text-muted">
               Please input a delivery address
             </Form.Text>
           </Form.Group>
-          <Search 
-            setCoords={setCoords} 
-            setAddress={setDeliveryAddress}/>
-  
+
 
       <StyledDiv>
         <FormControl className={classes.formControl} >
@@ -127,11 +129,11 @@ export default function NewRequest ({
           required
         />
       </GroceryContainer>
-
-        <Button style={{width:"100%" }} color="primary" variant="contained" type="submit">
-          Submit
-        </Button>
-
+      {/* <NavLink to ={`/requests`}> */}
+          <Button style={{width:"100%" }} color="primary" variant="contained" type="submit">
+            Submit
+          </Button>
+        {/* </NavLink> */}
         </Form>
       </NewRequestContainer>
     </div>
@@ -140,3 +142,4 @@ export default function NewRequest ({
 
       
     
+// export default withRouter(NewRequest)
