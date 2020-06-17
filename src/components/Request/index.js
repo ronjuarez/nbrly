@@ -28,7 +28,7 @@ export default function Request ({
      return(request.volunteer_id === null && request.user_id !== currentUser.id)
     }
   })
-  console.log('date', Date.now())
+ 
   const list = filterRequestList.map(task => {
     return (
     <RequestList

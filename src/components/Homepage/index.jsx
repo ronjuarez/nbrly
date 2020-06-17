@@ -31,7 +31,7 @@ export default function Homepage(props) {
         lat: 43.653225,
         lng: -79.383186
     };
-
+ 
     const [markers, setMarkers] = useState([]);
     const[selected, setSelected] = useState(null);
 

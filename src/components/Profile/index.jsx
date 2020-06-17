@@ -180,9 +180,7 @@ export default function Profile ({
   //         }
   // ]
   const thumbsUp = <FontAwesomeIcon icon={faThumbsUp}/> 
-  console.log("current User", currentUser)
-  console.log("request", request)
-  console.log("requests", requests)
+
   // Check if  the user has any current request 
   const userRequest = requests.filter(request => {
     return (request.user_id === currentUser.id)
