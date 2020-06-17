@@ -19,8 +19,17 @@ export default function Request ({
   assignVolunteer,
   currentUser
 }) {
-   
-  const list = requests && requests.length && requests.map(task => {
+
+  const filterRequestList = requests.filter(request => {  
+    
+   if (!currentUser.id){
+     return (request.volunteer_id === null )
+   }  else {
+     return(request.volunteer_id === null && request.user_id !== currentUser.id)
+    }
+  })
+  console.log('date', Date.now())
+  const list = filterRequestList.map(task => {
     return (
     <RequestList
       id={task.id}

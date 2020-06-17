@@ -125,7 +125,7 @@ width: 100%;
                 requests={state.requests}
                 confirmRequest={confirmRequest}
                 handleLogoutClick={destroySession}/> 
-                {/* :
+               {/* :
                 <Redirect to="/login" />}  */}
           </Route>
           <Route path="/register">         

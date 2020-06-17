@@ -179,11 +179,10 @@ export default function Profile ({
   //         reimbursement_type: "cash"
   //         }
   // ]
-  
-
-
   const thumbsUp = <FontAwesomeIcon icon={faThumbsUp}/> 
-
+  console.log("current User", currentUser)
+  console.log("request", request)
+  console.log("requests", requests)
   // Check if  the user has any current request 
   const userRequest = requests.filter(request => {
     return (request.user_id === currentUser.id)
@@ -233,7 +232,9 @@ export default function Profile ({
 
   // filter through tasks to see if they accepted any pending task
   const userTask = requests.filter(request => {
-    return (request.volunteer_id == currentUser.id)
+
+      return (request.volunteer_id === currentUser.id)
+    
   })
 
   const mapTask = userTask.map(request => {
@@ -268,7 +269,7 @@ export default function Profile ({
       <HeaderWrapper>
         <AvatarImg src={currentUser.avatar}/>
         <UserHWrapper>
-          <h2>Hello, {currentUser.email}</h2>
+          <h2>Hello, {currentUser.name}</h2>
         <h2>
           Current Points: <span>{currentUser.points}</span>
         </h2>
