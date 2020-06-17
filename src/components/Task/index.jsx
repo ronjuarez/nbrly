@@ -43,11 +43,10 @@ export default function Task({
   const onSuccess = () => {
     console.log('Yay! Swipe Success');
   }
-  console.log(requests)
+
   const { id } = useParams();
   console.log(id)
   let index = requests.findIndex(obj => obj.id == id)
-  console.log(index)
 
   const groceryList = requests && requests.length && requests[index].items.map(item => {
 
@@ -90,7 +89,7 @@ export default function Task({
       <NavLink to={`/requests/${id}/complete`}>
         <Button
           variant="success"
-          onClick={(event) => updateDatabase(id, currentUser.user, groceryList)}
+          onClick={(event) => updateDatabase(id, currentUser, groceryList)}
         > Completed
       </Button>
       </NavLink>

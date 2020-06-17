@@ -253,9 +253,18 @@ export default function useApplicationData() {
     }
 
     function addPoints (user, numOfItems) {
- 
       let itemsLength = numOfItems.length;
-      return (user.points + itemsLength * 100);
+      setState(prev => ({
+        ...prev,
+        logged: {
+          ...prev.logged,
+          user: {
+            ...prev.logged.user,
+            points: user.points + itemsLength * 100
+          }
+        }
+      
+      }))
     }  
     
     function createSession(event) {
@@ -304,14 +313,16 @@ export default function useApplicationData() {
     }
 
     function updateDatabase (arID, user, itemsToCount) {
+      addPoints(user, itemsToCount);
       Promise.all([ 
       axios.put(`http://localhost:3000/requests/${arID}`, {
         volunteer_completed_task: true
       }),
       axios.put(`http://localhost:3000/users/${user.id}`, {
-        points: addPoints(user, itemsToCount)
+        points: state.logged.user.points
       })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
       .then(all => {
+        console.log(all)
         console.log('Marked Completed', all[0], "Points Added", all[1]);
       })
       .catch(error => {
