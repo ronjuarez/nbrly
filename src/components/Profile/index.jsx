@@ -13,7 +13,8 @@ export default function Profile ({
   currentUser,
   requests,
   request,
-  confirmRequest
+  confirmRequest,
+  handleLogoutClick
 }) {
 
   // Hardcoded Task
@@ -230,7 +231,7 @@ export default function Profile ({
           <div>
             {mapRequest}
           </div>
-          <p></p>
+          <button onClick={() => handleLogoutClick()}>Logout</button>
         </div>
       </div>
       
