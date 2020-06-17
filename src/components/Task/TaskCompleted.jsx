@@ -32,12 +32,12 @@ export default function TaskCompleted({
   requests,
   addPoints
 }) {
-
+  console.log('current User', currentUser)
   const { id } = useParams();
-  let index = requests.findIndex(obj => obj.id == id)
+  let index = requests.findIndex(obj => obj.id === parseInt(id))
 
   const groceryList = requests && requests.length && requests[index].items.map(item => item)
-  console.log(groceryList)
+ 
 
   return (
     <TaskCompletedContainer>

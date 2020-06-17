@@ -5,17 +5,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   useParams,
   NavLink
+
 } from "react-router-dom";
 
 import ReactSwipeButton from 'react-swipe-button'
 
-const Main = styled.main`
+const TaskWrapper = styled.div`
+padding: 20px 30px;
+`
+const Main = styled.div`
   background: cornflowerblue;
   color: white;
   padding: 20px;
   text-align:center;
-  margin: 150px 250px;
+  /* margin: 10px; */
   border-radius: 20px;
+  
 `
 const GroceryUl = styled.ul`
   display:flex;
@@ -25,10 +30,15 @@ const GroceryUl = styled.ul`
 const GroceryLi = styled.li`
   list-style: none;
   padding: 0.5rem;
-  margin-left: 5px;
+  /* border: 1px solid blue; */
+  /* background: white; */
   span{
     font-weight: bold;
   }
+`
+const GroceryListItems = styled.li`
+  height: 200px;
+  /* border: 1px solid blue; */
 `
 
 
@@ -39,49 +49,50 @@ export default function Task({
   updateDatabase,
   removeVolunteer
 }) {
-  console.log('current user', currentUser)
+
   const onSuccess = () => {
     console.log('Yay! Swipe Success');
   }
-  console.log(requests)
+
   const { id } = useParams();
-  console.log(id)
   let index = requests.findIndex(obj => obj.id == id)
-  console.log(index)
+
 
   const groceryList = requests && requests.length && requests[index].items.map(item => {
 
     return (
-      <GroceryLi>
+
         <ReactSwipeButton
           text={item}
-          color='cornflowerblue'
+          text_unlocked="picked up"
+          // color='cornflowerblue'
+          font="black"
           onSuccess={onSuccess}
         />
-        <span>{item}</span>
 
-      </GroceryLi>
 
     )
   })
 
   return (
+    <TaskWrapper>
     <Main>
+
       <h1>Task # {id}</h1>
-      <h4>{currentUser.id}</h4>
+      {/* <h4>{currentUser.id}</h4> */}
       <GroceryUl>
-        <GroceryLi>
+        {/* <GroceryLi>
           Requesters Name:<span> </span>
-        </GroceryLi>
+        </GroceryLi> */}
 
         <GroceryLi>
           Delivery Address: <p>{requests && requests.length && requests[index].delivery_address}</p>
         </GroceryLi>
 
-        <GroceryLi>
+        <GroceryListItems>
           Grocery List:
           {groceryList}
-        </GroceryLi>
+        </GroceryListItems>
 
 
       </GroceryUl>
@@ -90,7 +101,7 @@ export default function Task({
       <NavLink to={`/requests/${id}/complete`}>
         <Button
           variant="success"
-          onClick={(event) => updateDatabase(id, currentUser.user, groceryList)}
+          onClick={() => updateDatabase(id, currentUser, groceryList)}
         > Completed
       </Button>
       </NavLink>
@@ -103,6 +114,7 @@ export default function Task({
 
 
     </Main>
+    </TaskWrapper>
   )
 
 
