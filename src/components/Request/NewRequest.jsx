@@ -7,7 +7,8 @@ import Search from './Search';
 import { FormControl, FormHelperText, InputLabel, Button, Grid, Typography, Select, MenuItem } from '@material-ui/core';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
+
 
 
 const GroceryContainer = styled(Form.Group)`
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function NewRequest ({
   newRequest,
   changeRequest,
@@ -54,7 +56,7 @@ export default function NewRequest ({
 }) {
   const classes = useStyles();
 
- 
+  
 
   return (
     <div>
@@ -68,13 +70,18 @@ export default function NewRequest ({
           >
           <Form.Group>
             <Form.Label>Delivery Address</Form.Label>
+            {/* <div>
             <Search 
             setCoords={setCoords} 
             setAddress={setDeliveryAddress}/>
+            </div> */}
             <Form.Text className="text-muted">
               Please input a delivery address
             </Form.Text>
           </Form.Group>
+          <Search 
+            setCoords={setCoords} 
+            setAddress={setDeliveryAddress}/>
   
 
       <StyledDiv>

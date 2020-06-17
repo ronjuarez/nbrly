@@ -18,6 +18,7 @@ import "@reach/combobox/styles.css";
     setCoords,
     setAddress
   }) {
+     
   const {
     ready,  
     value, 
@@ -27,16 +28,9 @@ import "@reach/combobox/styles.css";
   } = usePlacesAutocomplete({
   
   })
+
+
   
-  useEffect(() => {
-      console.log('value', value)
-  }, [value])
-
-  useEffect(() => {
-    console.log('new')
-}, [])
-
-
   return (
     <div>
     <Combobox 

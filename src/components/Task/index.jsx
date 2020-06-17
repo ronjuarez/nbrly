@@ -36,16 +36,18 @@ const GroceryLi = styled.li`
 export default function Task({
   requests,
   currentUser,
-  updateDatabase
+  updateDatabase,
+  removeVolunteer
 }) {
   console.log('current user', currentUser)
   const onSuccess = () => {
     console.log('Yay! Swipe Success');
   }
-
+  console.log(requests)
   const { id } = useParams();
-
-  let index = requests.findIndex(obj => obj.id === parseInt(id))
+  console.log(id)
+  let index = requests.findIndex(obj => obj.id == id)
+  console.log(index)
 
   const groceryList = requests && requests.length && requests[index].items.map(item => {
 
@@ -95,7 +97,7 @@ export default function Task({
       < br />
       < br />
       <NavLink to="/requests">
-        <Button variant="danger">Cancel</Button>
+        <Button variant="danger" onClick={() => removeVolunteer(id)}>Cancel</Button>
       </NavLink>
 
 

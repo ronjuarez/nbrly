@@ -13,9 +13,10 @@ import useApplicationData from "./hooks/useApplicationData";
 import NewRequest from './components/Request/NewRequest'
 import Login from './components/auth/Login';
 import Registration from './components/auth/Registration';
+import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 
 import styled from 'styled-components';
-
+const libraries = ["places"];
 const MainApp = styled.main`
 height: 900px;
 border: solid 3px grey;
@@ -35,9 +36,16 @@ width: 100%;
 `
 
  export default function App(props) {
+     
+  const {isLoaded, loadError} = useLoadScript({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
+      libraries 
+});
+
 
   const {
     state,
+    removeVolunteer,
     handleSuccessfulAuth,
     handleLogin, 
     handleLogout,
@@ -82,7 +90,7 @@ width: 100%;
               addItem={addRequestItem}
               setCoords={setCoords}
               setDate={setRequestDate}
-              setDeliveryAddress={setDeliveryAddress}/> :
+              setDeliveryAddress={setDeliveryAddress}/> : 
               <Redirect to ="/login"/>}
           </Route>
           <Route path={`/requests/:id/complete`}>
@@ -94,6 +102,7 @@ width: 100%;
           <Route path="/requests/:id">
              {state.logged.loggedInStatus === "Logged in" ?               
              <Task
+                removeVolunteer={removeVolunteer}
                 currentUser={state.logged.user}
                 requests={state.requests}
                 addPoints={addPoints}
@@ -115,8 +124,8 @@ width: 100%;
                 request={state.request}
                 requests={state.requests}
                 confirmRequest={confirmRequest}
-                handleLogoutClick={destroySession}/> : 
-               <Redirect to="/login" />}
+                handleLogoutClick={destroySession}/> :
+                <Redirect to="/login" />} 
           </Route>
           <Route path="/register">         
             <Registration
@@ -146,8 +155,8 @@ width: 100%;
                 requests={state.requests}
                 handleLogin={handleLogin}
                 handleLogout={handleLogout} 
-                loggedInStatus={state.logged.loggedInStatus}/> : 
-               <Redirect to="/login"/>} 
+                loggedInStatus={state.logged.loggedInStatus}/> :
+               <Redirect to="/login"/>}
           </Route>
         </Switch>
         </Section>

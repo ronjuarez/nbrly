@@ -29,7 +29,7 @@ export default function AcceptButton ({
   
   return(
     <StyledNavLink to={`/requests/${id}`}>
-      <Acceptbutton onClick={addID(id, userID)} >
+      <Acceptbutton onClick={()=> addID(id, userID)} >
         Accept
       </Acceptbutton>
     </StyledNavLink>

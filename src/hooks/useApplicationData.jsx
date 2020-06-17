@@ -61,7 +61,6 @@ export default function useApplicationData() {
     axios.get('http://localhost:3000/leaderboard')
     ])
     .then((all) => {
-      console.log(all)
       setState(prev => ({
         ...prev,
         users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
@@ -77,12 +76,11 @@ export default function useApplicationData() {
       axios.get('http://localhost:3000/logged_in', { withCredentials: true }
       ).then(response => {
         console.log(response)
-        console.log(state.logged.loggedInStatus)
         if (response.data.logged_in && state.logged.loggedInStatus === "Not logged in") {
           setState(prev => ({
             ...prev,
-            logged: {
-              ...prev.logged, 
+            logged: { 
+              ...prev.logged,
               loggedInStatus: "Logged in",
               user: response.data.user 
           }
@@ -207,6 +205,7 @@ export default function useApplicationData() {
       setState(prev => ({
         ...prev,
         request: {
+          ...prev.request,
           [name]: value
         }
       })) 
@@ -239,6 +238,18 @@ export default function useApplicationData() {
           items:[...prev.request.items, item] 
         }  
       }))
+    }
+
+    function removeVolunteer (arID) {
+      axios.put(`http://localhost:3000/requests/${arID}`, {
+        volunteer_id: null
+      })
+      .then(all => {
+        console.log('Request Completion Confirmed', all);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
 
     function addPoints (user, numOfItems) {
@@ -310,7 +321,7 @@ export default function useApplicationData() {
   }
       return { 
         state, 
-        //handleChangeUser,
+        removeVolunteer,
         checkLoginStatus,
         handleLogin, 
         handleLogout,

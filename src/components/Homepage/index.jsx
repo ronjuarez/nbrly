@@ -16,13 +16,8 @@ import {
 import AcceptButton from '../Request/AcceptButton';
 const libraries = ["places"];
 
-// const MapDiv = style.div`
-
-// `
-
 export default function Homepage(props) {
     
-    console.log(props.loggedInStatus)
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
           libraries 
@@ -96,7 +91,7 @@ export default function Homepage(props) {
                     ))}
                 </ul>
                 <NavLink to={`/requests/${selected.id}`}>
-                    <button onClick={props.assignVolunteer(selected.id, props.currentUser.id)} >
+                    <button onClick={() =>props.assignVolunteer(selected.id, props.currentUser.id)} >
                         Accept
                     </button>
                 </NavLink>
