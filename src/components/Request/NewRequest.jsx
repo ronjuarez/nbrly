@@ -129,11 +129,11 @@ export default function NewRequest ({
           required
         />
       </GroceryContainer>
-      {/* <NavLink to ={`/requests`}> */}
+      <NavLink to ={`/`}>
           <Button style={{width:"100%" }} color="primary" variant="contained" type="submit">
             Submit
           </Button>
-        {/* </NavLink> */}
+        </NavLink>
         </Form>
       </NewRequestContainer>
     </div>

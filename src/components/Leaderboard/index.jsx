@@ -16,28 +16,22 @@ const LeaderboardContainer = styled.div`
 `
 
 export default function Leaderboard (props) {
+    let newLeaderboard = props.users.sort((a,b) => {
+        return b.points - a.points
+    })
+   
 
+    
     return (
         
         <Main>           
-            {/* <div>
-                <NavLink to ="/leaderboard">
-                    <Pointsbutton>
-                        Highest Points
-                    </Pointsbutton>
-                </NavLink>
-                <NavLink to="leaderboard/mostdeliveries">
-                    <Pointsbutton>
-                        Most Deliveries
-                    </Pointsbutton>
-                </NavLink>
-            </div> */}
+            
             <Header
-                name = {props.users && props.users.length && props.users[0].name}
-                avatar = {props.users && props.users.length && props.users[0].avatar}
-                points = {props.users && props.users.length && props.users[0].points}/>
+                name = {newLeaderboard && newLeaderboard.length && newLeaderboard[0].name}
+                avatar = {newLeaderboard && newLeaderboard.length && newLeaderboard[0].avatar}
+                points = {newLeaderboard && newLeaderboard.length && newLeaderboard[0].points}/>
             <LeaderboardContainer>
-                <LeaderboardList players = {props.users}/>
+                <LeaderboardList players = {newLeaderboard}/>
             </LeaderboardContainer>
         </Main>
     )

@@ -183,7 +183,10 @@ export default function useApplicationData() {
         }
       })
       .then(response => {
-      console.log("new request created!", response.data);
+        setState(prev => ({
+          ...prev,
+          requests: [...prev.requests, response.data]
+        }))
       })
       .catch(error => {
       console.log('oups', error);
@@ -331,6 +334,8 @@ export default function useApplicationData() {
     }
   
     function updateDatabase (arID, user, itemsToCount) {
+      let newLeaderboard = [...state.leaderboard]
+      let index = newLeaderboard.findIndex(leader => leader.id === user.id)
       Promise.all([ 
       axios.put(`http://localhost:3000/requests/${arID}`, {
         volunteer_completed_task: true
@@ -339,6 +344,7 @@ export default function useApplicationData() {
         points: user.points + earnedPoints(itemsToCount, state.request.complete_by)
       })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
       .then(all => {
+        newLeaderboard.splice(index, 1, all[1].data.body)
         setState(prev => ({
           ...prev,
           logged: {
@@ -347,7 +353,8 @@ export default function useApplicationData() {
               ...prev.logged.user,
               points: all[1].data.body.points
             }
-          }
+          },
+          leaderboard: newLeaderboard
         }))
       })
       .catch(error => {
