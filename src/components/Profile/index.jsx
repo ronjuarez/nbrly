@@ -16,6 +16,8 @@ const ProfileWrapper = styled.div`
 height: 100%;
 padding: 20px;
 border-radius: 20px; 
+background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(181,181,181,1) 46%, rgba(255,255,255,1) 100%);
 `
 const HeaderWrapper = styled.header`
 display: flex;

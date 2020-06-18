@@ -14,7 +14,8 @@ const RequestLi = styled.li`
   background: cornflowerblue;
   padding: 25px;
   border-radius: 40px;
-  margin-bottom: 10px;
+  margin: 20px;
+  border: 1px solid white
 `
 
 const RequestDivWrapper = styled.div`

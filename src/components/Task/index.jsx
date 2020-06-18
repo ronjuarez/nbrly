@@ -11,7 +11,10 @@ import {
 import ReactSwipeButton from 'react-swipe-button'
 
 const TaskWrapper = styled.div`
-padding: 20px 30px;
+  height: 100%;
+  padding: 20px 30px;
+  background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(181,181,181,1) 46%, rgba(255,255,255,1) 100%);
 `
 const Main = styled.div`
   background: cornflowerblue;
@@ -20,6 +23,7 @@ const Main = styled.div`
   text-align:center;
   /* margin: 10px; */
   border-radius: 20px;
+  border: 1px solid white
   
 `
 const GroceryUl = styled.ul`

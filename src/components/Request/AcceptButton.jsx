@@ -5,10 +5,10 @@ import { NavLink } from 'react-router-dom';
 
 const Acceptbutton = styled.button` 
   font-size: 20px; 
-  background:lightsalmon;
+  background: #243f6b;
   border-radius: 10px;
   border: 3px solid grey;
-  color: dimgrey;
+  color: white;
   margin-left: auto;
   padding: 20px;
   width: 200px;

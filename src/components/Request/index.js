@@ -6,7 +6,8 @@ import styled from 'styled-components';
 const ReqMain = styled.div`
   width: 100%;
   overflow: scroll;
- 
+  background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(181,181,181,1) 46%, rgba(255,255,255,1) 100%);
 `
 const ReqUl = styled.div`
   overflow:scroll;

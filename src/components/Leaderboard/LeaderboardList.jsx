@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const LeaderUL = styled.ul`
     height: 100%;
-    margin: 0;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
