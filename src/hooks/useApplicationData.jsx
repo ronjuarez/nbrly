@@ -243,11 +243,21 @@ export default function useApplicationData() {
     }
 
     function removeVolunteer (arID) {
+     
+      let newState = [...state.requests]
+      let index = newState.findIndex(req => req.id === parseInt(arID))
+      
+
       axios.put(`http://localhost:3000/requests/${arID}`, {
         volunteer_id: null
       })
       .then(all => {
-        console.log('Removed volunteer id', all);
+        newState.splice(index, 1, all.data.body)
+        
+        setState(prev => ({
+          ...prev,
+          requests: newState
+        }))
       })
       .catch(error => {
         console.log(error);
@@ -279,13 +289,19 @@ export default function useApplicationData() {
       event.preventDefault();
     }
     
-
     function assignVolunteer (arID, userID) {
+      let newState = [...state.requests]
+      let index = newState.findIndex(req => req.id === parseInt(arID))
+     
       axios.put(`http://localhost:3000/requests/${arID}`, {
         volunteer_id: userID
       })
       .then(all => {
-        console.log('User Assigned', all);
+        newState.splice(index, 1, all.data.body)
+        setState(prev => ({
+          ...prev,
+          requests: newState
+        }))
       })
       .catch(error => {
         console.log(error);
