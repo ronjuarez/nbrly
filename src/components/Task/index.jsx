@@ -50,9 +50,6 @@ export default function Task({
   removeVolunteer
 }) {
 
-  const onSuccess = () => {
-    console.log('Yay! Swipe Success');
-  }
   console.log(currentUser)
   const { id } = useParams();
   let index = requests.findIndex(obj => obj.id == id)
@@ -67,7 +64,6 @@ export default function Task({
           text_unlocked="picked up"
           // color='cornflowerblue'
           font="black"
-          onSuccess={onSuccess}
         />
 
 

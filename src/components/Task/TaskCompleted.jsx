@@ -33,7 +33,7 @@ export default function TaskCompleted({
   earnedPoints
 
 }) {
-  console.log('current User', currentUser)
+
   const { id } = useParams();
   let index = requests.findIndex(obj => obj.id === parseInt(id))
 

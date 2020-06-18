@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from 'moment';
-import Moment from 'react-moment';
 
 // This custom hook is the beiung used to manage the overall data of our app.
 export default function useApplicationData() {
@@ -74,7 +73,7 @@ export default function useApplicationData() {
     }, []);
 
     function checkLoginStatus() {
-      console.log('hi')
+
       axios.get('http://localhost:3000/logged_in', { withCredentials: true }
       ).then(response => {
         console.log(response)

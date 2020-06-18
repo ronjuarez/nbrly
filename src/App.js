@@ -65,7 +65,6 @@ width: 100%;
     earnedPoints,
     changeUser
   } = useApplicationData()
- console.log(state.logged.user)
      return (
       <MainApp>
       <Router>
