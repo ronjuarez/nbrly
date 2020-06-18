@@ -7,9 +7,8 @@ import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Image from 'react-bootstrap/Image'
 import Moment from 'react-moment';
-import moment from 'moment';
+
 
 const ProfileWrapper = styled.div`
 
@@ -77,108 +76,10 @@ const CRWrapper = styled.div`
 export default function Profile ({
   currentUser,
   requests,
-  request,
-  confirmRequest,
   handleLogoutClick
 }) {
 
-  // Hardcoded Task
-  // const task = [
-  //   {
-  //   id: 4,
-  //   delivery_address: "26 Goodwood Park Cres, East York, ON M4C 2G5",
-  //   created_at: "2020-06-13T04:42:01.251Z",
-  //   updated_at: "2020-06-13T04:42:01.251Z",
-  //   volunteer_completed_task: true,
-  //   requester_confirmed_completion: true,
-  //   user_id: 3,
-  //   volunteer_id: null,
-  //   items: [
-  //   "milk"
-  //   ],
-  //   complete_by: "2020-06-12T00:00:00.000Z",
-  //   reimbursement_type: "cash"
-  //   },
-  //   {
-  //   id: 20,
-  //   delivery_address: "70 berry ave.",
-  //   created_at: "2020-06-13T20:32:44.040Z",
-  //   updated_at: "2020-06-13T20:32:44.040Z",
-  //   volunteer_completed_task: false,
-  //   requester_confirmed_completion: false,
-  //   user_id: 2,
-  //   volunteer_id: 14,
-  //   items: [
-  //   "peaches",
-  //   "berries"
-  //   ],
-  //   complete_by: "2020-06-14T04:00:00.000Z",
-  //   reimbursement_type: "cash"
-  //   },
-  //   {
-  //     id: 4,
-  //     delivery_address: "26 Goodwood Park Cres, East York, ON M4C 2G5",
-  //     created_at: "2020-06-13T04:42:01.251Z",
-  //     updated_at: "2020-06-13T04:42:01.251Z",
-  //     volunteer_completed_task: true,
-  //     requester_confirmed_completion: false,
-  //     user_id: 14,
-  //     volunteer_id: 2,
-  //     items: [
-  //     "milk"
-  //     ],
-  //     complete_by: "2020-06-12T00:00:00.000Z",
-  //     reimbursement_type: "cash"
-  //     },
-  //     {
-  //     id: 20,
-  //     delivery_address: "70 berry ave.",
-  //     created_at: "2020-06-13T20:32:44.040Z",
-  //     updated_at: "2020-06-13T20:32:44.040Z",
-  //     volunteer_completed_task: false,
-  //     requester_confirmed_completion: false,
-  //     user_id: 14,
-  //     volunteer_id: 2,
-  //     items: [
-  //     "peaches",
-  //     "berries"
-  //     ],
-  //     complete_by: "2020-06-14T04:00:00.000Z",
-  //     reimbursement_type: "cash"
-  //     }, 
-  //     {
-  //       id: 20,
-  //       delivery_address: "70 berry ave.",
-  //       created_at: "2020-06-13T20:32:44.040Z",
-  //       updated_at: "2020-06-13T20:32:44.040Z",
-  //       volunteer_completed_task: false,
-  //       requester_confirmed_completion: false,
-  //       user_id: 14,
-  //       volunteer_id: 11,
-  //       items: [
-  //       "peaches",
-  //       "berries"
-  //       ],
-  //       complete_by: "2020-06-14T04:00:00.000Z",
-  //       reimbursement_type: "cash"
-  //       },
-  //       {
-  //         id: 20,
-  //         delivery_address: "70 berry ave.",
-  //         created_at: "2020-06-13T20:32:44.040Z",
-  //         updated_at: "2020-06-13T20:32:44.040Z",
-  //         volunteer_completed_task: true,
-  //         requester_confirmed_completion: true,
-  //         user_id: 14,
-  //         volunteer_id: 11,
-  //         items: [
-  //         "peaches",
-  //         "berries"
-  //         ],
-  //         complete_by: "2020-06-14T04:00:00.000Z",
-  //         reimbursement_type: "cash"
-  //         }
-  // ]
+
   const thumbsUp = <FontAwesomeIcon icon={faThumbsUp}/> 
 
   // Check if  the user has any current request 
@@ -263,7 +164,6 @@ export default function Profile ({
   return (
     <ProfileWrapper>
       <PInnnerWrapper>
-      {/* <h1>Profile {currentUser.id}</h1> */}
       <HeaderWrapper>
         <AvatarImg src={currentUser.avatar}/>
         <UserHWrapper>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { faHome, faTrophy, faHandsHelping, faList, faUserCircle} from "@fortawesome/free-solid-svg-icons";
+import { faHome, faTrophy, faHandsHelping, faUserCircle} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from 'styled-components';
 
@@ -47,8 +47,6 @@ export default function Navigation() {
             <StyledLink exact to="/">{home}<NavSpan>Home</NavSpan></StyledLink>  
             <StyledLink to="/requests">{request}<NavSpan>Requests</NavSpan></StyledLink>
             <StyledLink to="/leaderboard">{leaderboard}<NavSpan>Leaderboard</NavSpan></StyledLink>
-{/*             
-            <StyledLink to="/requests">{task}<NavSpan>Task</NavSpan></StyledLink> */}
             <StyledLink to="/profile">{profile}<NavSpan>Profile</NavSpan></StyledLink>
        </NavUL>
     );

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-const classnames = require('classnames');
 
 const PointsButton = styled.button.attrs(props => ({
     className: props.className,

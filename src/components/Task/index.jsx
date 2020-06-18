@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   useParams,
   NavLink
-
 } from "react-router-dom";
 
 import ReactSwipeButton from 'react-swipe-button'
@@ -62,7 +61,6 @@ export default function Task({
         <ReactSwipeButton
           text={item}
           text_unlocked="picked up"
-          // color='cornflowerblue'
           font="black"
         />
 
@@ -75,11 +73,7 @@ export default function Task({
     <Main>
 
       <h1>Task # {id}</h1>
-      {/* <h4>{currentUser.id}</h4> */}
       <GroceryUl>
-        {/* <GroceryLi>
-          Requesters Name:<span> </span>
-        </GroceryLi> */}
 
         <GroceryLi>
           Delivery Address: <p>{requests && requests.length && requests[index].delivery_address}</p>

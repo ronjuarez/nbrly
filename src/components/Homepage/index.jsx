@@ -1,19 +1,6 @@
-import React, { useState, useCallback, useRef, useEffect, } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
-import Geocode from "react-geocode";
 import { NavLink } from 'react-router-dom';
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-} from "@reach/combobox";
-import AcceptButton from '../Request/AcceptButton';
 const libraries = ["places"];
 
 export default function Homepage(props) {

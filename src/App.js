@@ -8,7 +8,6 @@ import Homepage from './components/Homepage';
 import Task from './components/Task';
 import TaskCompleted from './components/Task/TaskCompleted';
 import Profile from './components/Profile';
-import MostDeliveries from './components/Leaderboard/MostDeliveries';
 import useApplicationData from "./hooks/useApplicationData";
 import NewRequest from './components/Request/NewRequest'
 import Login from './components/auth/Login';
@@ -69,100 +68,96 @@ width: 100%;
       <MainApp>
       <Router>
        
-        <Section>
-        <Switch>
-          <Route exact path="/requests">
-            <Request
-              requests={state.requests}
-              currentUser={state.logged.user}
-              assignVolunteer={assignVolunteer}/>
-          </Route>
-          <Route path="/requests/new">
-          {state.logged.loggedInStatus === "Logged in" ?
-            <NewRequest
-              newRequest={submitNewRequest}
-              currentUser={state.logged.user}
-              changeRequest={changeRequest}
-              removeItem={removeItem}
-              request={state.request}
-              requestDate={state.requestDate}
-              addItem={addRequestItem}
-              setCoords={setCoords}
-              setDate={setRequestDate}
-              setDeliveryAddress={setDeliveryAddress}/> : 
-              <Redirect to ="/login"/>}
-          </Route>
-          <Route path={`/requests/:id/complete`}>
-            <TaskCompleted
-            earnedPoints={earnedPoints}
-              currentUser={state.logged.user}
-              requests={state.requests}
-              addPoints={addPoints}/>
-          </Route>  
-          <Route path="/requests/:id">
-             {state.logged.loggedInStatus === "Logged in" ?               
-             <Task
-                removeVolunteer={removeVolunteer}
-                currentUser={state.logged.user}
+          <Section>
+          <Switch>
+            <Route exact path="/requests">
+              <Request
                 requests={state.requests}
-                addPoints={addPoints}
-                updateDatabase={updateDatabase}/> :
-                <Redirect to="/login"/>}
-          </Route>
-          <Route exact path="/leaderboard">
-            <Leaderboard
-              users={state.leaderboard}/>
-          </Route>
-          <Route path ="/leaderboard/mostdeliveries">
-            <MostDeliveries
-              players={state.leaderboard}/>
-          </Route>
-          <Route path="/profile">
-            {/* {state.logged.loggedInStatus === "Logged in" ? */}
-              <Profile 
                 currentUser={state.logged.user}
+                assignVolunteer={assignVolunteer}/>
+            </Route>
+            <Route path="/requests/new">
+            {state.logged.loggedInStatus === "Logged in" ?
+              <NewRequest
+                newRequest={submitNewRequest}
+                currentUser={state.logged.user}
+                changeRequest={changeRequest}
+                removeItem={removeItem}
                 request={state.request}
-                requests={state.requests}
-                confirmRequest={confirmRequest}
-                handleLogoutClick={destroySession}/> 
-               {/* :
-                <Redirect to="/login" />}  */}
-          </Route>
-          <Route path="/register">         
-            <Registration
-              {...props}
-              handleSubmit={newRegistration}
-              handleChange={changeUser}
-              user={state.user}
-              loggedInStatus={state.logged.loggedInStatus}/>
-          </Route>
-          <Route path="/login">         
-            <Login 
-              {...props} 
-              currentUser={state.logged.user} 
-              user={state.user}
-              handleSubmit={createSession}
-              handleLogoutClick={destroySession}
-              handleChange={changeUser}
-              loggedInStatus={state.logged.loggedInStatus}/>
-          </Route>
-          <Route exact path="/">
-              <Homepage 
-                {...props}
+                requestDate={state.requestDate}
+                addItem={addRequestItem}
+                setCoords={setCoords}
+                setDate={setRequestDate}
+                setDeliveryAddress={setDeliveryAddress}/> : 
+                <Redirect to ="/login"/>}
+            </Route>
+            <Route path={`/requests/:id/complete`}>
+              <TaskCompleted
+              earnedPoints={earnedPoints}
                 currentUser={state.logged.user}
-                assignVolunteer={assignVolunteer}
                 requests={state.requests}
-                handleLogin={handleLogin}
-                handleLogout={handleLogout} 
-                loggedInStatus={state.logged.loggedInStatus}/> 
- 
-          </Route>
-        </Switch>
+                addPoints={addPoints}/>
+            </Route>  
+            <Route path="/requests/:id">
+              {state.logged.loggedInStatus === "Logged in" ?               
+              <Task
+                  removeVolunteer={removeVolunteer}
+                  currentUser={state.logged.user}
+                  requests={state.requests}
+                  addPoints={addPoints}
+                  updateDatabase={updateDatabase}/> :
+                  <Redirect to="/login"/>}
+            </Route>
+            <Route exact path="/leaderboard">
+              <Leaderboard
+                users={state.leaderboard}/>
+            </Route>
+            <Route path="/profile">
+                <Profile 
+                  currentUser={state.logged.user}
+                  request={state.request}
+                  requests={state.requests}
+                  confirmRequest={confirmRequest}
+                  handleLogoutClick={destroySession}/> 
+            </Route>
+            <Route path="/register">         
+              <Registration
+                {...props}
+                handleSubmit={newRegistration}
+                handleChange={changeUser}
+                user={state.user}
+                loggedInStatus={state.logged.loggedInStatus}/>
+            </Route>
+            <Route path="/login">         
+              <Login 
+                {...props} 
+                currentUser={state.logged.user} 
+                user={state.user}
+                handleSubmit={createSession}
+                handleLogoutClick={destroySession}
+                handleChange={changeUser}
+                loggedInStatus={state.logged.loggedInStatus}/>
+            </Route>
+            <Route exact path="/">
+                <Homepage 
+                  {...props}
+                  currentUser={state.logged.user}
+                  assignVolunteer={assignVolunteer}
+                  requests={state.requests}
+                  handleLogin={handleLogin}
+                  handleLogout={handleLogout} 
+                  loggedInStatus={state.logged.loggedInStatus}/> 
+  
+            </Route>
+          </Switch>
         </Section>
+
         <StyledNav>
           <Navigation />
         </StyledNav>
+      
       </Router>
     </MainApp> 
+
     )
   }

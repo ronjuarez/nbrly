@@ -59,7 +59,7 @@ export default function Header({
             <h1>{name}</h1>
             <LeaderDiv>
              
-                {/* <h2>#1</h2> */}
+                
                 <LeaderTrophy>{leaderboard}</LeaderTrophy>
                 <LeaderImgContainer >
                     <LeaderImg src={avatar}></LeaderImg>

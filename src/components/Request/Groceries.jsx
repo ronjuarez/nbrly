@@ -35,8 +35,9 @@ export default function Groceries ({
 }) {
 
   const [grocery, setGroceryList] = useState([])
-
   const [text, setText] = useState("")
+
+
   const handleAddItem = event => {
     event.preventDefault();
     
@@ -57,7 +58,6 @@ export default function Groceries ({
           {item}
         <ButtonWrapper>
           <Button 
-          // className={classes.button}
           variant="contained"
           color="secondary"
           startIcon={<DeleteIcon />}
@@ -71,24 +71,23 @@ export default function Groceries ({
 
   return (
       <div>
-      <h5>Grocery List:</h5>
-      <form >
-          <Input 
-          
-            onChange={event => setText(event.target.value)} 
-            type="text" 
-            name ="groceryList" 
-            value={text}   
-            placeholder="Add a new item"
-            required 
-            />
-
-          <Button 
-            type="button"
-            onClick={handleAddItem}>
-              <AddCircleOutlineIcon color="primary"
+        <h5>Grocery List:</h5>
+          <form>
+            <Input 
+              onChange={event => setText(event.target.value)} 
+              type="text" 
+              name ="groceryList" 
+              value={text}   
+              placeholder="Add a new item"
+              required 
               />
-          </Button>
+
+            <Button 
+              type="button"
+              onClick={handleAddItem}>
+                <AddCircleOutlineIcon color="primary"
+                />
+            </Button>
         </form>
         <StyledList>
           {groceryList}
