@@ -135,15 +135,6 @@ export default function useApplicationData() {
       }))
     }  
     
-    function getTask (requests, user) { 
-      requests.filter(request => {
-        return (request.volunteer_id === user.id)
-      })
-    }
-
-    function handleSuccessfulAuth(data) {
-      handleLogin(data);
-    }
 
     function newRegistration(event) {
       axios.post("http://localhost:3000/registrations", {
@@ -158,7 +149,7 @@ export default function useApplicationData() {
       ).then(response => {
         console.log(response)
           if(response.data.status === 'created') {
-            handleSuccessfulAuth(response.data);
+            handleLogin(response.data);
           }
       })
       .catch(error => {
@@ -283,7 +274,7 @@ export default function useApplicationData() {
       { withCredentials: true }
       ).then(response => {
           if(response.data.logged_in) {
-            handleSuccessfulAuth(response.data);
+            handleLogin(response.data);
           }
       })
       .catch(error => {
@@ -368,7 +359,6 @@ export default function useApplicationData() {
         checkLoginStatus,
         handleLogin, 
         handleLogout,
-        handleSuccessfulAuth,
         submitNewRequest, 
         changeRequest,
         changeUser,
@@ -377,7 +367,6 @@ export default function useApplicationData() {
         addRequestItem,
         addPoints,
         updateDatabase,
-        getTask,
         assignVolunteer,
         setCoords,
         setDeliveryAddress,

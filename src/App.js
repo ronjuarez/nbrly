@@ -46,7 +46,6 @@ width: 100%;
   const {
     state,
     removeVolunteer,
-    handleSuccessfulAuth,
     handleLogin, 
     handleLogout,
     submitNewRequest,
@@ -133,7 +132,6 @@ width: 100%;
           <Route path="/register">         
             <Registration
               {...props}
-              handleSuccessfulAuth={handleSuccessfulAuth} 
               handleSubmit={newRegistration}
               handleChange={changeUser}
               user={state.user}
