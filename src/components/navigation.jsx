@@ -15,7 +15,7 @@ const StyledLink = styled(NavLink).attrs({ activeClassName })`
     align-items: center;
     
     &.${activeClassName} {
-        color: red;
+        color: cornflowerblue;
         border: 2px dotted black;
         padding: 20px;
         border-radius: 20px;
