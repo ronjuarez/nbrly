@@ -280,9 +280,9 @@ export default function Profile ({
           
         </div>
         <div>
-          <h2>
-            Current Task 
-          </h2>
+          <h4>
+            Task History 
+          </h4>
           <CurrentTaskWrapper>
             <TaskUL>
               {mapTask}

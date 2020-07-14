@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import FacebookLogin from 'react-facebook-login';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
@@ -12,6 +13,24 @@ export default function Login({
     currentUser,
 }) {
 
+    let responseFacebook = response => console.log(response);
+
+    let componentClicked = () => console.log('clicked');
+    let fbData;
+
+    if (loggedInStatus === "Logged in") {
+        fbData = null;
+    } else {
+        fbData = (
+            <FacebookLogin
+                appId="270320127388791"
+                autoLoad={true}
+                fields="name,email,picture"
+                onClick={componentClicked}
+                callback={responseFacebook} 
+            />
+        );
+    }
     return (
         
         <div>
@@ -38,7 +57,7 @@ export default function Login({
                     <p>Don't have an account:<Link to="/register">Click to Register</Link></p>
                 </div>  
             </form>
-            
+            <div>{fbData}</div>
             {currentUser && <button onClick={() => handleLogoutClick()}>Logout</button>}
         </div>
     )

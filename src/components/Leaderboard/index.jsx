@@ -9,6 +9,9 @@ const Main = styled.div`
     margin: 0;
     /* border: 2px solid blue;  */
     height: 100%;
+    background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(181,181,181,1) 46%, rgba(255,255,255,1) 100%);
+
 
 `
 const LeaderboardContainer = styled.div`

@@ -49,7 +49,11 @@ export default function Homepage(props) {
         mapRef.current = map;
     }, [])
    
-  
+    const filterRequestList = props.requests.filter(request => {  
+    
+          return(request.volunteer_id === null)
+         }
+       )
     
   if (loadError) return "Error loading maps"; 
   if (!isLoaded) return "Loading maps";
@@ -63,7 +67,7 @@ export default function Homepage(props) {
         onClick={onMapClick}
         onLoad={onMapLoad}
     >
-        {props.requests.map(request => (
+        {filterRequestList.map(request => (
         <Marker
             key={request.id}
             position={{lat: request.latitude, lng: request.longitude}}

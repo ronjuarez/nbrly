@@ -74,7 +74,6 @@ export default function useApplicationData() {
     }, []);
 
     function checkLoginStatus() {
-      console.log('hi')
       axios.get('http://localhost:3000/logged_in', { withCredentials: true }
       ).then(response => {
         console.log(response)
@@ -324,16 +323,22 @@ export default function useApplicationData() {
     }
     const earnedPoints = (requestData, completedDate) => {
       let itemsLength = requestData.length;
+
       let currentDate = new Date()
+     
       // if satement checking date completed by is under 24 hours then add an extra 100 points
-      if ( (moment(completedDate).diff(moment(currentDate), 'hours')) < 24) {
+      if ((moment(completedDate).diff(moment(currentDate), 'hours')) < 24) {
+        
         return ((itemsLength * 100) * 2)
       } else {
+      
         return (itemsLength * 100);
       }
     }
   
     function updateDatabase (arID, user, itemsToCount) {
+      let newRequests = [...state.requests]
+      let requestIndex = newRequests.findIndex(req => req.id === parseInt(arID))
       let newLeaderboard = [...state.leaderboard]
       let index = newLeaderboard.findIndex(leader => leader.id === user.id)
       Promise.all([ 
@@ -341,7 +346,7 @@ export default function useApplicationData() {
         volunteer_completed_task: true
       }),
       axios.put(`http://localhost:3000/users/${user.id}`, {
-        points: user.points + earnedPoints(itemsToCount, state.request.complete_by)
+        points: user.points + earnedPoints(itemsToCount, newRequests[requestIndex].complete_by)
       })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
       .then(all => {
         newLeaderboard.splice(index, 1, all[1].data.body)

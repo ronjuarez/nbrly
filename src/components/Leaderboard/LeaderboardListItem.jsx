@@ -8,6 +8,7 @@ const ListLeaderboard = styled.li`
     color: white;
     display: flex;
     border-radius: 5px;
+    margin: 5px;
     padding: 2px 10px;
     align-items: center;
 `

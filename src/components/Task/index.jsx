@@ -37,7 +37,7 @@ const GroceryLi = styled.li`
   }
 `
 const GroceryListItems = styled.li`
-  height: 200px;
+  height: 300px;
   /* border: 1px solid blue; */
 `
 
@@ -55,7 +55,7 @@ export default function Task({
   }
   console.log(currentUser)
   const { id } = useParams();
-  let index = requests.findIndex(obj => obj.id == id)
+  let index = requests.findIndex(obj => obj.id === parseInt(id))
 
 
   const groceryList = requests && requests.length && requests[index].items.map(item => {

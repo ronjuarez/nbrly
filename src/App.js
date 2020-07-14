@@ -22,7 +22,7 @@ height: 900px;
 border: solid 3px grey;
 width: 600px;
 position: fixed;
-left: 500px;
+left: 650px;
 top: 50px;
 border-radius: 10px;
 `
