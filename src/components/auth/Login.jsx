@@ -13,18 +13,24 @@ export default function Login({
     currentUser,
 }) {
 
-    let responseFacebook = response => console.log(response);
+    const [ facebookUser, setfacebookUser ] = useState()
+
+    let responseFacebook = response => setfacebookUser(response);
 
     useEffect(() => {
         axios.get('http://localhost:3000/users').then((response) => {
-            console.log(response.data.body);
+            for (let user of response.data.body) {
+                if ((user.email === facebookUser.email) && user.fb_user === true) {
+                    // set Facebook User to current user 
+                } else {
+                    // Prompt them with a registration component, then add them to the database and set them as current user 
+
+                }
+            };
         });
-    }, [responseFacebook]);
-    // Loop through the users 
-    // If a user's email is in the database AND they're a fbUser, log them in 
-    // Otherwise, prompt them with a component that tells them they're registering 
-    // Then, add them to the database and log them in 
+    }, facebookUser);
     // Problems: this useEffect is being triggered several times - reduce the about of times it's being triggered 
+    // What are the arguments for useEffect? 
 
     let componentClicked = () => console.log('clicked');
     let fbData;
