@@ -9,20 +9,12 @@ import RequestListItem from '../components/Request/RequestListItem';
 import AcceptButton from '../components/Request/AcceptButton';
 import RequestList from '../components/Request/RequestList';
 import NewRequest from '../components/Request/NewRequest';
-import ReimbursementDropDown from '../components/Request/Reimbursement';
 import Groceries from '../components/Request/Groceries';
 import GroceryButton from '../components/Request/GroceryButton';
-import GroceryList from '../components/Request/GroceryList';
 import TaskCompleted from '../components/Task/TaskCompleted';
 import Task from '../components/Task/index';
 import Profile from '../components/Profile/index';
 import SignIn from '../components/SignIn';
-
-
-
-
-
-
 
 storiesOf('Leaderboard', module)
 	.add( 'Volunteer panel', () => <Leaderboard/>)
@@ -30,28 +22,19 @@ storiesOf('Leaderboard', module)
 	.add('Header', () => <Header/>)
 	.add('Leaderboard List', () => <LeaderboardList/>)
 
-
-
-
 storiesOf('Request', module)
 	.add('RequestListItem', () => <RequestListItem />)
 	.add('AcceptButton', () => <AcceptButton />)
 	.add('RequestList', () => <RequestList />)
 	.add("NewRequest", () => <NewRequest/>)
-	.add("ReimbursementDropDown", () => <ReimbursementDropDown/>)
-	.add("GroceryList", () => <Groceries/>)
 	.add("GroceryButton", () => <GroceryButton onClick={action("button-clicked")}/>)
-	
 
 storiesOf('Task', module)
 	.add("Task", () => <Task/>)
 	.add("TaskCompleted", () => <TaskCompleted/>)
 
-
-
 storiesOf('Profile', module)
 	.add("Profile", () => <Profile/>)
-	
 	
 storiesOf('SignIn', module)	
 	.add("SignIn", () => <SignIn/> )

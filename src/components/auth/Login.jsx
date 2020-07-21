@@ -14,29 +14,32 @@ export default function Login({
 }) {
 
     const [ facebookUser, setfacebookUser ] = useState()
-
     let responseFacebook = response => setfacebookUser(response);
+    // create object 
+    // send user object to back 
+    // find user in rails with query (email and fbUser = true)
+    // JSon object response from rails 
 
-    useEffect(() => {
-        axios.get('http://localhost:3000/users').then((response) => {
-            for (let user of response.data.body) {
-                if ((user.email === facebookUser.email) && user.fb_user === true) {
-                    console.log("Facebook user found in database");
-                    // set Facebook User to current user 
-                    // --> handleChange, changeUser 
-                } else {
-                    // Prompt them with a registration component, then add them to the database and set them as current user 
-                    fbRegisterComponent = <h1>"Register PopUp"</h1>;
-                }
-            };
-        }).catch((response) => console.log(response));
-    }, facebookUser);
-    // Problems: this useEffect is being triggered several times - reduce the about of times it's being triggered 
-    // What are the arguments for useEffect? 
+    function loginFacebookUser() {
+        axios.post("http://localhost:3000/sessions", {
+            user: {
+                email: facebookUser.email, 
+                password: facebookUser.accessToken
+            }
+        }, {credetials: true})
+        .then(response => {
+            if (response.data.status === 401) {
+                console.log("Facebook user isn't registered");
+            } 
+            if (response.data.logged_in) {
+                console.log("Facebook user needs to be logged in");
+            }
+        })
+        .catch(response => console.log(response));
+    }
 
-    let componentClicked = () => console.log('clicked');
+    let componentClicked = () => loginFacebookUser();
     let fbData;
-    let fbRegisterComponent; 
 
     if (loggedInStatus === "Logged in") {
         fbData = null;
@@ -44,13 +47,14 @@ export default function Login({
         fbData = (
             <FacebookLogin
                 appId="285017142581524"
-                autoLoad={true}
+                autoLoad={false}
                 fields="name,email,picture"
                 onClick={componentClicked}
                 callback={responseFacebook} 
             />
         );
     }
+
     return (
         
         <div>
