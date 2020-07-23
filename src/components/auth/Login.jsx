@@ -11,12 +11,12 @@ export default function Login({
     loggedInStatus,
     user,
     currentUser,
+    handleSuccessfulAuth
 }) {
 
     const [ facebookUser, setfacebookUser ] = useState()
     let responseFacebook = response => {
-        console.log(response);
-        // setfacebookUser(response)
+        setfacebookUser(response)
     };
     console.log(facebookUser);
     // create object 
@@ -30,17 +30,32 @@ export default function Login({
                 email: facebookUser.email, 
                 password: facebookUser.accessToken
             }
-        }, {credetials: true})
+        }, {withCredentials: true})
         .then(response => {
             if (response.data.status === 401) {
-                console.log("Facebook user isn't registered");
+                console.log("Facebook user is being registered.")
+                axios.post("http://localhost:3000/registrations", {
+                    user: {
+                        name: facebookUser.name,
+                        avatar: facebookUser.picture.data.url, 
+                        email: facebookUser.email, 
+                        password: facebookUser.accessToken.substring(0, 71), 
+                        fbUser: true
+                    }
+                }, {withCredentials: true})
+                .then((response) => {
+                    if (response.data.status === "created") {
+                        handleSuccessfulAuth(response.data)
+                    }
+                })
+                .catch(error => console.log("Error with successful auth, ", error));
             } 
             if (response.data.logged_in) {
 
                 console.log("Facebook user needs to be logged in");
             }
         })
-        .catch(response => console.log(response));
+        .catch(error => console.log(error));
     }
 
     let componentClicked = () => loginFacebookUser();
@@ -52,7 +67,7 @@ export default function Login({
         fbData = (
             <FacebookLogin
                 appId="285017142581524"
-                autoLoad={false}
+                autoLoad={true}
                 fields="name,email,picture"
                 onClick={componentClicked}
                 callback={responseFacebook} 

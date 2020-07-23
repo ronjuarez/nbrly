@@ -147,7 +147,8 @@ width: 100%;
               handleSubmit={createSession}
               handleLogoutClick={destroySession}
               handleChange={changeUser}
-              loggedInStatus={state.logged.loggedInStatus}/>
+              loggedInStatus={state.logged.loggedInStatus}
+              handleSuccessfulAuth={handleSuccessfulAuth}/>
           </Route>
           <Route exact path="/">
               <Homepage 
