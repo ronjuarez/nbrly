@@ -14,7 +14,11 @@ export default function Login({
 }) {
 
     const [ facebookUser, setfacebookUser ] = useState()
-    let responseFacebook = response => setfacebookUser(response);
+    let responseFacebook = response => {
+        console.log(response);
+        // setfacebookUser(response)
+    };
+    console.log(facebookUser);
     // create object 
     // send user object to back 
     // find user in rails with query (email and fbUser = true)
@@ -32,6 +36,7 @@ export default function Login({
                 console.log("Facebook user isn't registered");
             } 
             if (response.data.logged_in) {
+
                 console.log("Facebook user needs to be logged in");
             }
         })
