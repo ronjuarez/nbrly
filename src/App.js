@@ -64,7 +64,8 @@ width: 100%;
     createSession,
     destroySession,
     earnedPoints,
-    changeUser
+    changeUser,
+    changeMode
   } = useApplicationData()
  console.log(state.logged.user)
      return (
@@ -113,11 +114,15 @@ width: 100%;
           </Route>
           <Route exact path="/leaderboard">
             <Leaderboard
-              users={state.leaderboard}/>
+              changeMode={changeMode}
+              users={state.leaderboard.players}
+              mode={state.leaderboard.mode}/>
           </Route>
           <Route path ="/leaderboard/mostdeliveries">
             <MostDeliveries
-              players={state.leaderboard}/>
+              changeMode={changeMode}
+              players={state.leaderboard.players}
+              mode={state.leaderboard.mode}/>
           </Route>
           <Route path="/profile">
             {/* {state.logged.loggedInStatus === "Logged in" ? */}

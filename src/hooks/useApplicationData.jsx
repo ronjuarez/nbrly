@@ -26,7 +26,10 @@ export default function useApplicationData() {
       volunteer_completed_task: false,
       requester_confirmed_completion: false
     },
-    leaderboard: [],
+    leaderboard: {
+      players: [],
+      mode: "Points"
+    },
     logged: {
       loggedInStatus: "Not logged in",
       user: {}
@@ -42,6 +45,16 @@ export default function useApplicationData() {
         latitude: lat,
         longitude: lon
       } 
+    }))
+  }
+
+  function changeMode(newMode) {
+    setState(prev => ({
+      ...prev,
+      leaderboard: {
+        ...prev.leaderboard,
+        mode: newMode
+      }
     }))
   }
 
@@ -65,14 +78,19 @@ export default function useApplicationData() {
     .then((all) => {
       setState(prev => ({
         ...prev,
-        users: all[0].data.body, requests: all[1].data.body, leaderboard: all[2].data.body}));
-
-        })
+        users: all[0].data.body, requests: all[1].data.body, 
+        leaderboard: {
+          ...prev.leaderboard,
+         players: all[2].data.body
+        }
+      }));
+    })
       .catch((error) => {
         console.log(error)
       })
     }, []);
 
+   
     function checkLoginStatus() {
       axios.get('http://localhost:3000/logged_in', { withCredentials: true }
       ).then(response => {
@@ -339,13 +357,16 @@ export default function useApplicationData() {
     function updateDatabase (arID, user, itemsToCount) {
       let newRequests = [...state.requests]
       let requestIndex = newRequests.findIndex(req => req.id === parseInt(arID))
-      let newLeaderboard = [...state.leaderboard]
+      let newLeaderboard = [...state.leaderboard.players]
       let index = newLeaderboard.findIndex(leader => leader.id === user.id)
+      let updatedDeliveries = user.deliveries + 1; 
+      
       Promise.all([ 
       axios.put(`http://localhost:3000/requests/${arID}`, {
         volunteer_completed_task: true
       }),
       axios.put(`http://localhost:3000/users/${user.id}`, {
+        deliveries: updatedDeliveries,
         points: user.points + earnedPoints(itemsToCount, newRequests[requestIndex].complete_by)
       })])                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
       .then(all => {
@@ -356,10 +377,14 @@ export default function useApplicationData() {
             ...prev.logged,
             user: {
               ...prev.logged.user,
+              deliveries: all[1].data.body.deliveries,
               points: all[1].data.body.points
             }
           },
-          leaderboard: newLeaderboard
+          leaderboard: {
+            ...prev.leaderboard,
+            players: newLeaderboard
+          }
         }))
       })
       .catch(error => {
@@ -391,6 +416,7 @@ export default function useApplicationData() {
         createSession,
         destroySession,
         earnedPoints,
+        changeMode
       }
     
     }

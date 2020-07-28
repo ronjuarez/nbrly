@@ -17,6 +17,11 @@ const Place = styled.h2`
     font-size: 25px;
     margin: 0;
 `
+const Deliveries = styled.h2`
+    float: left;
+    font-size: 25px;
+    margin: 0;
+`
 const AvatarImg = styled.img`
 border-radius: 100%;
 height:50px;
@@ -49,8 +54,9 @@ export default function LeaderboardListItem({
     position,
     avatar,
     points,
+    deliveries,
+    mode
 }) {
-
     const medals = <FontAwesomeIcon icon={faMedal}/>
     const award = <FontAwesomeIcon icon={faAward}/>  
     const reward = (place) => {
@@ -66,7 +72,9 @@ export default function LeaderboardListItem({
             <Place>{position}</Place>
             <AvatarImg src={avatar}></AvatarImg>
             <LeaderName>{name}</LeaderName>
-            <Place>{points}</Place>
+            {mode === "Points" ? 
+            <Place>{points}</Place> : 
+            <Deliveries>{deliveries}</Deliveries>}
             {reward(position)}
         </ListLeaderboard>
     )

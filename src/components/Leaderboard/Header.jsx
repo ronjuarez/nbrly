@@ -23,12 +23,35 @@ const LeaderDiv = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
+`
+const ModeDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:center;
+`
+const PointsButton = styled.button`
+    border-radius: 5px;
+    margin-bottom: 25px;
+    background: linear-gradient(90deg, rgba(237,98,37,1) 0%, rgba(238,166,15,1) 35%, rgba(237,181,15,1) 100%);
+    font-weight: bold;
+    border: 1px solid;
+    
+`
+const DeliveriesButton = styled.button`
+    border-radius: 5px;
+    margin-bottom: 25px;
+    background: linear-gradient(90deg, rgba(237,98,37,1) 0%, rgba(238,166,15,1) 35%, rgba(237,181,15,1) 100%);
+    font-weight: bold; 
+    border: 1px solid; 
 `
 const LeaderTrophy = styled.p`
 color: gold;
 font-size: 45px;
 
+`
+const LeaderDeliveries = styled.p`
+    font-size: 45px;
 `
 
 const LeaderImg = styled.img`
@@ -49,9 +72,13 @@ font-size: 45px;
 export default function Header({
   name,
   avatar,
-  points  
+  points,
+  mode,
+  deliveries,
+  changeMode  
 }) {
-
+    const POINTS = "Points";
+    const DELIVERIES = "Deliveries";
     const leaderboard = <FontAwesomeIcon icon={faTrophy}/> 
 
     return (
@@ -64,9 +91,18 @@ export default function Header({
                 <LeaderImgContainer >
                     <LeaderImg src={avatar}></LeaderImg>
                 </LeaderImgContainer>
-                
-                <LeaderPoints>{points}</LeaderPoints>
+                {mode === "Points" ?
+                <LeaderPoints>{points}</LeaderPoints> :
+                <LeaderDeliveries>{deliveries}</LeaderDeliveries>}
             </LeaderDiv> 
+            <ModeDiv>
+                <PointsButton onClick={() => changeMode(POINTS)}> 
+                    Most Points
+                </PointsButton>
+                <DeliveriesButton onClick={() => changeMode(DELIVERIES)}>
+                    Most Deliveries
+                </DeliveriesButton>
+            </ModeDiv>
         </LeaderHeader>
     )
 }
