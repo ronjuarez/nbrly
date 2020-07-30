@@ -18,28 +18,29 @@ export default function Login({
     let responseFacebook = response => {
         setfacebookUser(response)
     };
-    console.log(facebookUser);
-    // create object 
-    // send user object to back 
-    // find user in rails with query (email and fbUser = true)
-    // JSon object response from rails 
+
+    if (facebookUser) {
+        console.log(facebookUser.accessToken.substring(0,20))
+    }
 
     function loginFacebookUser() {
         axios.post("http://localhost:3000/sessions", {
             user: {
                 email: facebookUser.email, 
-                password: facebookUser.accessToken
+                password: facebookUser.accessToken.substring(0, 20)
             }
         }, {withCredentials: true})
         .then(response => {
-            if (response.data.status === 401) {
+            console.log(facebookUser);
+            console.log(response);
+            if (response.data.logged_in === false) {
                 console.log("Facebook user is being registered.")
                 axios.post("http://localhost:3000/registrations", {
                     user: {
                         name: facebookUser.name,
                         avatar: facebookUser.picture.data.url, 
                         email: facebookUser.email, 
-                        password: facebookUser.accessToken.substring(0, 71), 
+                        password: facebookUser.accessToken.substring(0, 20), 
                         fbUser: true
                     }
                 }, {withCredentials: true})
