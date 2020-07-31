@@ -13,6 +13,7 @@ import useApplicationData from "./hooks/useApplicationData";
 import NewRequest from './components/Request/NewRequest'
 import Login from './components/auth/Login';
 import Registration from './components/auth/Registration';
+import Chatroom from './components/Chatroom'
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from "@react-google-maps/api";
 
 import styled from 'styled-components';
@@ -74,6 +75,9 @@ width: 100%;
        
         <Section>
         <Switch>
+          <Route path="/chatroom">
+            <Chatroom/>
+          </Route>
           <Route exact path="/requests">
             <Request
               requests={state.requests}
