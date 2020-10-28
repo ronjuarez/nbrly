@@ -1,68 +1,38 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# nbrly LHL Final Project
+---
 
-## Available Scripts
+Nbrly is a single page app where users can post and answer requests for groceries to be picked up for neighbours with vulnerabiliies to COVID-19. It uses [nbrly-api](https://github.com/ronjuarez/nbrly-api) as its backend. 
 
-In the project directory, you can run:
+## Front-End Tech Stack
+* ReactJS
+* React Router
+* Styled-Components
+* Material UI
+* Axios
 
-### `npm start`
+## Back-End Tech Stack
+* Ruby on Rails
+* PostgresQL
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+# To run nbrly locally:
+1) Clone the [nbrly-api](https://github.com/ronjuarez/nbrly-api) back-end repo.
+2) Clone the [nbrly](https://github.com/ronjuarez/nbrly) front-end repo.
+3) Install api dependencies by running `bundle install`.
+4) Create and seed the API DB with `rails db:migrate` followed by `rails db:reset`.
+5) Run the API server using `rails s`.
+6) Install front-end dependencies using `npm i`.
+7) Run app server using `npm start`
 
-### `npm test`
+The app's backend will run http//localhost:3000/, and it's frontend will run on http://localhost:8000.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+# Here is a demonstration of nbrly's key features:
+## On LOAD you will see a map with pins that represent different requests in your city. By clicking on each pin you will be able to see the request address, request items, and a button to accept requests.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## You can also accept requests from the the Request List pane in the Requests tab. Swipe away the items you've picked up and mark the delivery as completed. Once the task is completed it's assigned points will show up for the user on the leaderboard.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## The leaderboard can also be filtered by points! To place a request, open the Request Form pane in the Requests tab and fill the form. Once completed you'll be brought back to the map where you will see your Request on the map!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
