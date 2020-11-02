@@ -19,13 +19,13 @@ Nbrly is a single page app where users can post and answer requests for grocerie
 # To run nbrly locally:
 1) Clone the [nbrly-api](https://github.com/ronjuarez/nbrly-api) back-end repo.
 2) Clone the [nbrly](https://github.com/ronjuarez/nbrly) front-end repo.
-3) Install api dependencies by running `bundle install`.
+3) Install API dependencies by running `bundle install`.
 4) Create and seed the API DB with `rails db:migrate` followed by `rails db:reset`.
 5) Run the API server using `rails s`.
 6) Install front-end dependencies using `npm i`.
 7) Run app server using `npm start`
 
-The app's backend will run http//localhost:3000/, and it's frontend will run on http://localhost:8000.
+The app's backend will run http://localhost:3000/, and the frontend will run on http://localhost:8000.
 
 ---
 
